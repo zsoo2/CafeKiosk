@@ -25,7 +25,7 @@
 					<label for="tab03">매출내역</label>
 					
 					<div class="conbox con1">
-						<%@ include file="edit_item.jsp" %>
+						<%@ include file="insert_item.jsp" %>
 					</div>
 					<div class="conbox con2">
 						<%@ include file="order_list.jsp" %>

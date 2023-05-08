@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cafekiosk.mapper.ManageMenuMapper">
+	<insert id="insertMenu">
+		insert into manage_menu values(#{menu_idx}, #{menu_name}, #{menu_price}, #{menu_category}, #{menu_picture}, #{option1_YN}, #{option2_YN}, #{option3_YN}, #{reg_user}, now(), now())
+	</insert>
+  </mapper>

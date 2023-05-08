@@ -2,9 +2,13 @@ package com.cafekiosk.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.cafekiosk.model.ManageMenuVO;
+import com.cafekiosk.service.ManageMenuService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -14,6 +18,10 @@ import lombok.extern.log4j.Log4j;
 public class ManagerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
+	
+	@Autowired
+	private ManageMenuService manageMenuService;
+	
 	//메인 페이지 이동
 	@RequestMapping(value="/manager/manager", method = RequestMethod.GET)
 	public void mainPageGet() {
@@ -25,6 +33,11 @@ public class ManagerController {
 		logger.info("edit_item 페이지 진입");
 	}
 	
+	@RequestMapping(value="/manager/insert_item", method = RequestMethod.GET)
+	public void insertItemPageGet() {
+		logger.info("insert_item 페이지 진입");
+	}
+	
 	@RequestMapping(value="/manager/order_list", method = RequestMethod.GET)
 	public void orderListPageGet() {
 		logger.info("order_list 페이지 진입");
@@ -33,5 +46,17 @@ public class ManagerController {
 	@RequestMapping(value="/manager/check_sales", method = RequestMethod.GET)
 	public void checkSalesPageGet() {
 		logger.info("check_sales 페이지 진입");
+	}
+	
+	//메뉴 등록
+	@RequestMapping(value="/insert_item", method = RequestMethod.POST)
+	public String insertMenu(ManageMenuVO manageMenu) throws Exception{
+		logger.info("insert Menu 진입");
+		
+		//메뉴등록 서비스 실행
+		manageMenuService.insertMenu(manageMenu);
+		
+		logger.info("insertMenu 성공");
+		return "redirect:/insert_item";
 	}
 }
