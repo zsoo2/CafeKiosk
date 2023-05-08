@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
 <title>CustomerMainPage</title>
 <link rel="stylesheet" href="../resources/css/main.css">
 <link rel="stylesheet" href="../resources/css/customer.css">
@@ -14,7 +14,7 @@
 	<div class="wrapper">
 		<div class="wrap" id="wrap">
 			<div class="top">
-				<span><a href="../main">처음으로</a></span>
+				<span><a href="../">처음으로</a></span>
 			</div>
 			<div class="contents">
 				<div class="customer_menu">
@@ -90,7 +90,7 @@
 						<img src="../resources/image/icon/cancle-icon.png">
 					</div>
 					<div class="payment_box2">
-						<img src="../resources/image/icon/pay-icon.png">
+						<img src="../resources/image/icon/pay-icon.png" onclick="location.href='/customer/check_member'">
 					</div>
 				</div>
 			</div>
