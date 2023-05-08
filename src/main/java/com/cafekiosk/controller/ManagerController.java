@@ -49,7 +49,7 @@ public class ManagerController {
 	}
 	
 	//메뉴 등록
-	@RequestMapping(value="/insert_item", method = RequestMethod.POST)
+	@RequestMapping(value="manager/insert_item", method = RequestMethod.POST)
 	public String insertMenu(ManageMenuVO manageMenu) throws Exception{
 		logger.info("insert Menu 진입");
 		
@@ -57,6 +57,8 @@ public class ManagerController {
 		manageMenuService.insertMenu(manageMenu);
 		
 		logger.info("insertMenu 성공");
-		return "redirect:/insert_item";
+		return "redirect:/manager/insert_item";
 	}
+	
+
 }
