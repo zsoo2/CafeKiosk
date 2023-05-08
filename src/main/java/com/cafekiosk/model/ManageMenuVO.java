@@ -1,6 +1,6 @@
 package com.cafekiosk.model;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class ManageMenuVO {
 
@@ -22,9 +22,9 @@ public class ManageMenuVO {
 	
 	private String reg_user;
 	
-	private Calendar reg_time;
+	private Date reg_time;
 	
-	private Calendar mod_time;
+	private Date mod_time;
 
 	public int getMenu_idx() {
 		return menu_idx;
@@ -98,19 +98,19 @@ public class ManageMenuVO {
 		this.reg_user = reg_user;
 	}
 
-	public Calendar getReg_time() {
+	public Date getReg_time() {
 		return reg_time;
 	}
 
-	public void setReg_time(Calendar reg_time) {
+	public void setReg_time(Date reg_time) {
 		this.reg_time = reg_time;
 	}
 
-	public Calendar getMod_time() {
+	public Date getMod_time() {
 		return mod_time;
 	}
 
-	public void setMod_time(Calendar mod_time) {
+	public void setMod_time(Date mod_time) {
 		this.mod_time = mod_time;
 	}
 
