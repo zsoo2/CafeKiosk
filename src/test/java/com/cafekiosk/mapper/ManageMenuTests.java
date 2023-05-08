@@ -32,7 +32,6 @@ public class ManageMenuTests {
 		manageMenu.setOption1_YN("Y");
 		manageMenu.setOption2_YN("Y");
 		manageMenu.setOption3_YN("N");
-		manageMenu.setReg_user("혜윤");
 		
 		manageMenuMapper.insertMenu(manageMenu);
 		
