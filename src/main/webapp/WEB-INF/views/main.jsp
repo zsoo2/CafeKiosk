@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
 <title>Main Page</title>
 <link rel="stylesheet" href="resources/css/main.css">
 </head>
@@ -13,8 +13,8 @@
 <div class="wrapper">
 	<div class="wrap">
 		<div class ="login_area">
-			<div class="login_button"><a href="/customer/customer">손님</a></div>
-			<div class="login_button"><a href="/manager/manager">관리자</a></div>	
+			<div class="login_button"><span><a href="/customer/customer">손님</a></span></div>
+			<div class="login_button"><span><a href="/manager/manager">관리자</a></span></div>	
 		</div>	
 	</div>
 </div>

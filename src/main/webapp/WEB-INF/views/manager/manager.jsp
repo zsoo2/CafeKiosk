@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
 <title>ManagerMainPage</title>
 <link rel="stylesheet" href="../resources/css/main.css">
 <link rel="stylesheet" href="../resources/css/manager.css">
@@ -13,7 +13,7 @@
 	<div class="wrapper">
 		<div class="wrap" id="wrap">
 			<div class="top">
-				<span><a href="../main">처음으로</a></span>
+				<span><a href="../">처음으로</a></span>
 			</div>
 			<div class="contents">
 				<div class="manager_menu">
@@ -25,7 +25,7 @@
 					<label for="tab03">매출내역</label>
 					
 					<div class="conbox con1">
-						<%@ include file="insert_item.jsp" %>
+						<%@ include file="item_list.jsp" %>
 					</div>
 					<div class="conbox con2">
 						<%@ include file="order_list.jsp" %>
