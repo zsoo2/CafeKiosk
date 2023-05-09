@@ -9,6 +9,21 @@
 <link rel="stylesheet" href="../resources/css/manager.css">
 </head>
 <body>
+	<div class="wrapper">
+		<div class="wrap" id="wrap">
+			<div class="top">
+				<span><a href="../">처음으로</a></span>
+			</div>
+			<div class="contents">
+				<div class="manager_menu">
+					<input type="radio" name="tab_menu" id="tab01" checked>
+					<label for="tab01" onclick="location.href='/manager/edit_item'">메뉴관리</label>
+					<input type="radio" name="tab_menu" id="tab02">
+					<label for="tab02" onclick="location.href='/manager/order_list'">주문내역</label>
+					<input type="radio" name="tab_menu" id="tab03">
+					<label for="tab03" onclick="location.href='/manager/check_sales'">매출내역</label>
+					
+					<div class="conbox con1">
 	<div class="container">
 		<form name="insertForm" action="#" method="post">
 			<div class="itembox">
@@ -99,6 +114,11 @@
 				</div>
 			</div>
 		</form>
+	</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
