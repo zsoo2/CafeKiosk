@@ -26,21 +26,21 @@
 						<span>적립할 번호를 입력하세요.</span>
 					</div>
 					<div class="number_box">
-						<input type="number" id="number_box" value=""/>
+						<input type="text" id="number_box" value="010"/>
 					</div>
 					<div class="keypad_box">
-						<div><input type="number" class="numKey" value="1" readonly></div>
-					    <div><input type="number" class="numKey" value="2" readonly></div>
-					    <div><input type="number" class="numKey" value="3" readonly></div>
-					    <div><input type="number" class="numKey" value="4" readonly></div>
-					    <div><input type="number" class="numKey" value="5" readonly></div>
-					    <div><input type="number" class="numKey" value="6" readonly></div>
-					    <div><input type="number" class="numKey" value="7" readonly></div>
-					    <div><input type="number" class="numKey" value="8" readonly></div>
-					    <div><input type="number" class="numKey" value="9" readonly></div>
-					    <div><input type="submit" value="적립하기" readonly></div>
-					    <div><input type="number" class="numKey" value="0" readonly></div>
-					    <div><input type="button" class="btn" value="←" readonly></div>
+						<div><input type="text" class="numKey" value="1" onclick="add(1)" readonly></div>
+					    <div><input type="text" class="numKey" value="2" onclick="add(2)" readonly></div>
+					    <div><input type="text" class="numKey" value="3" onclick="add(3)" readonly></div>
+					    <div><input type="text" class="numKey" value="4" onclick="add(4)" readonly></div>
+					    <div><input type="text" class="numKey" value="5" onclick="add(5)" readonly></div>
+					    <div><input type="text" class="numKey" value="6" onclick="add(6)" readonly></div>
+					    <div><input type="text" class="numKey" value="7" onclick="add(7)" readonly></div>
+					    <div><input type="text" class="numKey" value="8" onclick="add(8)" readonly></div>
+					    <div><input type="text" class="numKey" value="9" onclick="add(9)" readonly></div>
+					    <div><input type="submit" value="적립하기" onclick="location.href='/customer/join'" readonly></div>
+					    <div><input type="text" class="numKey" value="0" onclick="add(0)" readonly></div>
+					    <div><input type="text" class="btn" value="←" onclick="deleteNum()"readonly></div>
 					</div>
 					<div class="check_box">
 						<div>
@@ -54,35 +54,20 @@
 	</div>
 </body>
 <script type="text/javascript">
-	$(document).ready(function(){
-	    $('.numKey').click(function(){
-	        var number_box = document.getElementById('number_box');
-	        if(this.innerHTML == '0'){
-	            if (number_box.innerHTML.length > 0)
-	            	number_box.innerHTML = number_box.innerHTML + this.innerHTML;
-	            
-	        }
-	        else
-	        	number_box.innerHTML = number_box.innerHTML + this.innerHTML;
-	        
-	        event.stopPropagation();
-	        console.log("dfsd");
-	    });
-	    
-	    $('.btn').click(function(){
-	        if(this.innerHTML == '←'){
-	            var numBox = document.getElementById('number_box');
-	            if(numBox.innerHTML.length > 0){
-	                numBox.innerHTML = number_box.innerHTML.substring(0, number_box.innerHTML.length - 1);
-	            }
-	        }
-	        else
-			{
-	            document.getElementById('number_box').innerHTML = '';
-	        }
-	        
-	        event.stopPropagation();
-	    });
-	});
+	function add(char){
+		var numBox = document.getElementById('number_box');
+		var numBoxValue = numBox.value;
+
+			numBox.value = numBox.value + char;
+	}
+	
+	function deleteNum() {
+		var numBox = document.getElementById('number_box');
+		var numBoxValue = numBox.value;
+		
+		numBox.value = numBoxValue.substring(0, numBoxValue.length-1);
+	}
+
+	
 </script>
 </html>
