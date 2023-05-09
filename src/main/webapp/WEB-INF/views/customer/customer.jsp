@@ -188,8 +188,22 @@
 
 	            history.pushState(null, null, newUrl);
 	        }
+	    	
+	        // 탭 이름 전달
+		    $.ajax({
+		    	url : "/customer/customer",
+		    	type : 'get',
+		    	data : {
+		    		tabName : activeTab.substr(1)
+	    		},
+		    	success : function(data) {			
+	         	},
+		    	error : function() {
+		    		alert("error");
+		    	}
+		    });
+	     
 	    });
-
 	    //파라미터 값 검사
 	    function getParameter(name) {
 	        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

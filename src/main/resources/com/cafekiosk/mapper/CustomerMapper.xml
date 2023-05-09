@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cafekiosk.mapper.CustomerMapper">
+	<select id="getMenuList" resultType="com.cafekiosk.model.ManageMenuVO">
+		SELECT 	menu_idx, menu_name, menu_price, 
+		 		menu_category, menu_picture, 
+		 		option1_YN, option2_YN, option3_YN
+		FROM manage_menu
+		WHERE menu_category = #{tabName};
+	</select>
+  </mapper>

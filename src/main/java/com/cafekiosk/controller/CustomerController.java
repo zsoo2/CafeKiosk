@@ -1,11 +1,18 @@
 package com.cafekiosk.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cafekiosk.model.ManageMenuVO;
+import com.cafekiosk.service.CustomerService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -15,11 +22,24 @@ import lombok.extern.log4j.Log4j;
 public class CustomerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	
 	//메인 페이지 이동
-	@RequestMapping(value="/customer/customer", method = RequestMethod.GET)
-	public void mainPageGet() {
+	@RequestMapping(value="/customer/customer", method = RequestMethod.GET)	
+	public void mainPageGet(Model model, @RequestParam(required=false, defaultValue="tabName") String tabName) {
 		logger.info("customer 페이지 진입");
+		
+		List<ManageMenuVO> menuList = customerService.getMenuList(tabName);
+	
+		model.addAttribute("menuList", menuList);
+		
+//		log.info("메뉴목록---------------------------------------" + menuList);
+
 	}
+	
 	
 	@RequestMapping(value="/customer/check_member", method = RequestMethod.GET)
 	public void checkMemberPageGet() {
