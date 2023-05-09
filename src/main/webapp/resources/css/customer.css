@@ -12,61 +12,18 @@ html {
 }
 /* 손님 메뉴 탭 */
 .customer_menu {
-	width: 100%;
-	height: 18%;
-	background-color: #fff0f5;
-}
-.customer_menu>input[type="radio"] {
-	display:none;
-}
-.customer_menu>input[type="radio"] + label {
-	display: inline-block;
-	width: 22.3%;
-	height: 58%;
-	padding: 20px;
-	cursor: pointer;
-	background-color: #fffdfd;
-	color: #f7bbcd;
-    font-size: 3vw;
-    font-weight: bold;
-    line-height: 180%;
-    text-align: center;
-   	margin-left: 1.85%;
-	margin-top: 1.5%;
-	padding: 0;
-	white-space: nowrap;
-}
-.customer_menu>input[type="radio"]:checked + label {
-	background: #ffe4ec;
-	color: #fffdfd;
-    font-weight: bold;
-}
-.conbox {
-	width: 100%;
-	height: 494%;
-	background: #fff0f5;
-	margin: 0 auto;
-	display: none;
-}
-.customer_menu>input[id="tab01"]:checked ~ .con1 {
-	display: block;
-}
-.customer_menu>input[id="tab02"]:checked ~ .con2 {
-	display: block;
-}
-.customer_menu>input[id="tab03"]:checked ~ .con3 {
-	display: block;
-}
-.customer_menu>input[id="tab04"]:checked ~ .con4 {
-	display: block;
-} 
-.customer_menu {
 	width: 98%;
+	height: 90%;
 	padding: 0 15px;
+	background-color: #fff0f5;
 }
 .customer_menu .tit_list {
 	position: relative;
 	font-size: 0;
+    width: 94%;
+    height: 10%;
+    margin: auto;
+    padding-top: 1%;
 }
 .customer_menu .tit_list:before {
 	content:'';
@@ -75,50 +32,61 @@ html {
 	left: 0;
 	width: 100%;
 	height: 1px;
-	background: #ddd;
 	z-index: 1;
 }
 .customer_menu .tit_list > li {
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 3px;
+	width: 22.7%;
+	height: 38%;
+    padding-right: 2%;
+	cursor: pointer;
 }
 .customer_menu .tit_list > li a {
 	display: inline-block;
-	width: 200%;
-	padding: 10px 15px;
-	border: 1px solid #fff;
+	width: 93%;
+	height: 200%;
+	padding: 1vw 1vw;
 	border-radius:4px 4px 0 0;
-	font-size: 14px;
-	color: #000;
+    font-size: 3vw;
+    font-weight: bold;
+    text-align: center;
+   	background-color: #fffdfd;
+	color: #f7bbcd;
 	text-decoration: none;
 }
 .customer_menu .tit_list > li a:hover {
-	width: 200%;
+	width: 93%;
+	height: 200%;
 	background: #efefef;
 	border-color: #efefef;
 }
 .customer_menu .tit_list > li.active a {
-	width: 200%;
+	width: 93%;
+	height: 200%;
 	position: relative;
 	border-color: #ddd;
-	border-bottom: 1px solid #fff;
-	background: #fff;
-	color: #337ab7;
+	background: #ffe4ec;
+	color: #fffdfd;
+    font-weight: bold;
 	z-index: 2;
 }
 .customer_menu .tab_con {
 	border-top: none;
+	width: 100%;
+	height: 89%;
+	margin: auto;
 }
 .customer_menu .tab_con .tab_list {
 	display: none;
-	height: 200px;
-	padding: 15px;
+	width: 100%;
+	height: 100%;
 }
 
 .container {
 	display: grid;
-	width: 96%;
+	width: 94%;
 	height: 95%;
     margin: auto;
     padding: 2%;
@@ -385,10 +353,11 @@ html {
     overflow-x: hidden;
 }
 .cart_list>table {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	padding: 0.6%;
+    width: 90%;
+    height: 100%;
+    text-align: center;
+    padding: 0.6%;
+    margin: auto;
 }
 .cart_list>table>thead>tr {
     font-size: 1vw;
@@ -569,6 +538,7 @@ html {
      font-size: 2vw;
      text-align: center;
      border: 1px solid #ccc;
+     cursor: pointer;
 }
 .keypad_box input:focus {
   outline: none;
@@ -576,13 +546,21 @@ html {
   box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
 .check_box {
-	width: 80%;
+	width: 77%;
     height: 25%;
     margin: auto;
+    position: relative;
 }
 .check_box button {
-	width: 30%;
+	width: 49%;
 	height: 90%;
+	cursor: pointer;
+}
+.check_box div {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    bottom: 0;
 }
 
 /* 반응형 */
@@ -593,55 +571,77 @@ html {
 	}
 	/* 손님 메뉴 탭 */
 	.customer_menu {
-		width: 100%;
-		height: 18%;
+		width: 98%;
+		height: 90%;
 		background-color: #fff0f5;
 	}
-	.customer_menu>input[type="radio"] {
-		display:none;
+	.customer_menu .tit_list {
+		position: relative;
+		font-size: 0;
+	    width: 94%;
+	    height: 10%;
+	    margin: auto;
+	    padding-top: 1%;
 	}
-	.customer_menu>input[type="radio"] + label {
+	.customer_menu .tit_list:before {
+		content:'';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		z-index: 1;
+	}
+	.customer_menu .tit_list > li {
 		display: inline-block;
-		width: 22.3%;
-		height: 32%;
-		padding: 20px;
+		vertical-align: top;
+		margin-right: 3px;
+		width: 21.7%;
+		height: 38%;
+	    padding-right: 2%;
 		cursor: pointer;
-		background-color: #fffdfd;
-		color: #f7bbcd;
+	}
+	.customer_menu .tit_list > li a {
+		display: inline-block;
+		width: 93%;
+		height: 200%;
+		padding: 1vw 1vw;
+		border-radius:4px 4px 0 0;
 	    font-size: 3vw;
 	    font-weight: bold;
-	    line-height: 145%;
 	    text-align: center;
-	   	margin-left: 1.85%;
-		margin-top: 1.5%;
-		padding: 0;
-		white-space: nowrap;
+	   	background-color: #fffdfd;
+		color: #f7bbcd;
+		text-decoration: none;
 	}
-	.customer_menu>input[type="radio"]:checked + label {
+	.customer_menu .tit_list > li a:hover {
+		width: 93%;
+		height: 200%;
+		background: #efefef;
+		border-color: #efefef;
+	}
+	.customer_menu .tit_list > li.active a {
+		width: 93%;
+		height: 200%;
+		position: relative;
+		border-color: #ddd;
 		background: #ffe4ec;
 		color: #fffdfd;
 	    font-weight: bold;
+		z-index: 2;
 	}
-	.conbox {
+	.customer_menu .tab_con {
+		border-top: none;
 		width: 100%;
-		height: 494%;
-		background: #fff0f5;
-		margin: 0 auto;
+		height: 89%;
+		margin: auto;
+	}
+	.customer_menu .tab_con .tab_list {
 		display: none;
+		width: 100%;
+		height: 100%;
 	}
-	.customer_menu>input[id="tab01"]:checked ~ .con1 {
-		display: block;
-	}
-	.customer_menu>input[id="tab02"]:checked ~ .con2 {
-		display: block;
-	}
-	.customer_menu>input[id="tab03"]:checked ~ .con3 {
-		display: block;
-	}
-	.customer_menu>input[id="tab04"]:checked ~ .con4 {
-		display: block;
-	} 
-	
+
 	.container {
 		display: grid;
 		width: 96%;
@@ -1056,55 +1056,77 @@ html {
 	}
 	/* 손님 메뉴 탭 */
 	.customer_menu {
-		width: 100%;
-		height: 18%;
+		width: 98%;
+		height: 90%;
 		background-color: #fff0f5;
 	}
-	.customer_menu>input[type="radio"] {
-		display:none;
+	.customer_menu .tit_list {
+		position: relative;
+		font-size: 0;
+	    width: 94%;
+	    height: 10%;
+	    margin: auto;
+	    padding-top: 1%;
 	}
-	.customer_menu>input[type="radio"] + label {
+	.customer_menu .tit_list:before {
+		content:'';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		z-index: 1;
+	}
+	.customer_menu .tit_list > li {
 		display: inline-block;
-		width: 22.3%;
-		height: 21%;
-		padding: 20px;
+		vertical-align: top;
+		margin-right: 3px;
+		width: 21.7%;
+		height: 38%;
+	    padding-right: 2%;
 		cursor: pointer;
-		background-color: #fffdfd;
-		color: #f7bbcd;
+	}
+	.customer_menu .tit_list > li a {
+		display: inline-block;
+		width: 93%;
+		height: 200%;
+		padding: 1vw 1vw;
+		border-radius:4px 4px 0 0;
 	    font-size: 3vw;
 	    font-weight: bold;
-	    line-height: 145%;
 	    text-align: center;
-	   	margin-left: 1.85%;
-		margin-top: 1.5%;
-		padding: 0;
-		white-space: nowrap;
+	   	background-color: #fffdfd;
+		color: #f7bbcd;
+		text-decoration: none;
 	}
-	.customer_menu>input[type="radio"]:checked + label {
+	.customer_menu .tit_list > li a:hover {
+		width: 93%;
+		height: 200%;
+		background: #efefef;
+		border-color: #efefef;
+	}
+	.customer_menu .tit_list > li.active a {
+		width: 93%;
+		height: 200%;
+		position: relative;
+		border-color: #ddd;
 		background: #ffe4ec;
 		color: #fffdfd;
 	    font-weight: bold;
+		z-index: 2;
 	}
-	.conbox {
+	.customer_menu .tab_con {
+		border-top: none;
 		width: 100%;
-		height: 494%;
-		background: #fff0f5;
-		margin: 0 auto;
+		height: 89%;
+		margin: auto;
+	}
+	.customer_menu .tab_con .tab_list {
 		display: none;
+		width: 100%;
+		height: 100%;
 	}
-	.customer_menu>input[id="tab01"]:checked ~ .con1 {
-		display: block;
-	}
-	.customer_menu>input[id="tab02"]:checked ~ .con2 {
-		display: block;
-	}
-	.customer_menu>input[id="tab03"]:checked ~ .con3 {
-		display: block;
-	}
-	.customer_menu>input[id="tab04"]:checked ~ .con4 {
-		display: block;
-	} 
-	
+
 	.container {
 		display: grid;
 		width: 96%;

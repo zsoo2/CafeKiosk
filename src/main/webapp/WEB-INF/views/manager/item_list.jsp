@@ -28,7 +28,7 @@
 						</colgroup>
 						<thead>
 							<tr>
-								<th><input type="checkbox" name="allCheck" id="allCheck"/></th>
+								<th><input type="checkbox" id='chk_all' name='chk_all' value='chk_all' onclick='SelectAll(this)'/></th>
 								<th>No.</th>
 								<th>메뉴명</th>
 								<th>메뉴가격</th>
@@ -37,7 +37,7 @@
 						<tbody>
 							<c:forEach var="i" begin="1" end="3">
 								<tr>
-									<td><input type="checkbox" name="chkbox" class="chkbox"></td>
+									<td><input type="checkbox" name="chk_list[]" class="chk_indiv" onclick="CheckSelectAll()"></td>
 									<td><c:out value = "${i}"/><p></td>
 									<td>아메리카노</td>
 									<td><fmt:formatNumber pattern="###,###,###" value="3000"/><span>원</span></td>
@@ -51,15 +51,28 @@
 	</div>
 </body>
 <script type="text/javascript">
-	const checkAll = document.getElementById("allCheck");
+	// td 체크박스
+	function CheckSelectAll()  {
+	   var checkboxes  = document.querySelectorAll('input[name="chk_list[]"]');
+	   var checked     = document.querySelectorAll('input[name="chk_list[]"]:checked');
+	   var select_all  = document.querySelector('input[name="chk_all"]');
+	   
+	   if(checkboxes.length === checked.length)  {
+	       select_all.checked = true;
+	   }else {
+	       select_all.checked = false;
+	   }
+	}
 	
-	const checkboxes = document.querySelectorAll('input[type="checkbox"].checkbox');
+	// th 체크박스	
 	
-	checkAll.addEventListener('click', ()=> {
-		checkboxes.forEach(checkbox => {
-			checkbox.checked = checkAll.checked;
-		});
-	});
+	function SelectAll(selectAll)  {
+	    var checkboxes = document.getElementsByName('chk_list[]');
+	
+	    checkboxes.forEach((checkbox) => {
+	        checkbox.checked = selectAll.checked
+	    })
+	}
 
 </script>
 </html>
