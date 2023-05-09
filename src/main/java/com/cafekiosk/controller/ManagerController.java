@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cafekiosk.model.ManageMenuVO;
 import com.cafekiosk.service.ManageMenuService;
@@ -59,6 +61,19 @@ public class ManagerController {
 		logger.info("insertMenu 성공");
 		return "redirect:/manager/insert_item";
 	}
+	
+	//메뉴 등록 - 사진 첨부 
+	@PostMapping("manager/insertMenuAjaxAction")
+	public void uploadAjaxActionPOST(MultipartFile uploadFile) {
+		
+		logger.info("uploadAjaxActionPOST..........");
+		
+		logger.info("파일 이름 : " + uploadFile.getOriginalFilename());
+		logger.info("파일 타입 : " + uploadFile.getContentType());
+		logger.info("파일 크기 : " + uploadFile.getSize());
+		
+	}
+	
 	
 
 }

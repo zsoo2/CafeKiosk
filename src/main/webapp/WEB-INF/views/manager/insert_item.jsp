@@ -54,7 +54,7 @@
 						<div class="filebox">
 							<input class="uploadName" value="첨부파일" placeholder="첨부파일">
 							<label for="itemImg">파일찾기</label>
-							<input type="file" id="itemImg"/>
+							<input type="file" name="menu_picture" id="itemImg"/>
 						</div>
 					</div>
 					<div class="managerMenu">
@@ -101,7 +101,58 @@
 		</form>
 	</div>
 	
-	<script>
+<script>
+
+/* 이미지 업로드 */
+ $("#itemImg").on('change',function(){
+  var fileName = $("#itemImg").val();
+  $(".uploadName").val(fileName);
+});
+
+$("input[type='file']").on("change", function(e){
+	
+	let formData = new FormData();
+	
+	let fileInput = $('input[name="menu_picture"]');
+	let fileList = fileInput[0].files;
+	let fileObj = fileList[0];
+	
+	if(!fileCheck(fileObj.name, fileObj.size)){
+		return false;
+	}
+	
+	formData.append("menu_picture", fileObj);
+	
+	$.ajax({
+		url: '/manager/insertMenuAjaxAction',
+    	processData : false,
+    	contentType : false,
+    	data : formData,
+    	type : 'POST',
+    	dataType : 'json'
+	});	
+});
+
+/* var, method related with attachFile */
+let regex = new RegExp("(.*?)\.(jpg|png)$");
+let maxSize = 1048576; //1MB	
+
+function fileCheck(fileName, fileSize){
+
+	if(fileSize >= maxSize){
+		alert("파일 사이즈 초과");
+		return false;
+	}
+		  
+	if(!regex.test(fileName)){
+		alert("해당 종류의 파일은 업로드할 수 없습니다.");
+		return false;
+	}
+	return true;	
+}
+
+
+/* 체크박스 동작 */
 	if ($('input[name=toggle1]').is(":checked")) {
 	    $('input[name=option1_YN]').val('Y');
 	} else {
@@ -148,9 +199,8 @@
 		 };
 		 
 		 
-		 
+/* 메뉴 등록 버튼(메뉴 등록 기능 작동) */
 $(document).ready(function(){
-	//메뉴 등록 버튼(메뉴 등록 기능 작동)
 	$(".insertButton").click(function(){
 		$("#insertForm").attr("action", "insert_item");
 		$("#insertForm").submit();
