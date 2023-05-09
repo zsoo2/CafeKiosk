@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../resources/css/main.css">
 <link rel="stylesheet" href="../resources/css/manager.css">
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="wrapper">
@@ -17,7 +21,7 @@
 			<div class="contents">
 				<div class="manager_menu">
 					<input type="radio" name="tab_menu" id="tab01" checked>
-					<label for="tab01" onclick="location.href='/manager/edit_item'">메뉴관리</label>
+					<label for="tab01" onclick="location.href='/manager/manager'">메뉴관리</label>
 					<input type="radio" name="tab_menu" id="tab02">
 					<label for="tab02" onclick="location.href='/manager/order_list'">주문내역</label>
 					<input type="radio" name="tab_menu" id="tab03">
