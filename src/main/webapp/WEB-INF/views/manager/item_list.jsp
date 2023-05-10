@@ -37,12 +37,12 @@
 						</thead>
 						<tbody>
 							<c:forEach var="i" begin="1" end="3">
-								<tr onclick = "location.href='/manager/edit_item'">
+								<tr>
 									<td><input type="checkbox" name="chk_list[]" class="chk_indiv" onclick="CheckSelectAll()"></td>
-									<td><c:out value = "${i}"/><p></td>
-									<td>아메리카노</td>
-									<td>커피</td>
-									<td><fmt:formatNumber pattern="###,###,###" value="3000"/><span>원</span></td>
+									<td onclick = "location.href='/manager/edit_item'"><c:out value = "${i}"/><p></td>
+									<td onclick = "location.href='/manager/edit_item'">아메리카노</td>
+									<td onclick = "location.href='/manager/edit_item'">커피</td>
+									<td onclick = "location.href='/manager/edit_item'"><fmt:formatNumber pattern="###,###,###" value="3000"/><span>원</span></td>
 								</tr>
 							</c:forEach>
 						</tbody>
