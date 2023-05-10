@@ -14,12 +14,14 @@
 <link rel="stylesheet" href="../resources/css/main.css">
 <link rel="stylesheet" href="../resources/css/customer.css">
 </head>
-<body>
+<body>			
+<!-- <form id="checkForm" name="checkForm" action="/customer/join" method="post"> -->
 	<div class="wrapper">
 		<div class="wrap">
 			<div class="top">
 				<span><a href="../">처음으로</a></span>
 			</div>
+
 			<div class="contents">
 				<div class="member_container">
 					<div class="title_box">
@@ -52,6 +54,7 @@
 			</div>
 		</div>
 	</div>
+<!-- </form>	 -->
 </body>
 <script type="text/javascript">
 	function add(char){
