@@ -330,16 +330,45 @@ html {
 .popup_submit {
 	width: 100%;
 	height: 15%;
+    position: relative;
 }
-.popup_submit>input[type="submit"] {
-	width: 23%;
+.popup_submit div {
+	width: 80%;
+	height: 100%;
+	margin: auto;
+}
+.popup_submit div>input {
+	width: 25%;
     height: 50%;
-    margin-left: 40%;
+    margin-left: 15%;
     border: none;
-    font-size: 2.5vw;
+    font-size: 3vw;
     font-weight: bold;
     background-color: #f3a9a9;
     color: #ffffff;
+    cursor: pointer;
+}
+.popup_submit div>input  {
+	width: 25%;
+    height: 50%;
+    margin-left: 15%;
+    border: none;
+    font-size: 3vw;
+    font-weight: bold;
+    background-color: #D0CECE;
+    color: #ffffff;
+    cursor: pointer;
+}
+.popup_submit div>input:nth-child(2)  {
+	width: 25%;
+    height: 50%;
+    margin-left: 15%;
+    border: none;
+    font-size: 3vw;
+    font-weight: bold;
+    background-color: #f3a9a9;
+    color: #ffffff;
+    cursor: pointer;
 }
 /* 장바구니 */
 .cart {
@@ -496,6 +525,7 @@ html {
 	height: 90%;
 	margin: auto;
     background-color: #fbdede7d;
+    position: relative;
 }
 .title_box {
 	width: 100%;
@@ -584,7 +614,71 @@ html {
     height: 50%;
     bottom: 0;
 }
+/* join.jsp */
+.join_container {
+    width: 80%;
+    height: 97%;
+    margin: auto;
+    position: absolute;
+    margin-top: 1%;
+    margin-left: 10%;
+    background-color: #ffffff;
+    border-radius: 1%;
+}
+.text_container {
+	width: 80%;
+	height: 20%;
+	margin: auto;
+	text-align: center;
+	padding-top: 2%;
+}
+.text_container span {
+	font-size: 2vw;
+    font-weight: 900;
+    color: #383838;
+}
+.text_container span:nth-child(1){
+	font-size: 2vw;
+    font-weight: 900;
+    color: #F2A8A8;
+}
+.text_container span:nth-child(5){
+	font-size: 2vw;
+    font-weight: 900;
+    color: #F2A8A8;
+}
 
+.check_container {
+	width: 90%;
+	height: 65%;
+	margin: auto;
+}
+.check_container div #detail {
+	background-color: #ffd5d5;
+    width: 96px;
+    height: 38px;
+    color: #ffffff;
+    font-size: 1vw;
+    font-weight: 700;
+    border: 2px solid #e1e1e1;
+    cursor: pointer;
+}
+
+.detail_container {
+	width: 100%;
+	height: 90%;
+	display: none;
+}
+.detail_container textarea {
+	width: 100%;
+	height: 270px;
+	margin-top: 1%;
+}
+#join_popup {
+	width: 100%;
+    height: 17%;
+    position: relative;
+}
 /* 반응형 */
 @media (max-width: 1024px){
 	.contents {
@@ -910,16 +1004,45 @@ html {
 	.popup_submit {
 		width: 100%;
 		height: 15%;
+	    position: relative;
 	}
-	.popup_submit>input[type="submit"] {
-		width: 23%;
+	.popup_submit div {
+		width: 80%;
+		height: 100%;
+		margin: auto;
+	}
+	.popup_submit div>input {
+		width: 25%;
 	    height: 50%;
-	    margin-left: 40%;
+	    margin-left: 15%;
 	    border: none;
-	    font-size: 2.5vw;
+	    font-size: 3vw;
 	    font-weight: bold;
 	    background-color: #f3a9a9;
 	    color: #ffffff;
+	    cursor: pointer;
+	}
+	.popup_submit div>input  {
+		width: 25%;
+	    height: 50%;
+	    margin-left: 15%;
+	    border: none;
+	    font-size: 3vw;
+	    font-weight: bold;
+	    background-color: #D0CECE;
+	    color: #ffffff;
+	    cursor: pointer;
+	}
+	.popup_submit div>input:nth-child(2)  {
+		width: 25%;
+	    height: 50%;
+	    margin-left: 15%;
+	    border: none;
+	    font-size: 3vw;
+	    font-weight: bold;
+	    background-color: #f3a9a9;
+	    color: #ffffff;
+	    cursor: pointer;
 	}
 	/* 장바구니 */
 	.cart {
@@ -1162,6 +1285,71 @@ html {
 	    width: 100%;
 	    height: 50%;
 	    bottom: 0;
+	}
+	/* join.jsp */
+	.join_container {
+	    width: 80%;
+	    height: 97%;
+	    margin: auto;
+	    position: absolute;
+	    margin-top: 1%;
+	    margin-left: 10%;
+	    background-color: #ffffff;
+	    border-radius: 1%;
+	}
+	.text_container {
+		width: 80%;
+		height: 20%;
+		margin: auto;
+		text-align: center;
+		padding-top: 2%;
+	}
+	.text_container span {
+		font-size: 2vw;
+	    font-weight: 900;
+	    color: #383838;
+	}
+	.text_container span:nth-child(1){
+		font-size: 2vw;
+	    font-weight: 900;
+	    color: #F2A8A8;
+	}
+	.text_container span:nth-child(5){
+		font-size: 2vw;
+	    font-weight: 900;
+	    color: #F2A8A8;
+	}
+	
+	.check_container {
+		width: 90%;
+		height: 65%;
+		margin: auto;
+	}
+	.check_container div #detail {
+		background-color: #ffd5d5;
+	    width: 96px;
+	    height: 38px;
+	    color: #ffffff;
+	    font-size: 1vw;
+	    font-weight: 700;
+	    border: 2px solid #e1e1e1;
+	    cursor: pointer;
+	}
+	
+	.detail_container {
+		width: 100%;
+		height: 90%;
+		display: none;
+	}
+	.detail_container textarea {
+		width: 100%;
+		height: 270px;
+		margin-top: 1%;
+	}
+	#join_popup {
+		width: 100%;
+	    height: 17%;
+	    position: relative;
 	}
 }
 /* 반응형 */
@@ -1741,5 +1929,70 @@ html {
 	    width: 100%;
 	    height: 50%;
 	    bottom: 0;
-	}	
+	}
+	/* join.jsp */
+	.join_container {
+	    width: 80%;
+	    height: 97%;
+	    margin: auto;
+	    position: absolute;
+	    margin-top: 1%;
+	    margin-left: 10%;
+	    background-color: #ffffff;
+	    border-radius: 1%;
+	}
+	.text_container {
+		width: 80%;
+		height: 20%;
+		margin: auto;
+		text-align: center;
+		padding-top: 2%;
+	}
+	.text_container span {
+		font-size: 2vw;
+	    font-weight: 900;
+	    color: #383838;
+	}
+	.text_container span:nth-child(1){
+		font-size: 2vw;
+	    font-weight: 900;
+	    color: #F2A8A8;
+	}
+	.text_container span:nth-child(5){
+		font-size: 2vw;
+	    font-weight: 900;
+	    color: #F2A8A8;
+	}
+	
+	.check_container {
+		width: 90%;
+		height: 65%;
+		margin: auto;
+	}
+	.check_container div #detail {
+		background-color: #ffd5d5;
+	    width: 96px;
+	    height: 38px;
+	    color: #ffffff;
+	    font-size: 1vw;
+	    font-weight: 700;
+	    border: 2px solid #e1e1e1;
+	    cursor: pointer;
+	}
+	
+	.detail_container {
+		width: 100%;
+		height: 90%;
+		display: none;
+	}
+	.detail_container textarea {
+		width: 100%;
+		height: 270px;
+		margin-top: 1%;
+	}
+	#join_popup {
+		width: 100%;
+	    height: 17%;
+	    position: relative;
+	}
 }

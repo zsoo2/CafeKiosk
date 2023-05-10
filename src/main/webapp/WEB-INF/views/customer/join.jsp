@@ -1,12 +1,70 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
+<title>Membership</title>
+<script
+  src="https://code.jquery.com/jquery-3.6.4.js"
+  integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../resources/css/main.css">
+<link rel="stylesheet" href="../resources/css/customer.css">
 </head>
 <body>
-
+<form id="joinForm" name="joinForm" action="#" method="post">
+	<div class="wrapper">
+		<div class="wrap">
+			<div class="top">
+				<span><a href="../">처음으로</a></span>
+			</div>
+			<div class="contents">
+				<div class="member_container">
+					<div class="join_container">
+						<div class="text_container">
+							<span>xxxx</span><span>님</span><br>
+							<span>스탬프</span>
+							<span>n</span>
+							<span>개 적립하시겠습니까?</span>
+						</div>
+						<div class="check_container">
+							<div>
+								<input type="checkbox" value=""><span>개인정보처리방침 동의(필수)</span>
+								<input type="button" id="detail" value="상세보기">
+								<div class="detail_container" id="detail_box">
+									<%@ include file="contract.jsp" %>
+								</div>
+							</div>
+							<div>
+								<input type="checkbox" value=""><span>만 14세 이상입니다.</span>
+							</div>
+						</div>
+						<div class="popup_submit" id="join_popup">
+							<div>
+								<input type="button" name="#" id="#" value="취소" onclick="location.href='#'"/>
+								<input type="submit" name="#" id="#" value="확인"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>	
 </body>
+<script type="text/javascript">
+		var button = document.getElementById('detail');
+		var detail_box = document.getElementById('detail_box');
+		
+		button.onclick = function() {
+			if(detail_box.style.display !== 'block') {
+				detail_box.style.display = 'block';
+			} else {
+				detail_box.style.display = 'none';
+			}
+		};
+</script>
 </html>
