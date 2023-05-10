@@ -93,15 +93,13 @@
 	font-size: 1vw;
 	font-weight: 600;
 	border: 1px solid #f5dede;
+	cursor: pointer;
 }
 .button_box #insert {
 	background-color: #f7bbcd;
 }
-.button_box #edit {
-	background-color: #c9c9c9;
-}
 .button_box #delete {
-	background-color: #ff3b3b;
+	background-color: #c9c9c9;
 }
 .list_box {
 	width: 90%;
@@ -117,6 +115,9 @@
 .list_box table thead {
 	height: 5%;
 	background-color: #c9c9c959;
+}
+.list_box table tbody tr {
+	cursor: pointer;
 }
 .list_box table tbody td {
 	text-align: center;

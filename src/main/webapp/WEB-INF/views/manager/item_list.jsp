@@ -15,31 +15,33 @@
 			<div class="itembox">
 				<div class="button_box">
 					<input type="button" id="insert" onclick="location.href='/manager/insert_item'" value="추가">
-					<input type="button" id="edit" onclick="location.href='/manager/edit_item'" value="수정">
 					<input type="button" id="delete" onclick="location.href='#'" value="삭제">
 				</div>
 				<div class="list_box">
 					<table>
 						<colgroup>
 							<col width="10%">
+							<col width="10%">
 							<col width="20%">
-							<col width="35%">
-							<col width="35%">
+							<col width="25%">
+							<col width="25%">
 						</colgroup>
 						<thead>
 							<tr>
 								<th><input type="checkbox" id='chk_all' name='chk_all' value='chk_all' onclick='SelectAll(this)'/></th>
 								<th>No.</th>
 								<th>메뉴명</th>
+								<th>분류</th>
 								<th>메뉴가격</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="i" begin="1" end="3">
-								<tr>
+								<tr onclick = "location.href='/manager/edit_item'">
 									<td><input type="checkbox" name="chk_list[]" class="chk_indiv" onclick="CheckSelectAll()"></td>
 									<td><c:out value = "${i}"/><p></td>
 									<td>아메리카노</td>
+									<td>커피</td>
 									<td><fmt:formatNumber pattern="###,###,###" value="3000"/><span>원</span></td>
 								</tr>
 							</c:forEach>
