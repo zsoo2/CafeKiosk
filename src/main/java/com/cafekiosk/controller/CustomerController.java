@@ -29,15 +29,16 @@ public class CustomerController {
 	
 	//메인 페이지 이동
 	@RequestMapping(value="/customer/customer", method = RequestMethod.GET)	
-	public void mainPageGet(Model model, @RequestParam(required=false, defaultValue="tabName") String tabName) {
+	public String mainPageGet(Model model, @RequestParam(required=false, defaultValue="tabName") String tabName) {
 		logger.info("customer 페이지 진입");
 		
 		List<ManageMenuVO> menuList = customerService.getMenuList(tabName);
 	
+//		model.addAttribute("hi", "하이");
 		model.addAttribute("menuList", menuList);
 		
-//		log.info("메뉴목록---------------------------------------" + menuList);
-
+	//	log.info("메뉴목록---------------------------------------" + menuList);
+		return "/customer/customer";
 	}
 	
 	
