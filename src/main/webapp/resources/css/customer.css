@@ -653,15 +653,47 @@ html {
 	height: 65%;
 	margin: auto;
 }
+/*input 은 숨겨주기*/
+.check_container input[type="checkbox"]{
+  	display:none;
+}
+/*input 바로 다음의 label*/
+.check_container input[type="checkbox"] + label{
+  	cursor:pointer;
+}
+
+/*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
+.check_container input[type="checkbox"] + label:before{
+	content:"";
+	display:inline-block;
+	width:17px;
+	height:17px;
+	line-height:17px;
+	border:1px solid #cbcbcb;
+	vertical-align:middle;/*체크 전과 체크 후 높이 차이 때문에 설정*/
+}
+  
+/*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/  
+.check_container input[type="checkbox"]:checked + label:before{
+	color:#fff;
+	background-color:#ff8c8c;
+	border-color:#cbcbcb;
+	font-size:13px;
+	text-align:center;
+}
+
 .check_container div #detail {
 	background-color: #ffd5d5;
-    width: 96px;
-    height: 38px;
-    color: #ffffff;
-    font-size: 1vw;
-    font-weight: 700;
-    border: 2px solid #e1e1e1;
-    cursor: pointer;
+	width: 96px;
+	height: 38px;
+	color: #ffffff;
+	font-size: 1vw;
+	font-weight: 700;
+	border: 2px solid #e1e1e1;
+	cursor: pointer;
+}
+.check_container span {
+	margin-left: 1%;
 }
 
 .detail_container {
@@ -673,11 +705,92 @@ html {
 	width: 100%;
 	height: 270px;
 	margin-top: 1%;
+	resize: none;
 }
 #join_popup {
 	width: 100%;
     height: 17%;
     position: relative;
+}
+#modal.modal-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+}
+#modal .modal-window {
+	background: rgb(255 164 164 / 70%);
+    box-shadow: 0 8px 32px 0 rgb(255 164 164 / 37%);
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    width: 400px;
+    height: 400px;
+    position: relative;
+    top: -100px;
+    text-align: center;
+}
+#modal .title {
+    padding-left: 25px;
+    display: inline-block;
+    color: white;
+    font-size: 38px;
+    font-weight: 600;
+    margin-top: 30%;
+    
+}
+#modal .title span {
+    display: inline-block;
+}
+#modal .title span:nth-child(3) {
+    display: inline-block;
+    font-size: 25px;
+    font-weight: 600;
+}
+#modal .close-area {
+    display: inline-block;
+    float: right;
+    padding-right: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 27px;
+    font-weight: 600;
+}
+#modal .content {
+	width: 100%;
+	height: 33%;
+    margin-top: 20px;
+    position: absolute;
+    bottom: -60px;
+}	
+#modal .content input {
+	width: 37%;
+	height: 40%;
+    border: none;
+    font-size: 2vw;
+    font-weight: bold;
+    background-color: #D0CECE;
+    color: #ffffff;
+    cursor: pointer;
+}
+#modal .content input:nth-child(2) {
+	width: 37%;
+	height: 40%;
+    border: none;
+    font-size: 2vw;
+    font-weight: bold;
+    background-color: #ffffff;
+    color: #f3a9a9;
+    cursor: pointer;
 }
 /* 반응형 */
 @media (max-width: 1024px){
@@ -1325,6 +1438,48 @@ html {
 		height: 65%;
 		margin: auto;
 	}
+	/*input 은 숨겨주기*/
+	.check_container input[type="checkbox"]{
+	  	display:none;
+	}
+	/*input 바로 다음의 label*/
+	.check_container input[type="checkbox"] + label{
+	  	cursor:pointer;
+	}
+	
+	/*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
+	.check_container input[type="checkbox"] + label:before{
+		content:"";
+		display:inline-block;
+		width:17px;
+		height:17px;
+		line-height:17px;
+		border:1px solid #cbcbcb;
+		vertical-align:middle;/*체크 전과 체크 후 높이 차이 때문에 설정*/
+	}
+	  
+	/*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/  
+	.check_container input[type="checkbox"]:checked + label:before{
+		color:#fff;
+		background-color:#ff8c8c;
+		border-color:#cbcbcb;
+		font-size:13px;
+		text-align:center;
+	}
+	
+	.check_container div #detail {
+		background-color: #ffd5d5;
+		width: 96px;
+		height: 38px;
+		color: #ffffff;
+		font-size: 1vw;
+		font-weight: 700;
+		border: 2px solid #e1e1e1;
+		cursor: pointer;
+	}
+	.check_container span {
+		margin-left: 1%;
+	}
 	.check_container div #detail {
 		background-color: #ffd5d5;
 	    width: 96px;
@@ -1345,11 +1500,76 @@ html {
 		width: 100%;
 		height: 270px;
 		margin-top: 1%;
+		resize: none;
 	}
 	#join_popup {
 		width: 100%;
 	    height: 17%;
 	    position: relative;
+	}
+	#modal.modal-overlay {
+	    width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    left: 0;
+	    top: 0;
+	    display: none;
+	    flex-direction: column;
+	    align-items: center;
+	    justify-content: center;
+	    background: rgba(255, 255, 255, 0.25);
+	    backdrop-filter: blur(3.5px);
+	    -webkit-backdrop-filter: blur(1.5px);
+	    border-radius: 10px;
+	}
+	#modal .modal-window {
+		background: rgb(255 164 164 / 70%);
+	    box-shadow: 0 8px 32px 0 rgb(255 164 164 / 37%);
+	    backdrop-filter: blur( 13.5px );
+	    -webkit-backdrop-filter: blur( 13.5px );
+	    border-radius: 10px;
+	    width: 400px;
+	    height: 400px;
+	    position: relative;
+	    top: -100px;
+	    text-align: center;
+	}
+	#modal .title {
+	    padding-left: 25px;
+	    display: inline-block;
+	    color: white;
+	    font-size: 38px;
+	    font-weight: 600;
+	    margin-top: 30%;
+	    
+	}
+	#modal .title span {
+	    display: inline-block;
+	}
+	#modal .title span:nth-child(3) {
+	    display: inline-block;
+	    font-size: 25px;
+	    font-weight: 600;
+	}
+	#modal .close-area {
+	    display: inline-block;
+	    float: right;
+	    padding-right: 10px;
+	    cursor: pointer;
+	    color: white;
+	    font-size: 27px;
+	    font-weight: 600;
+	}
+	#modal .content {
+		width: 100%;
+		height: 33%;
+	    margin-top: 20px;
+	    position: absolute;
+	    bottom: -60px;
+	}	
+	#modal .content input {
+		width: 37%;
+		height: 40%;
 	}
 }
 /* 반응형 */
@@ -1969,6 +2189,48 @@ html {
 		height: 65%;
 		margin: auto;
 	}
+	/*input 은 숨겨주기*/
+	.check_container input[type="checkbox"]{
+	  	display:none;
+	}
+	/*input 바로 다음의 label*/
+	.check_container input[type="checkbox"] + label{
+	  	cursor:pointer;
+	}
+	
+	/*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
+	.check_container input[type="checkbox"] + label:before{
+		content:"";
+		display:inline-block;
+		width:17px;
+		height:17px;
+		line-height:17px;
+		border:1px solid #cbcbcb;
+		vertical-align:middle;/*체크 전과 체크 후 높이 차이 때문에 설정*/
+	}
+	  
+	/*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/  
+	.check_container input[type="checkbox"]:checked + label:before{
+		color:#fff;
+		background-color:#ff8c8c;
+		border-color:#cbcbcb;
+		font-size:13px;
+		text-align:center;
+	}
+	
+	.check_container div #detail {
+		background-color: #ffd5d5;
+		width: 96px;
+		height: 38px;
+		color: #ffffff;
+		font-size: 1vw;
+		font-weight: 700;
+		border: 2px solid #e1e1e1;
+		cursor: pointer;
+	}
+	.check_container span {
+		margin-left: 1%;
+	}
 	.check_container div #detail {
 		background-color: #ffd5d5;
 	    width: 96px;
@@ -1989,10 +2251,75 @@ html {
 		width: 100%;
 		height: 270px;
 		margin-top: 1%;
+		resize: none;
 	}
 	#join_popup {
 		width: 100%;
 	    height: 17%;
 	    position: relative;
+	}
+	#modal.modal-overlay {
+	    width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    left: 0;
+	    top: 0;
+	    display: none;
+	    flex-direction: column;
+	    align-items: center;
+	    justify-content: center;
+	    background: rgba(255, 255, 255, 0.25);
+	    backdrop-filter: blur(3.5px);
+	    -webkit-backdrop-filter: blur(1.5px);
+	    border-radius: 10px;
+	}
+	#modal .modal-window {
+		background: rgb(255 164 164 / 70%);
+	    box-shadow: 0 8px 32px 0 rgb(255 164 164 / 37%);
+	    backdrop-filter: blur( 13.5px );
+	    -webkit-backdrop-filter: blur( 13.5px );
+	    border-radius: 10px;
+	    width: 300px;
+	    height: 300px;
+	    position: relative;
+	    top: -100px;
+	    text-align: center;
+	}
+	#modal .title {
+	    padding-left: 8px;
+	    display: inline-block;
+	    color: white;
+	    font-size: 29px;
+	    font-weight: 600;
+	    margin-top: 8%;
+	    
+	}
+	#modal .title span {
+	    display: inline-block;
+	}
+	#modal .title span:nth-child(3) {
+	    display: inline-block;
+	    font-size: 25px;
+	    font-weight: 600;
+	}
+	#modal .close-area {
+	    display: inline-block;
+	    float: right;
+	    padding-right: 10px;
+	    cursor: pointer;
+	    color: white;
+	    font-size: 27px;
+	    font-weight: 600;
+	}
+	#modal .content {
+		width: 100%;
+		height: 33%;
+	    margin-top: 20px;
+	    position: absolute;
+	    bottom: -23px;
+	}	
+	#modal .content input {
+		width: 37%;
+		height: 40%;
 	}
 }
