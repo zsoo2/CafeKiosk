@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,85 +30,81 @@
 					
 					<div class="conbox con1">
 	<div class="container">
-		<form name="insertForm" action="#" method="post">
+		<form name="updateForm" method="post">
 			<div class="itembox">
 				<div class="item">
+				
 					<div class="managerMenu">
 						<div class="itemList">
-							<span>1. 음료 번호 </span>
+							<span>1. 메뉴명 </span>
 						</div>
 						<div class="itemValue">
-							<input type="text" name="itemNo" value=""/>
+							<input type="text" name="itemName" value="${menuInfo.menu_name}"/>
 						</div>
 					</div>
 					<div class="managerMenu">
 						<div class="itemList">
-							<span>2. 메뉴명 </span>
+							<span>2. 가격 </span>
 						</div>
 						<div class="itemValue">
-							<input type="text" name="itemName" value=""/>
+							<input type="text" name="itemPrice" value="${menuInfo.menu_price}"/>
 						</div>
 					</div>
 					<div class="managerMenu">
 						<div class="itemList">
-							<span>3. 가격 </span>
+							<span>3. 대분류 </span>
 						</div>
 						<div class="itemValue">
-							<input type="text" name="itemPrice" value=""/>
-						</div>
-					</div>
-					<div class="managerMenu">
-						<div class="itemList">
-							<span>4. 대분류 </span>
-						</div>
-						<div class="itemValue">
-							<select name="ItemCa">						<!-- 아이템카테고리 -->
-								<option value="1">커피</option>
-								<option value="2">티/에이드</option>
-								<option value="3">논커피</option>
-								<option value="4">디저트</option>
+							<select name="ItemCa" id="ItemCa">						<!-- 아이템카테고리 -->
+								<option value="coffee">커피</option>
+								<option value="tea/ade">티/에이드</option>
+								<option value="noncoffee">논커피</option>
+								<option value="dessert">디저트</option>
 							</select>			
 						</div>
 					</div>
 					<div class="managerMenu">
 						<div class="itemList">
-							<span>6. 이미지 </span>
+							<span>4. 이미지 </span>
 						</div>
 						<div class="filebox">
-							<input class="uploadName" value="첨부파일" placeholder="첨부파일">
+							<input class="uploadName" value="${menuInfo.menu_picture}" placeholder="${menuInfo.menu_picture}">
 							<label for="itemImg">파일찾기</label>
 							<input type="file" id="itemImg"/>
 						</div>
 					</div>
 					<div class="managerMenu">
 						<div class="itemList">
-							<span>7. 핫/아이스 </span>
+							<span>5. 핫/아이스 </span>
 						</div>
 						<div class="itemValue">
 							<div class="toggle">
-							    <input type="checkbox" name="toggle1" id="toggle1" value="1">
+							    <input type="text" name="option1_YN" value="${menuInfo.option1_YN}" />
+							    <input type="checkbox" name="toggle1" id="toggle1" onchange="YnCheck1(this);">
 							    <label for="toggle1"></label>
 							</div>
 						</div>
 					</div>
 					<div class="managerMenu">
 						<div class="itemList">
-							<span>8. 샷 추가 </span>
+							<span>6. 샷 추가 </span>
 						</div>
 						<div class="itemValue">
 							<div class="toggle">
-							    <input type="checkbox" name="toggle2" id="toggle2" value="2">
+							   <input type="hidden" name="option2_YN" value="${menuInfo.option2_YN}" />
+							    <input type="checkbox" name="toggle2" id="toggle2" onchange="YnCheck2(this);">
 							    <label for="toggle2"></label>
 							</div>
 						</div>
 					</div>
 					<div class="managerMenu">
 						<div class="itemList">
-							<span>9. 얼음 양 </span>
+							<span>7. 얼음 양 </span>
 						</div>
 						<div class="itemValue">
 							<div class="toggle">
-							    <input type="checkbox" name="toggle3" id="toggle3" value="3">
+								<input type="hidden" name="option3_YN" id="option3_YN" value="${menuInfo.option3_YN}" />
+							    <input type="checkbox" name="toggle3" id="toggle3" onchange="YnCheck3(this);">
 							    <label for="toggle3"></label>
 							</div>
 						</div>
@@ -116,7 +113,7 @@
 				<div class="popup_submit">
 					<div>
 						<input type="button" name="#" id="#" value="취소" onclick="location.href='/manager/manager'">
-						<input type="submit" name="#" id="#" value="확인">
+						<input type="submit" name="#" id="updateButton" value="수정">
 					</div>
 				</div>
 			</div>
@@ -127,5 +124,163 @@
 			</div>
 		</div>
 	</div>
+	
+<script>
+
+/* 이미지 업로드 */
+ $("#itemImg").on('change',function(){
+  var fileName = $("#itemImg").val();
+  $(".uploadName").val(fileName);
+});
+
+$("input[type='file']").on("change", function(e){
+	
+	let formData = new FormData();
+	
+	let fileInput = $('input[name="menu_picture"]');
+	let fileList = fileInput[0].files;
+	let fileObj = fileList[0];
+	
+	if(!fileCheck(fileObj.name, fileObj.size)){
+		return false;
+	}
+	
+	formData.append("menu_picture", fileObj);
+	
+	$.ajax({
+		url: '/manager/insertMenuAjaxAction',
+    	processData : false,
+    	contentType : false,
+    	data : formData,
+    	type : 'POST',
+    	dataType : 'json'
+	});	
+});
+
+/* var, method related with attachFile */
+let regex = new RegExp("(.*?)\.(jpg|png)$");
+let maxSize = 1048576; //1MB	
+
+function fileCheck(fileName, fileSize){
+
+	if(fileSize >= maxSize){
+		alert("파일 사이즈 초과");
+		return false;
+	}
+		  
+	if(!regex.test(fileName)){
+		alert("해당 종류의 파일은 업로드할 수 없습니다.");
+		return false;
+	}
+	return true;	
+}
+/* 체크박스 & select박스 동작 */
+
+var selectVal = "${menuInfo.menu_category}";
+var checkYn1= "${menuInfo.option1_YN}";
+var checkYn2= "${menuInfo.option2_YN}";
+var checkYn3= "${menuInfo.option3_YN}";
+
+if(selectVal == "coffee"){
+	$("#ItemCa").val("coffee").prop("selected", true);
+}else if(selectVal == "noncoffee"){
+	$("#ItemCa").val("noncoffee").prop("selected", true);
+}else if(selectVal == "teaade"){
+	$("#ItemCa").val("teaade").prop("selected", true);
+}else if(selectVal == "dessert"){
+	$("#ItemCa").val("dessert").prop("selected", true);
+}
+
+if(checkYn1== "Y"){
+$("#toggle1").prop("checked",true);
+}else{
+$("#toggle1").prop("checked",false);
+}
+
+if(checkYn2== "Y"){
+	$("#toggle2").prop("checked",true);
+	}else{
+	$("#toggle2").prop("checked",false);
+	}
+	
+if(checkYn3== "Y"){
+	$("#toggle3").prop("checked",true);
+	}else{
+	$("#toggle3").prop("checked",false);
+	}
+
+//체크박스 value값 설정 
+if($("#toggle1").is(':checked') == true){
+   data.set("option1_YN", "Y");
+}else{
+   data.set("option1_YN", "N");
+}
+
+if($("#toggle2").is(':checked') == true){
+	   data.set("option2_YN", "Y");
+	}else{
+	   data.set("option2_YN", "N");
+	}
+	
+if($("#toggle3").is(':checked') == true){
+	   data.set("option3_YN", "Y");
+	}else{
+	   data.set("option3_YN", "N");
+	}
+
+if ($('input[name=toggle1]').is(":checked")) {
+	    $('input[name=option1_YN]').val('Y');
+	} else {
+	    $('input[name=option1_YN]').val('N');
+	}
+	
+	if ($('input[name=toggle2]').is(":checked")) {
+	    $('input[name=option2_YN]').val('Y');
+	} else {
+	    $('input[name=option2_YN]').val('N');
+	}
+	
+	if ($('input[name=toggle3]').is(":checked")) {
+	    $('input[name=option3_YN]').val('Y');
+	} else {
+	    $('input[name=option3_YN]').val('N');
+	}
+	
+	 function YnCheck1(obj) {
+		    var checked = obj.checked;
+		    if(checked){
+		    	$('input[name=option1_YN]').val('Y');
+		    }else{
+			    $('input[name=option1_YN]').val('N');
+		    }
+		 };
+		 
+	 function YnCheck2(obj) {
+		    var checked = obj.checked;
+		    if(checked){
+		    	$('input[name=option2_YN]').val('Y');
+		    }else{
+			    $('input[name=option2_YN]').val('N');
+		    }
+		 };
+		 
+	 function YnCheck3(obj) {
+		    var checked = obj.checked;
+		    if(checked){
+		    	$('input[name=option3_YN]').val('Y');
+		    }else{
+			    $('input[name=option3_YN]').val('N');
+		    }
+		 };
+		 
+		 /* 메뉴 등록 버튼(메뉴 등록 기능 작동) */
+$(document).ready(function(){
+	$("#updateButton").click(function(){
+	$("#updateForm").submit();
+	});
+});
+
+
+</script>
 </body>
 </html>
