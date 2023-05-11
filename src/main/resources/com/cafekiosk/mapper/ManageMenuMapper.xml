@@ -3,7 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.cafekiosk.mapper.ManageMenuMapper">
+	<!-- 메뉴 등록 -->
 	<insert id="insertMenu">
 		insert into manage_menu values(#{menu_idx}, #{menu_name}, #{menu_price}, #{menu_category}, #{menu_picture}, #{option1_YN}, #{option2_YN}, #{option3_YN}, 'test', now(), now())
 	</insert>
+	
+	<!-- 메뉴 전체 조회 -->
+	<select id="getMenuList" resultType="com.cafekiosk.model.ManageMenuVO">
+		SELECT 	menu_idx, menu_name, menu_price, menu_category
+		FROM manage_menu
+	</select>
+	
+	<!-- 메뉴 상세 조회 -->
+	<select id="getMenuInfo" resultType="com.cafekiosk.model.ManageMenuVO">
+		SELECT 	menu_idx, menu_name, menu_price, menu_category, menu_picture, option1_YN, option2_YN, option3_YN
+		FROM manage_menu
+		WHERE menu_idx = #{menu_idx}
+	</select>
+	
+	<!-- 메뉴 수정 -->
+	<update id="editMenuInfo" parameterType="com.cafekiosk.model.ManageMenuVO">
+		UPDATE manage_menu set  menu_name=#{menu_name}, menu_price=#{menu_price}, menu_category=#{menu_category}, menu_picture=#{menu_picture}, option1_YN=#{option1_YN}, option2_YN=#{option2_YN}, option3_YN=#{option3_YN}, mod_time=now()
+		WHERE menu_idx = #{menu_idx}
+	</update>
   </mapper>
+  

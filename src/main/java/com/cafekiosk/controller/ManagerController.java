@@ -1,12 +1,16 @@
 package com.cafekiosk.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cafekiosk.model.ManageMenuVO;
@@ -26,13 +30,23 @@ public class ManagerController {
 	
 	//메인 페이지 이동
 	@RequestMapping(value="/manager/manager", method = RequestMethod.GET)
-	public void mainPageGet() {
+	public void mainPageGet(Model model) {
 		logger.info("manager 페이지 진입");
+		
+		List<ManageMenuVO> menuList = manageMenuService.getMenuList();
+		
+		model.addAttribute("menuList", menuList);
 	}
-	
-	@RequestMapping(value="/manager/edit_item", method = RequestMethod.GET)
-	public void editItemPageGet() {
-		logger.info("edit_item 페이지 진입");
+
+	/* 메뉴 상세 */
+	@RequestMapping("/manager/edit_item")
+	public String getMenuInfo(@RequestParam("menu_idx")int menu_idx, Model model) {
+		
+		logger.info("getMenuInfo()..........");
+		
+		model.addAttribute("menuInfo", manageMenuService.getMenuInfo(menu_idx));
+		
+		return "/manager/edit_item";
 	}
 	
 	@RequestMapping(value="/manager/insert_item", method = RequestMethod.GET)
