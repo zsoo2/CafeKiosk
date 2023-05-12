@@ -189,15 +189,36 @@
 	            history.pushState(null, null, newUrl);
 	        }
 	    	
-	        // 탭 이름 전달
+	        // 탭 메뉴 정보
 		    $.ajax({
-		    	url : "/customer/customer",
+		    	url : "/menuListAjax",
 		    	type : 'get',
 		    	data : {
 		    		tabName : activeTab.substr(1)
 	    		},
-		    	success : function(data) {
-	         	},
+		    	success : function(data){
+		    		var tabName = activeTab.substr(1);
+		            var str = '';
+			            $.each(data , function(i){
+			                str += '<div class="item"><div>' + data[i].menu_name + '</div><div>' + data[i].menu_price + '</div></div>';
+			           	});
+		     			$('.item').remove();
+						if(tabName == 'coffee') {
+			           		$("#menu_1").append(str); 							
+						}else if(tabName == 'teaade'){
+							$("#menu_2").append(str); 	
+						}else if(tabName == 'noncoffee'){
+							$("#menu_3").append(str); 	
+						}else if(tabName == 'dessert'){
+							$("#menu_4").append(str); 	
+						}else {
+							$('.item').remove();
+						}	
+		           /* console.log(tabName);
+		           console.log(data);
+		           console.log(str);
+		           console.log(data[0].menu_name); */
+		    	},
 		    	error : function() {
 		    		alert("error");
 		    	}

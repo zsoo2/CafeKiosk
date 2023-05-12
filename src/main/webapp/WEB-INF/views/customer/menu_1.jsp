@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="../resources/css/customer.css">
 </head>
 <body>
-	<div class="container">
+	<div class="container" id="menu_1">
 		<div class="item" onclick="openPop()">
 			<div class="item_img">
 				<img src="../resources/image/menu/americano.png" alt="아메리카노"/>
