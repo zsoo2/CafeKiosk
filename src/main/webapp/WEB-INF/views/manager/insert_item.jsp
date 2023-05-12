@@ -112,7 +112,7 @@
 				<div class="popup_submit">
 					<div>
 						<input type="button" name="#" id="#" value="취소" onclick="location.href='/manager/manager'">
-						<input type="submit" class="insertButton" name="#" id="#" value="확인">
+						<input type="submit" class="insertButton" value="확인">
 					</div>
 				</div>
 			</div>

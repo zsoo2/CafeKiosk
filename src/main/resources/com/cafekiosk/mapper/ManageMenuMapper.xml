@@ -26,5 +26,10 @@
 		UPDATE manage_menu set  menu_name=#{menu_name}, menu_price=#{menu_price}, menu_category=#{menu_category}, menu_picture=#{menu_picture}, option1_YN=#{option1_YN}, option2_YN=#{option2_YN}, option3_YN=#{option3_YN}, mod_time=now()
 		WHERE menu_idx = #{menu_idx}
 	</update>
+	
+	<!-- 메뉴 삭제 -->
+	<delete id="deleteMenu">
+		DELETE FROM manage_menu WHERE menu_idx = #{menu_idx}
+	</delete>
   </mapper>
   
