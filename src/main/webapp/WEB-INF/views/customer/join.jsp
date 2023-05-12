@@ -32,7 +32,7 @@
 						</div>
 						<div class="check_container">
 							<div>
-								<input type="checkbox" id="chk_btn1">
+								<input type="checkbox" name="chkSelect" id="chk_btn1">
 								<label for="chk_btn1"><span>개인정보처리방침 동의(필수)</span></label>
 								<input type="button" id="detail" value="상세보기">
 								<div class="detail_container" id="detail_box">
@@ -40,7 +40,7 @@
 								</div>
 							</div>
 							<div>
-								<input type="checkbox" id="chk_btn2">
+								<input type="checkbox" name="chkSelect" id="chk_btn2">
 								<label for ="chk_btn2"><span>만 14세 이상입니다.</span></label>
 							</div>
 						</div>
@@ -85,7 +85,15 @@
 //확인 팝업창 뜨는 부분
     const modal = document.getElementById("modal");
     function modalOn() {
-        modal.style.display = "flex";
+    	if($("input:checkbox[id='chk_btn1']").is(":checked") != true){
+    		alert("약관 동의에 체크해주세요");
+    		return;
+    	} else if ($("input:checkbox[id='chk_btn2']").is(":checked") != true){
+    		alert("연령 확인에 체크해주세요");
+    		return
+    	} else {
+	        modal.style.display = "flex";
+    	}
     }
     function isModalOn() {
         return modal.style.display === "flex"
@@ -98,5 +106,18 @@
 	    closeBtn.addEventListener("click", e => {
 	        modalOff();
 	    });
+
+//동의 체크박스 부분
+	function Check() {
+	var arrSelect = document.getElelementsByName("chkSelect");
+	
+	for (var i = 0; i<arrSelect.length; i++) {
+		if(arrSelect[i].checked) {
+			return location.href='/customer/payment';
+		}
+	}
+	alert("체크해주세요");
+	return false;
+}
 </script>
 </html>
