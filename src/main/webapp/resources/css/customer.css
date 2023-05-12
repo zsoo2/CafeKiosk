@@ -332,21 +332,20 @@ html {
 	height: 15%;
     position: relative;
 }
+.popup_submit>input[type="submit"] {
+	width: 23%;
+	height: 50%;
+    margin-left: 40%;
+    border: none;
+    font-size: 2.5vw;
+    font-weight: bold;
+    background-color: #f3a9a9;
+    color: #ffffff;
+}
 .popup_submit div {
 	width: 80%;
 	height: 100%;
 	margin: auto;
-}
-.popup_submit div>input {
-	width: 25%;
-    height: 50%;
-    margin-left: 15%;
-    border: none;
-    font-size: 3vw;
-    font-weight: bold;
-    background-color: #f3a9a9;
-    color: #ffffff;
-    cursor: pointer;
 }
 .popup_submit div>input  {
 	width: 25%;
@@ -792,6 +791,61 @@ html {
     color: #f3a9a9;
     cursor: pointer;
 }
+/* payment.jsp */
+.payment_container {
+	width: 90%;
+	height: 50%;
+	margin: auto;
+}
+.payment_container .payment_title {
+    width: 50%;
+    height: 44%;
+    margin: auto;
+    font-size: 1.5vw;
+    font-weight: 600;
+    padding-top: 8%;
+}
+.payment_title span:nth-child(1) {
+    font-size: 1.5vw;
+    font-weight: 900;
+    color: #F2A8A8;
+}
+.payment_container .payment_amount {
+    width: 100%;
+    height: 27%;
+    margin: auto;
+    font-size: 1.5vw;
+    font-weight: 600;
+    text-align: center;
+}
+.payment_amount span:nth-child(2) {
+    font-size: 1.5vw;
+    font-weight: 900;
+    color: #F2A8A8;
+}
+.payment_button input{
+    width: 14%;
+    height: 50%;
+    margin-top: 4%;
+    border: none;
+    font-size: 2vw;
+    font-weight: bold;
+    background-color: #f3a9a9;
+    color: #ffffff;
+    cursor: pointer;
+}
+.order_container {
+	width: 90%;
+	height: 50%;	
+	margin: auto;
+}
+.order_container .order_title {
+    width: 50%;
+    height: 14%;
+    margin: auto;
+    font-size: 1vw;
+    font-weight: 600;
+}
 /* 반응형 */
 @media (max-width: 1024px){
 	.contents {
@@ -1124,16 +1178,15 @@ html {
 		height: 100%;
 		margin: auto;
 	}
-	.popup_submit div>input {
-		width: 25%;
-	    height: 50%;
-	    margin-left: 15%;
+	.popup_submit>input[type="submit"] {
+		width: 23%;
+		height: 50%;
+	    margin-left: 40%;
 	    border: none;
-	    font-size: 3vw;
+	    font-size: 2.5vw;
 	    font-weight: bold;
 	    background-color: #f3a9a9;
 	    color: #ffffff;
-	    cursor: pointer;
 	}
 	.popup_submit div>input  {
 		width: 25%;
@@ -1897,16 +1950,44 @@ html {
 	.popup_submit {
 		width: 100%;
 		height: 15%;
+	    position: relative;
 	}
 	.popup_submit>input[type="submit"] {
 		width: 23%;
-	    height: 50%;
+		height: 50%;
 	    margin-left: 40%;
 	    border: none;
 	    font-size: 2.5vw;
 	    font-weight: bold;
 	    background-color: #f3a9a9;
 	    color: #ffffff;
+	}
+	.popup_submit div {
+		width: 80%;
+		height: 100%;
+		margin: auto;
+	}
+	.popup_submit div>input  {
+		width: 25%;
+	    height: 50%;
+	    margin-left: 15%;
+	    border: none;
+	    font-size: 3vw;
+	    font-weight: bold;
+	    background-color: #D0CECE;
+	    color: #ffffff;
+	    cursor: pointer;
+	}
+	.popup_submit div>input:nth-child(2)  {
+		width: 25%;
+	    height: 50%;
+	    margin-left: 15%;
+	    border: none;
+	    font-size: 3vw;
+	    font-weight: bold;
+	    background-color: #f3a9a9;
+	    color: #ffffff;
+	    cursor: pointer;
 	}
 	/* 장바구니 */
 	.cart {
