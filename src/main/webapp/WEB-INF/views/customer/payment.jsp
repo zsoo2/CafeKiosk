@@ -41,10 +41,15 @@
 				</div>
 				<div class="order_container">
 					<div class="order_title"><span>주문내역</span></div>
-					<div>
+					<div class="order_contents">
 						<table>
+							<colgroup>
+								<col width="10%">
+								<col width="60%">
+								<col width="30%">
+							</colgroup>
 							<tr>
-								<td>1.</td>
+								<td>1</td>
 								<td>아이스 아메리카노</td>
 								<td>2500</td>
 							</tr>
