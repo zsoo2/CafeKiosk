@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafekiosk.model.ManageMenuVO;
 import com.cafekiosk.service.CustomerService;
@@ -29,18 +29,23 @@ public class CustomerController {
 	
 	//메인 페이지 이동
 	@RequestMapping(value="/customer/customer", method = RequestMethod.GET)	
-	public String mainPageGet(Model model, @RequestParam(required=false, defaultValue="tabName") String tabName) {
+	public String getMainPage() {
 		logger.info("customer 페이지 진입");
 		
-		List<ManageMenuVO> menuList = customerService.getMenuList(tabName);
-	
-//		model.addAttribute("hi", "하이");
-		model.addAttribute("menuList", menuList);
-		
-	//	log.info("메뉴목록---------------------------------------" + menuList);
 		return "/customer/customer";
 	}
 	
+	//메뉴 목록 ajax
+	@RequestMapping(value="/menuListAjax", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ManageMenuVO> getMenuList(@RequestParam(required=false, defaultValue="tabName") String tabName) {
+		logger.info("getMenuList");
+		List<ManageMenuVO> menuList = customerService.getMenuList(tabName);
+		
+		//log.info("메뉴목록---------------------------------------" + menuList);
+		return menuList;
+	}
+
 	
 	@RequestMapping(value="/customer/check_member", method = RequestMethod.GET)
 	public void checkMemberPageGet() {

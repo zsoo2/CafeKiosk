@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="../resources/css/customer.css">
 </head>
 <body>
-	<div class="container">
+	<div class="container" id="menu_4">
+<!-- 		<div class="item"></div>
 		<div class="item"></div>
 		<div class="item"></div>
 		<div class="item"></div>
@@ -17,8 +18,7 @@
 		<div class="item"></div>
 		<div class="item"></div>
 		<div class="item"></div>
-		<div class="item"></div>
-		<div class="item"></div>
+		<div class="item"></div> -->
 	</div>
 </body>
 </html>
