@@ -17,4 +17,7 @@ public interface ManageMenuService {
 	
 	//메뉴 수정
 	public void editMenuInfo(ManageMenuVO manageMenu);
+	
+	//메뉴 삭제
+	public void deleteMenu(int menu_idx);
 }

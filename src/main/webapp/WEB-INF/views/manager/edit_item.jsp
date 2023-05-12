@@ -39,7 +39,7 @@
 							<span>1. 메뉴명 </span>
 						</div>
 						<div class="itemValue">
-							<input type="text" name="itemName" value="${menuInfo.menu_name}"/>
+							<input type="text" name="menu_name" value="${menuInfo.menu_name}"/>
 						</div>
 					</div>
 					<div class="managerMenu">
@@ -47,15 +47,15 @@
 							<span>2. 가격 </span>
 						</div>
 						<div class="itemValue">
-							<input type="text" name="itemPrice" value="${menuInfo.menu_price}"/>
+							<input type="text" name="menu_price" value="${menuInfo.menu_price}"/>
 						</div>
 					</div>
 					<div class="managerMenu">
 						<div class="itemList">
-							<span>3. 대분류 </span>
+							<span>3. 분류 </span>
 						</div>
 						<div class="itemValue">
-							<select name="ItemCa" id="ItemCa">						<!-- 아이템카테고리 -->
+							<select name="menu_category" id="menu_category">						<!-- 아이템카테고리 -->
 								<option value="coffee">커피</option>
 								<option value="tea/ade">티/에이드</option>
 								<option value="noncoffee">논커피</option>
@@ -70,7 +70,7 @@
 						<div class="filebox">
 							<input class="uploadName" value="${menuInfo.menu_picture}" placeholder="${menuInfo.menu_picture}">
 							<label for="itemImg">파일찾기</label>
-							<input type="file" id="itemImg"/>
+							<input type="file" name="menu_picture" id="itemImg"/>
 						</div>
 					</div>
 					<div class="managerMenu">
@@ -182,13 +182,13 @@ var checkYn2= "${menuInfo.option2_YN}";
 var checkYn3= "${menuInfo.option3_YN}";
 
 if(selectVal == "coffee"){
-	$("#ItemCa").val("coffee").prop("selected", true);
+	$("#menu_category").val("coffee").prop("selected", true);
 }else if(selectVal == "noncoffee"){
-	$("#ItemCa").val("noncoffee").prop("selected", true);
+	$("#menu_category").val("noncoffee").prop("selected", true);
 }else if(selectVal == "teaade"){
-	$("#ItemCa").val("teaade").prop("selected", true);
+	$("#menu_category").val("teaade").prop("selected", true);
 }else if(selectVal == "dessert"){
-	$("#ItemCa").val("dessert").prop("selected", true);
+	$("#menu_category").val("dessert").prop("selected", true);
 }
 
 if(checkYn1== "Y"){
@@ -276,6 +276,7 @@ if ($('input[name=toggle1]').is(":checked")) {
 		 /* 메뉴 등록 버튼(메뉴 등록 기능 작동) */
 $(document).ready(function(){
 	$("#updateButton").click(function(){
+	$("#updateForm").attr("action", "edit_item");
 	$("#updateForm").submit();
 	});
 });

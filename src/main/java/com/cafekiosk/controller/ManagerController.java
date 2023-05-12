@@ -2,6 +2,8 @@ package com.cafekiosk.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +51,21 @@ public class ManagerController {
 		return "/manager/edit_item";
 	}
 	
+	/* 메뉴 수정 */
+	@RequestMapping(value="manager/edit_item", method = RequestMethod.POST)
+	public String editMenuInfo(ManageMenuVO manageMenu) throws Exception{
+		logger.info("editMenuInfo()...");
+		
+		//메뉴 수정 서비스 실행
+		manageMenuService.editMenuInfo(manageMenu);
+		
+		logger.info("editMenuInfo 성공");
+		return "redirect:/manager/manager";
+	}
+	
 	@RequestMapping(value="/manager/insert_item", method = RequestMethod.GET)
 	public void insertItemPageGet() {
-		logger.info("insert_item 페이지 진입");
+		logger.info("insert_item 페이지 진입1");
 	}
 	
 	@RequestMapping(value="/manager/order_list", method = RequestMethod.GET)
@@ -88,6 +102,18 @@ public class ManagerController {
 		
 	}
 	
+	//메뉴 삭제
+	@RequestMapping(value="manager/delete_item", method=RequestMethod.POST)
+		public String deleteMenu(@RequestParam("chk_list") List<Integer> idx ) throws Exception{
+			logger.info("deleteMenu 진입");
+			
+			for(Integer menu_idx : idx) manageMenuService.deleteMenu(menu_idx);
+			
+			return "redirect:/manager/manager";
+			
+		}
+	
+}
 	
 
-}
+

@@ -8,14 +8,18 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../resources/css/main.css">
 <link rel="stylesheet" href="../resources/css/manager.css">
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="container">
-		<form name="listForm" action="#" method="post">
+		<form id="listForm" name="listForm" method="post">
 			<div class="itembox">
 				<div class="button_box">
 					<input type="button" id="insert" onclick="location.href='/manager/insert_item'" value="추가">
-					<input type="button" id="delete" onclick="location.href='#'" value="삭제">
+					<input type="submit" name="deleteButton" id="deleteButton"  value="삭제">
 				</div>
 				<div class="list_box">
 					<table>
@@ -38,7 +42,7 @@
 						<tbody>
 							<c:forEach var="list" items="${menuList}">
 								<tr>
-									<td><input type="checkbox" name="chk_list[]" class="chk_indiv" onclick="CheckSelectAll()"></td>
+									<td><input type="checkbox" name="chk_list" class="chk_indiv" onclick="CheckSelectAll()" value="${list.menu_idx}"></td>
 									<td onclick = "location.href='/manager/edit_item?menu_idx=${list.menu_idx}'"><c:out value="${list.menu_idx}"/></td>
 									<td onclick = "location.href='/manager/edit_item?menu_idx=${list.menu_idx}'"><c:out value="${list.menu_name}"/></td>
 									<td onclick = "location.href='/manager/edit_item?menu_idx=${list.menu_idx}'"><c:out value="${list.menu_category}"/></td>
@@ -53,10 +57,21 @@
 	</div>
 </body>
 <script type="text/javascript">
+
+
+	// th 체크박스	 --> 전체 체크하는 체크박스
+	function SelectAll(selectAll)  {
+	    var checkboxes = document.getElementsByName('chk_list');
+	
+	    checkboxes.forEach((checkbox) => {
+	        checkbox.checked = selectAll.checked
+	    })
+	}
+
 	// td 체크박스
 	function CheckSelectAll()  {
-	   var checkboxes  = document.querySelectorAll('input[name="chk_list[]"]');
-	   var checked     = document.querySelectorAll('input[name="chk_list[]"]:checked');
+	   var checkboxes  = document.querySelectorAll('input[name="chk_list"]');
+	   var checked     = document.querySelectorAll('input[name="chk_list"]:checked');
 	   var select_all  = document.querySelector('input[name="chk_all"]');
 	   
 	   if(checkboxes.length === checked.length)  {
@@ -66,15 +81,15 @@
 	   }
 	}
 	
-	// th 체크박스	
-	
-	function SelectAll(selectAll)  {
-	    var checkboxes = document.getElementsByName('chk_list[]');
-	
-	    checkboxes.forEach((checkbox) => {
-	        checkbox.checked = selectAll.checked
-	    })
-	}
+	/* 메뉴삭제 버튼(메뉴 삭제 기능 작동) */
+	$(document).ready(function(){
+		$("#deleteButton").click(function(){
+			$("#listForm").attr("action", "delete_item");
+			$("#listForm").submit();
+		});
+	});
+
+
 
 </script>
 </html>

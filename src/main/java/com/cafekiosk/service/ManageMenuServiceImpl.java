@@ -40,8 +40,12 @@ public class ManageMenuServiceImpl implements ManageMenuService{
 	//메뉴 수정
 	public void editMenuInfo(ManageMenuVO menuInfo) {
 		 manageMenuMapper.editMenuInfo(menuInfo);
-		
 	}
-	
+
+	@Override
+	//메뉴 삭제
+	public void deleteMenu(int menu_idx) {
+		manageMenuMapper.deleteMenu(menu_idx);
+	}
 
 }
