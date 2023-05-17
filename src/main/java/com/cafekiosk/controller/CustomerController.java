@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,27 +35,39 @@ public class CustomerController {
 		
 		return "/customer/customer";
 	}
+	
 	@RequestMapping(value="/customer/menu_1", method = RequestMethod.GET)	
-	public String getCoffeePage() {
+	public String getCoffeePage(Model model) {
 		logger.info("customer_coffee 페이지 진입");
+		List<ManageMenuVO> menuList = customerService.getMenuList("coffee");
+		model.addAttribute("menuList", menuList);
 		
 		return "/customer/menu_1";
 	}
+	
 	@RequestMapping(value="/customer/menu_2", method = RequestMethod.GET)	
-	public String getTeaadePage() {
+	public String getTeaadePage(Model model) {
 		logger.info("customer_teaade 페이지 진입");
+		List<ManageMenuVO> menuList = customerService.getMenuList("teaade");
+		model.addAttribute("menuList", menuList);
 		
 		return "/customer/menu_2";
 	}
+	
 	@RequestMapping(value="/customer/menu_3", method = RequestMethod.GET)	
-	public String getNoncoffeePage() {
+	public String getNoncoffeePage(Model model) {
 		logger.info("customer_noncoffee 페이지 진입");
+		List<ManageMenuVO> menuList = customerService.getMenuList("noncoffee");
+		model.addAttribute("menuList", menuList);
 		
 		return "/customer/menu_3";
 	}
+	
 	@RequestMapping(value="/customer/menu_4", method = RequestMethod.GET)	
-	public String getDessertPage() {
+	public String getDessertPage(Model model) {
 		logger.info("customer_dessert 페이지 진입");
+		List<ManageMenuVO> menuList = customerService.getMenuList("dessert");
+		model.addAttribute("menuList", menuList);
 		
 		return "/customer/menu_4";
 	}

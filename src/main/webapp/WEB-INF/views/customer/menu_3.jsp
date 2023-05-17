@@ -24,7 +24,7 @@
 				<label for="tab03" onclick="location.href='/customer/menu_3'">논커피</label>
 				<input type="radio" name="tab_menu" id="tab04">
 				<label for="tab04" onclick="location.href='/customer/menu_4'">디저트</label>
-				<div class="conbox con1">
+				<div class="conbox con3">
 					<div class="container" id="menu_3">			
 <!-- 						<div class="item" onclick="openPop()">
 							<div class="item_img">
@@ -213,4 +213,62 @@
 	</div>
 </div>
 </body>
+<script type="text/javascript">
+	/* 팝업 열고 닫기 */
+	function openPop(){
+		document.getElementById("popup").style.display ="block";
+/* 		popBlur(true); */
+	}
+	function closePop() {
+		document.getElementById("popup").style.display ="none";
+/* 		popBlur(false); */
+	}
+	
+	/* 팝업 열고 닫을 때 뒷배경 흐리게 */
+	function popBlur(chk){
+		if(chk==false){
+			document.getElementById("wrap").style.opacity="1";
+		} else {
+			document.getElementById("wrap").style.opacity="0.3";
+		}
+	}
+	/* 수량 증가, 감소 */
+	function quantity(type) {
+		const resultElement = document.getElementById("quantity");
+		let quantity = resultElement.value;
+/* 		console.log(quantity); */
+
+		if(type === 'plus') {
+			quantity = parseInt(quantity) + 1;
+			}else if(type === 'minus') {
+				quantity = parseInt(quantity) - 1;
+			    if(quantity < 0) {
+			    	quantity = 0;
+			    }else {
+			    	quantity = quantity;
+			    }
+			}
+		
+		resultElement.value = quantity;
+	}
+	/* 샷 추가 */
+	function shotCount(type) {
+		const resultElement = document.getElementById("option3");
+		let option3 = resultElement.value;
+/* 		console.log(quantity); */
+
+		if(type === 'plus') {
+			option3 = parseInt(option3) + 1;
+			}else if(type === 'minus') {
+				option3 = parseInt(option3) - 1;
+			    if(option3 < 0) {
+			    	option3 = 0;
+			    }else {
+			    	option3 = option3;
+			    }
+			}
+		
+		resultElement.value = option3;
+	}
+</script>
 </html>

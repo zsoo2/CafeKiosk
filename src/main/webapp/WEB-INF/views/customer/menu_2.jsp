@@ -24,80 +24,28 @@
 				<label for="tab03" onclick="location.href='/customer/menu_3'">논커피</label>
 				<input type="radio" name="tab_menu" id="tab04">
 				<label for="tab04" onclick="location.href='/customer/menu_4'">디저트</label>
-				<div class="conbox con1">
-					<div class="container" id="menu_2">			
-						<!-- <div class="item" onclick="openPop()">
-							<div class="item_img">
-								<img src="../resources/image/menu/americano.png" alt="아메리카노"/>
+				<div class="conbox con2">
+					<div class="container" id="menu_2">	
+					
+						<c:forEach var="list" items="${menuList}">
+							<div class="item" onclick="openPop()">
+							
+								<div class="item_img">
+									<img src="../resources/image/menu/americano.png" alt="아메리카노"/>
+								</div>
+								<div class="">
+									<a data-name="${list.menu_name}">
+										<span>${list.menu_name}</span>
+									</a>
+								</div>
+								<div class="item_price">
+									<span>${list.menu_price} 원</span>
+								</div>
+						
 							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/cafelatte.png" alt="카페라떼"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/caramelmacchiato.png" alt="카라멜마끼야또"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/cafemocha.png" alt="카페모카"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/vanillalatte.png" alt="바닐라라떼"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/americano.png" alt="아메리카노"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/americano.png" alt="아메리카노"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/americano.png" alt="아메리카노"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/americano.png" alt="아메리카노"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div> -->
+						</c:forEach>
+						
+						
 						<!-- <form> -->
 						<div id="popup" class="popup">
 							<div class="popup_close">
@@ -110,6 +58,7 @@
 									</div>
 									<div class="popup_detail">
 										<div class="popup_option"><span>아메리카노</span></div>
+										  <p id="name" class="modal-title"></p>
 										<div class="popup_option">
 											<div class="popup_option_btn">
 												<input type="radio" name="option" id="option01" value="HOT" checked><label for="option01">HOT</label>
@@ -212,5 +161,68 @@
 		</div>
 	</div>
 </div>
+
+
+
 </body>
+<script type="text/javascript">
+	/* 팝업 열고 닫기 */
+	function openPop(){
+		document.getElementById("popup").style.display ="block";
+/* 		popBlur(true); */
+	}
+	function closePop() {
+		document.getElementById("popup").style.display ="none";
+/* 		popBlur(false); */
+	}
+	
+	/* 팝업 열고 닫을 때 뒷배경 흐리게 */
+	function popBlur(chk){
+		if(chk==false){
+			document.getElementById("wrap").style.opacity="1";
+		} else {
+			document.getElementById("wrap").style.opacity="0.3";
+		}
+	}
+	/* 수량 증가, 감소 */
+	function quantity(type) {
+		const resultElement = document.getElementById("quantity");
+		let quantity = resultElement.value;
+/* 		console.log(quantity); */
+
+		if(type === 'plus') {
+			quantity = parseInt(quantity) + 1;
+			}else if(type === 'minus') {
+				quantity = parseInt(quantity) - 1;
+			    if(quantity < 0) {
+			    	quantity = 0;
+			    }else {
+			    	quantity = quantity;
+			    }
+			}
+		
+		resultElement.value = quantity;
+	}
+	/* 샷 추가 */
+	function shotCount(type) {
+		const resultElement = document.getElementById("option3");
+		let option3 = resultElement.value;
+/* 		console.log(quantity); */
+
+		if(type === 'plus') {
+			option3 = parseInt(option3) + 1;
+			}else if(type === 'minus') {
+				option3 = parseInt(option3) - 1;
+			    if(option3 < 0) {
+			    	option3 = 0;
+			    }else {
+			    	option3 = option3;
+			    }
+			}
+		
+		resultElement.value = option3;
+	}
+</script>
+
+
 </html>
