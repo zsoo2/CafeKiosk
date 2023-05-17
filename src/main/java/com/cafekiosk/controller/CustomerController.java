@@ -34,6 +34,30 @@ public class CustomerController {
 		
 		return "/customer/customer";
 	}
+	@RequestMapping(value="/customer/menu_1", method = RequestMethod.GET)	
+	public String getCoffeePage() {
+		logger.info("customer_coffee 페이지 진입");
+		
+		return "/customer/menu_1";
+	}
+	@RequestMapping(value="/customer/menu_2", method = RequestMethod.GET)	
+	public String getTeaadePage() {
+		logger.info("customer_teaade 페이지 진입");
+		
+		return "/customer/menu_2";
+	}
+	@RequestMapping(value="/customer/menu_3", method = RequestMethod.GET)	
+	public String getNoncoffeePage() {
+		logger.info("customer_noncoffee 페이지 진입");
+		
+		return "/customer/menu_3";
+	}
+	@RequestMapping(value="/customer/menu_4", method = RequestMethod.GET)	
+	public String getDessertPage() {
+		logger.info("customer_dessert 페이지 진입");
+		
+		return "/customer/menu_4";
+	}
 	
 	//메뉴 목록 ajax
 	@RequestMapping(value="/menuListAjax", method = RequestMethod.GET)
