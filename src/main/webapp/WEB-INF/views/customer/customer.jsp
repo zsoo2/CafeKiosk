@@ -13,7 +13,7 @@
   integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
   crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../resources/css/main.css">
-<link rel="stylesheet" href="../resources/css/customer.css">
+<link rel="stylesheet" href="../resources/css/customer_ori.css">
 </head>
 <body>
 	<div class="wrapper">
@@ -23,28 +23,19 @@
 			</div>
 			<div class="contents">
 				<div class="customer_menu">
-<%-- 					<input type="radio" name="tab_menu" id="tab01" checked>
-					<label for="tab01">커피</label>
+ 					<input type="radio" name="tab_menu" id="tab01" checked>
+					<label for="tab01" onclick="location.href='/customer/menu_1'">커피</label>
 					<input type="radio" name="tab_menu" id="tab02">
-					<label for="tab02">티/에이드</label>
+					<label for="tab02" onclick="location.href='/customer/menu_2'">티/에이드</label>
 					<input type="radio" name="tab_menu" id="tab03">
-					<label for="tab03">논커피</label>
+					<label for="tab03" onclick="location.href='/customer/menu_3'">논커피</label>
 					<input type="radio" name="tab_menu" id="tab04">
-					<label for="tab04">디저트</label>
+					<label for="tab04" onclick="location.href='/customer/menu_4'">디저트</label>
 					
 					<div class="conbox con1">
 						<%@ include file="menu_1.jsp" %>
 					</div>
-					<div class="conbox con2">
-						<%@ include file="menu_2.jsp" %>
-					</div>
-					<div class="conbox con3">
-						<%@ include file="menu_3.jsp" %>
-					</div>
-					<div class="conbox con4">
-						<%@ include file="menu_4.jsp" %>
-					</div> --%>
-					<ul class="tit_list">
+<%-- 					<ul class="tit_list">
 				        <!-- 디폴트 선택 li에 active 클래스 추가 -->
 				        <li class="active"><a href="#coffee">커피</a></li>
 				        <li><a href="#teaade">티/에이드</a></li>
@@ -67,7 +58,7 @@
    				        <div id="dessert" class="tab_list">
 				            <%@ include file="menu_4.jsp" %>
 				        </div>
-					</div>
+					</div> --%>
 				</div>
 			<div class="cart">
 				<div class="cart_list">

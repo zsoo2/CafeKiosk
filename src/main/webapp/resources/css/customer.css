@@ -10,7 +10,7 @@ html {
 	width: 100%;
 	height: 80%;
 }
-/* 손님 메뉴 탭 */
+/* /* 손님 메뉴 탭
 .customer_menu {
 	width: 98%;
 	height: 90%;
@@ -82,7 +82,57 @@ html {
 	display: none;
 	width: 100%;
 	height: 100%;
+} */
+/* 손님 메뉴 탭 */
+.customer_menu {
+	width: 100%;
+	height: 18%;
+	background-color: #fff0f5;
 }
+.customer_menu>input[type="radio"] {
+	display:none;
+}
+.customer_menu>input[type="radio"] + label {
+	display: inline-block;
+	width: 22.3%;
+	height: 58%;
+	padding: 20px;
+	cursor: pointer;
+	background-color: #fffdfd;
+	color: #f7bbcd;
+    font-size: 3vw;
+    font-weight: bold;
+    line-height: 180%;
+    text-align: center;
+   	margin-left: 1.85%;
+	margin-top: 1.5%;
+	padding: 0;
+	white-space: nowrap;
+}
+.customer_menu>input[type="radio"]:checked + label {
+	background: #ffe4ec;
+	color: #fffdfd;
+    font-weight: bold;
+}
+.conbox {
+	width: 100%;
+	height: 494%;
+	background: #fff0f5;
+	margin: 0 auto;
+	display: none;
+}
+.customer_menu>input[id="tab01"]:checked ~ .con1 {
+	display: block;
+}
+.customer_menu>input[id="tab02"]:checked ~ .con2 {
+	display: block;
+}
+.customer_menu>input[id="tab03"]:checked ~ .con3 {
+	display: block;
+}
+.customer_menu>input[id="tab04"]:checked ~ .con4 {
+	display: block;
+} 
 
 .container {
 	display: grid;
@@ -866,7 +916,7 @@ html {
 		width: 100%;
 		height: 80%;
 	}
-	/* 손님 메뉴 탭 */
+/* 	/* 손님 메뉴 탭
 	.customer_menu {
 		width: 98%;
 		height: 90%;
@@ -937,8 +987,57 @@ html {
 		display: none;
 		width: 100%;
 		height: 100%;
+	} */
+	/* 손님 메뉴 탭 */
+	.customer_menu {
+		width: 100%;
+		height: 18%;
+		background-color: #fff0f5;
 	}
-
+	.customer_menu>input[type="radio"] {
+		display:none;
+	}
+	.customer_menu>input[type="radio"] + label {
+		display: inline-block;
+		width: 22.3%;
+		height: 32%;
+		padding: 20px;
+		cursor: pointer;
+		background-color: #fffdfd;
+		color: #f7bbcd;
+	    font-size: 3vw;
+	    font-weight: bold;
+	    line-height: 145%;
+	    text-align: center;
+	   	margin-left: 1.85%;
+		margin-top: 1.5%;
+		padding: 0;
+		white-space: nowrap;
+	}
+	.customer_menu>input[type="radio"]:checked + label {
+		background: #ffe4ec;
+		color: #fffdfd;
+	    font-weight: bold;
+	}
+	.conbox {
+		width: 100%;
+		height: 494%;
+		background: #fff0f5;
+		margin: 0 auto;
+		display: none;
+	}
+	.customer_menu>input[id="tab01"]:checked ~ .con1 {
+		display: block;
+	}
+	.customer_menu>input[id="tab02"]:checked ~ .con2 {
+		display: block;
+	}
+	.customer_menu>input[id="tab03"]:checked ~ .con3 {
+		display: block;
+	}
+	.customer_menu>input[id="tab04"]:checked ~ .con4 {
+		display: block;
+	} 
 	.container {
 		display: grid;
 		width: 96%;
@@ -1714,7 +1813,7 @@ html {
 		width: 100%;
 		height: 80%;
 	}
-	/* 손님 메뉴 탭 */
+/* 	손님 메뉴 탭 
 	.customer_menu {
 		width: 98%;
 		height: 90%;
@@ -1785,8 +1884,57 @@ html {
 		display: none;
 		width: 100%;
 		height: 100%;
+	} */
+	/* 손님 메뉴 탭 */
+	.customer_menu {
+		width: 100%;
+		height: 18%;
+		background-color: #fff0f5;
 	}
-
+	.customer_menu>input[type="radio"] {
+		display:none;
+	}
+	.customer_menu>input[type="radio"] + label {
+		display: inline-block;
+		width: 22.3%;
+		height: 21%;
+		padding: 20px;
+		cursor: pointer;
+		background-color: #fffdfd;
+		color: #f7bbcd;
+	    font-size: 3vw;
+	    font-weight: bold;
+	    line-height: 145%;
+	    text-align: center;
+	   	margin-left: 1.85%;
+		margin-top: 1.5%;
+		padding: 0;
+		white-space: nowrap;
+	}
+	.customer_menu>input[type="radio"]:checked + label {
+		background: #ffe4ec;
+		color: #fffdfd;
+	    font-weight: bold;
+	}
+	.conbox {
+		width: 100%;
+		height: 494%;
+		background: #fff0f5;
+		margin: 0 auto;
+		display: none;
+	}
+	.customer_menu>input[id="tab01"]:checked ~ .con1 {
+		display: block;
+	}
+	.customer_menu>input[id="tab02"]:checked ~ .con2 {
+		display: block;
+	}
+	.customer_menu>input[id="tab03"]:checked ~ .con3 {
+		display: block;
+	}
+	.customer_menu>input[id="tab04"]:checked ~ .con4 {
+		display: block;
+	} 
 	.container {
 		display: grid;
 		width: 96%;

@@ -112,7 +112,7 @@
 				<div class="popup_submit">
 					<div>
 						<input type="button" name="#" id="#" value="취소" onclick="location.href='/manager/manager'">
-						<input type="submit" class="insertButton" value="확인">
+						<input type="submit" class="insertButton" value="확인" onclick="frmFunc()">
 					</div>
 				</div>
 			</div>
@@ -222,12 +222,25 @@ function fileCheck(fileName, fileSize){
 		 
 		 
 /* 메뉴 등록 버튼(메뉴 등록 기능 작동) */
-$(document).ready(function(){
+/* $(document).ready(function(){
 	$(".insertButton").click(function(){
 		$("#insertForm").attr("action", "insert_item");
 		$("#insertForm").submit();
 	});
-});
+}); */
+
+/* alert */
+function frmFunc(){
+	var rtn;
+	rtn = confirm('등록하시겠습니까?');
+	
+	if(rtn){
+		document.getElementById("insertForm").submit();\
+		//item_list페이지로 이동하게
+	}else{
+		return false;
+	}
+}
 
 </script>
 </body>
