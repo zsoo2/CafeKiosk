@@ -2,6 +2,8 @@ package com.cafekiosk.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,17 +74,6 @@ public class CustomerController {
 		return "/customer/menu_4";
 	}
 	
-	//메뉴 목록 ajax
-	@RequestMapping(value="/menuListAjax", method = RequestMethod.GET)
-	@ResponseBody
-	public List<ManageMenuVO> getMenuList(@RequestParam(required=false, defaultValue="tabName") String tabName) {
-		logger.info("getMenuList");
-		List<ManageMenuVO> menuList = customerService.getMenuList(tabName);
-		
-		//log.info("메뉴목록---------------------------------------" + menuList);
-		return menuList;
-	}
-
 	
 	@RequestMapping(value="/customer/check_member", method = RequestMethod.GET)
 	public void checkMemberPageGet() {
