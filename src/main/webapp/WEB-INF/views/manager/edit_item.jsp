@@ -30,7 +30,7 @@
 					
 					<div class="conbox con1">
 	<div class="container">
-		<form name="updateForm" method="post">
+		<form name="updateForm" method="post" id="updateForm">
 			<div class="itembox">
 				<div class="item">
 				
@@ -113,7 +113,7 @@
 				<div class="popup_submit">
 					<div>
 						<input type="button" name="#" id="#" value="취소" onclick="location.href='/manager/manager'">
-						<input type="submit" name="#" id="updateButton" value="수정">
+						<input type="submit" name="#" id="updateButton" value="수정" onclick="frmFunc()">
 					</div>
 				</div>
 			</div>
@@ -274,12 +274,24 @@ if ($('input[name=toggle1]').is(":checked")) {
 		 };
 		 
 		 /* 메뉴 등록 버튼(메뉴 등록 기능 작동) */
-$(document).ready(function(){
+/* $(document).ready(function(){
 	$("#updateButton").click(function(){
 	$("#updateForm").attr("action", "edit_item");
 	$("#updateForm").submit();
 	});
-});
+}); */
+		 
+function frmFunc(){
+	var rtn;
+	rtn = confirm('수정하시겠습니까?');
+	
+	if(rtn){
+		document.getElementById("updateForm").submit();
+		//item_list페이지로 이동하게
+	}else{
+		return false;
+	}
+}
 
 
 </script>
