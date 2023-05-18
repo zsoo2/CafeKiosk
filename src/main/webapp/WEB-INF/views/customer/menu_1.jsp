@@ -136,9 +136,9 @@
 								<td><c:out value = "${i}"/><p></td>
 								<td>아이스아메리카노</td>
 								<td>
-									<input type="button" name="minus" id="minus" onclick='count("minus")' value="-"/>
-									<input type="number" name="price" id="price" min="0" value="1" readonly/>
-									<input type="button" name="plus" id="plus"onclick='count("plus")'value="+"/>
+									<input type="button" name="minus" id="minus" onclick='count("minus",${i})' value="-"/>
+									<input type="number" name="price" class="price" id="price" min="0" value="1" readonly/>
+									<input type="button" name="plus" id="plus"onclick='count("plus",${i})'value="+"/>
 								</td>
 								<td>3000<span>원</span></td>
 								<td>
@@ -176,6 +176,25 @@
 	
 </body>
 <script type="text/javascript">
+	function count(type,i) {
+		/* const resultElement = document.getElementById("price"); */
+		const resultElement = document.getElementsByClassName("price")[i-1];
+		let number = resultElement.value;
+		console.log(i);
+		
+		if(type === 'plus') {
+			   number = parseInt(number) + 1;
+			}else if(type === 'minus') {
+			   number = parseInt(number) - 1;
+			    if(number < 0) {
+			    	number = 0;
+			    }else {
+			    	number = number;
+			    }
+			}
+		
+		resultElement.value = number;
+	}
 	// 팝업 열기 
 	function PopupInfo(e) {
 		var row_span = e.getElementsByTagName("span");
