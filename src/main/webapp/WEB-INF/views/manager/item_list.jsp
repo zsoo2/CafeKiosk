@@ -19,7 +19,7 @@
 			<div class="itembox">
 				<div class="button_box">
 					<input type="button" id="insert" onclick="location.href='/manager/insert_item'" value="추가">
-					<input type="submit" name="deleteButton" id="deleteButton"  value="삭제">
+					<input type="button" name="deleteButton" id="deleteButton" onclick="frmFunc()" value="삭제">
 				</div>
 				<div class="list_box">
 					<table>
@@ -58,7 +58,6 @@
 </body>
 <script type="text/javascript">
 
-
 	// th 체크박스	 --> 전체 체크하는 체크박스
 	function SelectAll(selectAll)  {
 	    var checkboxes = document.getElementsByName('chk_list');
@@ -81,15 +80,37 @@
 	   }
 	}
 	
-	/* 메뉴삭제 버튼(메뉴 삭제 기능 작동) */
-	$(document).ready(function(){
-		$("#deleteButton").click(function(){
-			$("#listForm").attr("action", "delete_item");
-			$("#listForm").submit();
-		});
-	});
+	// 체크박스 선택 여부 확인
+	function CheckTest() {
+		var checkboxes = document.getElementsByName("chk_list");
+		
+		for (var i = 0; i < checkboxes.length; i++) {
+			if (checkboxes[i].checked) {
+				return true;
+			}
+		}	
+		alert("삭제할 항목을 선택하세요.");
+		return false;		
+	}
 
 
+	/* alert */
+	function frmFunc(){
+
+		if(CheckTest() == false) {
+		} else{
+			var rtn;
+			rtn = confirm('정말 삭제하시겠습니까?');
+			
+			if(rtn) {
+				/* 메뉴삭제 버튼(메뉴 삭제 기능 작동) */
+				$("#listForm").attr("action", "delete_item");
+				$("#listForm").submit();
+			} else{
+				return false;
+			}
+		}
+	}
 
 </script>
 </html>

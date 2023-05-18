@@ -113,7 +113,7 @@
 				<div class="popup_submit">
 					<div>
 						<input type="button" name="#" id="#" value="취소" onclick="location.href='/manager/manager'">
-						<input type="submit" name="#" id="updateButton" value="수정" onclick="frmFunc()">
+						<input type="button" name="#" id="updateButton" value="수정" onclick="frmFunc()">
 					</div>
 				</div>
 			</div>
