@@ -137,7 +137,7 @@
 								<td>아이스아메리카노</td>
 								<td>
 									<input type="button" name="minus" id="minus" onclick='count("minus",${i})' value="-"/>
-									<input type="number" name="price" id="price" min="0" value="1" readonly/>
+									<input type="number" name="price" class="price" id="price" min="0" value="1" readonly/>
 									<input type="button" name="plus" id="plus"onclick='count("plus",${i})'value="+"/>
 								</td>
 								<td>3000<span>원</span></td>
