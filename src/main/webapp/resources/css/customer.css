@@ -133,21 +133,33 @@ html {
 .customer_menu>input[id="tab04"]:checked ~ .con4 {
 	display: block;
 } 
-
+.scroll_container {
+	position: relative;
+    overflow: auto;
+    width: 100%;
+    height: 94%;
+    margin-top: 2%;
+}
 .container {
-	display: grid;
-	width: 94%;
-	height: 95%;
+    display: grid;
+    position: absolute;
+    width: 94%;
+    height: 95%;
     margin: auto;
     padding: 2%;
-	background-color: #fff0f5;
-	grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-	grid-gap: 1vw ;
+    background-color: #fff0f5;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1vw;
+    grid-auto-rows: 279px;
+    grid-auto-flow: row;
 }
 .item {
 	background-color: white;
 	cursor: pointer;
+}
+.item_name {
+	text-align: center;
+	font-size: 1.2vw;
 }
 .item_img {
 	position: relative;
@@ -158,9 +170,11 @@ html {
 	width: 50%;
 	height: 30%;
 	margin: auto;
+	text-align: center;
 }
 .item_price>span {
-	font-size: 2vw;
+	font-size: 1.5vw;
+	font-weight: 600;
 	text-align: center;
 }
 .item .item_img img {
@@ -1021,7 +1035,7 @@ html {
 	}
 	.conbox {
 		width: 100%;
-		height: 494%;
+		height: 513%;
 		background: #fff0f5;
 		margin: 0 auto;
 		display: none;
@@ -1038,16 +1052,25 @@ html {
 	.customer_menu>input[id="tab04"]:checked ~ .con4 {
 		display: block;
 	} 
+	.scroll_container {
+		position: relative;
+	    overflow: auto;
+	    width: 100%;
+	    height: 94%;
+	    margin-top: 2%;
+	}
 	.container {
-		display: grid;
-		width: 96%;
-		height: 95%;
+	    display: grid;
+	    position: absolute;
+	    width: 94%;
+	    height: 95%;
 	    margin: auto;
 	    padding: 2%;
-		background-color: #fff0f5;
-		grid-template-columns: 1fr 1fr 1fr;
-	    grid-template-rows: 1fr 1fr 1fr;
-		grid-gap: 1vw ;
+	    background-color: #fff0f5;
+	    grid-template-columns: 1fr 1fr 1fr;
+	    grid-gap: 1vw;
+	    grid-auto-rows: 279px;
+	    grid-auto-flow: row;
 	}
 	.item {
 		background-color: white;
@@ -1062,10 +1085,11 @@ html {
 		width: 50%;
 		height: 30%;
 		margin: auto;
+		text-align: center;
 	}
 	.item_price>span {
 		font-size: 2vw;
-		text-align: center;
+
 	}
 	.item .item_img img {
 		position: absolute; top: 0; left: 0;
@@ -1918,7 +1942,7 @@ html {
 	}
 	.conbox {
 		width: 100%;
-		height: 494%;
+		height: 525%;
 		background: #fff0f5;
 		margin: 0 auto;
 		display: none;
@@ -1935,16 +1959,25 @@ html {
 	.customer_menu>input[id="tab04"]:checked ~ .con4 {
 		display: block;
 	} 
+	.scroll_container {
+		position: relative;
+	    overflow: auto;
+	    width: 100%;
+	    height: 94%;
+	    margin-top: 2%;
+	}
 	.container {
-		display: grid;
-		width: 96%;
-		height: 95%;
+	    display: grid;
+	    position: absolute;
+	    width: 94%;
+	    height: 95%;
 	    margin: auto;
 	    padding: 2%;
-		background-color: #fff0f5;
-		grid-template-columns: 1fr 1fr 1fr;
-	    grid-template-rows: 1fr 1fr 1fr;
-		grid-gap: 1vw ;
+	    background-color: #fff0f5;
+	    grid-template-columns: 1fr 1fr 1fr;
+	    grid-gap: 1vw;
+	    grid-auto-rows: 279px;
+	    grid-auto-flow: row;
 	}
 	.item {
 		background-color: white;

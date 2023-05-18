@@ -30,6 +30,7 @@
 				<input type="radio" name="tab_menu" id="tab04">
 				<label for="tab04" onclick="location.href='/customer/menu_4'">디저트</label>
 				<div class="conbox con3">
+				<div class="scroll_container">
 					<div class="container">			
 
 					<c:forEach var="list" items="${menuList}">
@@ -38,11 +39,11 @@
 							<div class="item_img">
 								<img src="../resources/image/menu/americano.png" alt="아메리카노"/>
 							</div>
-							<div>
+							<div class="item_name">
 								<span>${list.menu_name}</span>
 							</div>
 							<div class="item_price">
-								<span>${list.menu_price} 원</span>
+								<span>${list.menu_price}원</span>
 							</div>
 							<span style="display:none">${list.option1_YN}</span>
 							<span style="display:none">${list.option2_YN}</span>
@@ -112,6 +113,7 @@
 							</div>
 						</div>
 						<!-- </form> -->
+					</div>
 					</div>
 				</div>
 			</div>
