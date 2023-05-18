@@ -5,6 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
+<script
+  src="https://code.jquery.com/jquery-3.6.4.js"
+  integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+  crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../resources/css/main.css">
 <link rel="stylesheet" href="../resources/css/customer.css">
 </head>
@@ -25,79 +30,26 @@
 				<input type="radio" name="tab_menu" id="tab04">
 				<label for="tab04" onclick="location.href='/customer/menu_4'">디저트</label>
 				<div class="conbox con1">
-					<div class="container" id="menu_1">			
-						<div class="item" onclick="openPop()">
+					<div class="container">			
+						
+					<c:forEach var="list" items="${menuList}">
+						<div class="item" onclick="PopupInfo(this)">
+							<span style="display:none">${list.menu_idx}</span>
 							<div class="item_img">
 								<img src="../resources/image/menu/americano.png" alt="아메리카노"/>
 							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/cafelatte.png" alt="카페라떼"/>
+							<div>
+								<span>${list.menu_name}</span>
 							</div>
 							<div class="item_price">
-								<span>음료 가격</span>
+								<span>${list.menu_price} 원</span>
 							</div>
+							<span style="display:none">${list.option1_YN}</span>
+							<span style="display:none">${list.option2_YN}</span>
+							<span style="display:none">${list.option3_YN}</span>
 						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/caramelmacchiato.png" alt="카라멜마끼야또"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/cafemocha.png" alt="카페모카"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<img src="../resources/image/menu/vanillalatte.png" alt="바닐라라떼"/>
-							</div>
-							<div class="item_price">
-								<span>음료 가격</span>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<!-- <img src="../resources/image/menu/americano.png" alt="아메리카노"/> -->
-							</div>
-							<div class="item_price">
-								<!-- <span>음료 가격</span> -->
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<!-- <img src="../resources/image/menu/americano.png" alt="아메리카노"/> -->
-							</div>
-							<div class="item_price">
-								<!-- <span>음료 가격</span> -->
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<!-- <img src="../resources/image/menu/americano.png" alt="아메리카노"/> -->
-							</div>
-							<div class="item_price">
-								<!-- <span>음료 가격</span> -->
-							</div>
-						</div>
-						<div class="item">
-							<div class="item_img">
-								<!-- <img src="../resources/image/menu/americano.png" alt="아메리카노"/> -->
-							</div>
-							<div class="item_price">
-								<!-- <span>음료 가격</span> -->
-							</div>
-						</div>
+					</c:forEach>
+						
 						<!-- <form> -->
 						<div id="popup" class="popup">
 							<div class="popup_close">
@@ -109,8 +61,15 @@
 										<div><img src="../resources/image/menu/americano.png" alt="아메리카노"/></div>
 									</div>
 									<div class="popup_detail">
-										<div class="popup_option"><span>아메리카노</span></div>
 										<div class="popup_option">
+											<input type="hidden" id="info_menu_idx">
+											<span id="info_menu_name"></span>
+											<input type="hidden" id="info_menu_price">
+											<span id="info_menu_option1" style="display:none"></span>
+											<span id="info_menu_option2" style="display:none"></span>
+											<span id="info_menu_option3" style="display:none"></span>
+										</div>
+										<div class="popup_option" id="popup_option1" style="display:none">
 											<div class="popup_option_btn">
 												<input type="radio" name="option" id="option01" value="HOT" checked><label for="option01">HOT</label>
 											</div>
@@ -127,7 +86,7 @@
 				
 								</div>
 								<div class="popup_contents2">
-									<div class="popup_list">
+									<div class="popup_list" id="popup_option2" style="display:none">
 										<div class="popup_listname"><span>샷 추가</span></div>
 										<div class="popup_listitem">
 											<input type="button" name="minus" id="minus" onclick='shotCount("minus")' value="-"/>
@@ -135,7 +94,7 @@
 											<input type="button" name="plus" id="plus"onclick='shotCount("plus")'value="+"/>
 										</div>
 									</div>
-									<div class="popup_list">
+									<div class="popup_list" id="popup_option3" style="display:none">
 										<div class="popup_listname"><span>얼음양</span></div>
 										<div class="popup_listitem">
 											<input type="radio" name="ice" id="0"/>
@@ -215,11 +174,40 @@
 	
 </body>
 <script type="text/javascript">
-	/* 팝업 열고 닫기 */
-	function openPop(){
-		document.getElementById("popup").style.display ="block";
-/* 		popBlur(true); */
+	// 팝업 열기 
+	function PopupInfo(e) {
+		var row_span = e.getElementsByTagName("span");
+	   	var modal = document.getElementById("popup");
+	   
+	   	document.getElementById("info_menu_idx").value 			= row_span[0].innerHTML;
+	   	document.getElementById("info_menu_name").innerHTML 	= row_span[1].innerHTML;
+	   	document.getElementById("info_menu_price").value 		= row_span[2].innerHTML;
+	   	document.getElementById("info_menu_option1").innerHTML 	= row_span[3].innerHTML;
+	   	document.getElementById("info_menu_option2").innerHTML 	= row_span[4].innerHTML;
+	   	document.getElementById("info_menu_option3").innerHTML 	= row_span[5].innerHTML;
+	   	
+	   	if (row_span[3].innerHTML == 'Y') {
+	   		document.getElementById("popup_option1").style.display ="block";
+		}else {
+			document.getElementById("popup_option1").style.display ="none";
+		}
+	   	
+	   	if (row_span[5].innerHTML == 'Y') {
+	   		document.getElementById("popup_option2").style.display ="block";
+		}else {
+			document.getElementById("popup_option2").style.display ="none";
+		}
+	   	
+	   	if (row_span[4].innerHTML == 'Y') {
+	   		document.getElementById("popup_option3").style.display ="block";
+		}else {
+			document.getElementById("popup_option3").style.display ="none";
+		}
+	   	
+	   	modal.style.display ="block";
 	}
+	
+	/* 팝업 닫기 */
 	function closePop() {
 		document.getElementById("popup").style.display ="none";
 /* 		popBlur(false); */
