@@ -43,7 +43,7 @@
 								<span>${list.menu_name}</span>
 							</div>
 							<div class="item_price">
-								<span>${list.menu_price}원</span>
+								<span>${list.menu_price}</span>원
 							</div>
 							<span style="display:none">${list.option1_YN}</span>
 							<span style="display:none">${list.option2_YN}</span>
@@ -51,68 +51,76 @@
 						</div>
 					</c:forEach>
 						
-						<!-- <form> -->
-						<div id="popup" class="popup">
-							<div class="popup_close">
-								<img src="../resources/image/icon/x-icon.png" onclick="closePop()">
-							</div>
-							<div class="popup_container">
-								<div class="popup_contents1">
-									<div class="popup_img">
-										<div><img src="../resources/image/menu/americano.png" alt="아메리카노"/></div>
-									</div>
-									<div class="popup_detail">
-										<div class="popup_option">
-											<input type="hidden" id="info_menu_idx">
-											<span id="info_menu_name"></span>
-											<input type="hidden" id="info_menu_price">
-											<span id="info_menu_option1" style="display:none"></span>
-											<span id="info_menu_option2" style="display:none"></span>
-											<span id="info_menu_option3" style="display:none"></span>
-										</div>
-										<div class="popup_option" id="popup_option1" style="display:none">
-											<div class="popup_option_btn">
-												<input type="radio" name="option" id="option01" value="HOT" checked><label for="option01">HOT</label>
-											</div>
-											<div class="popup_option_btn">
-												<input type="radio" name="option" id="option02" value="ICED"><label for="option02">ICED</label>
-											</div>
-										</div>
-										<div class="popup_option">
-											<input type="button" name="minus" id="minus" onclick='quantity("minus")' value="-"/>
-											<input type="number" name="quantity" id="quantity" min="0" value="1" readonly/>
-											<input type="button" name="plus" id="plus"onclick='quantity("plus")'value="+"/>
-										</div>
-									</div>
-				
+						
+						
+						<form id="insertCartForm" method="post">
+							<div id="popup" class="popup">
+								<div class="popup_close">
+									<img src="../resources/image/icon/x-icon.png" onclick="closePop()">
 								</div>
-								<div class="popup_contents2">
-									<div class="popup_list" id="popup_option2" style="display:none">
-										<div class="popup_listname"><span>샷 추가</span></div>
-										<div class="popup_listitem">
-											<input type="button" name="minus" id="minus" onclick='shotCount("minus")' value="-"/>
-											<input type="number" name="option3" id="option3" min="0" value="1" readonly/>
-											<input type="button" name="plus" id="plus"onclick='shotCount("plus")'value="+"/>
+								<div class="popup_container">
+									<div class="popup_contents1">
+										<div class="popup_img">
+											<div><img src="../resources/image/menu/americano.png" alt="아메리카노"/></div>
 										</div>
+										<div class="popup_detail">
+											<div class="popup_option">
+												<input type="hidden" id="info_menu_idx" name="menu_idx">
+												<input type="text" id="info_menu_name" name="menu_name"> 
+											 <span id="info_menu_name2"></span>
+											<input type="text" id="info_menu_price" name="menu_price">
+										
+												<span id="info_menu_option1" style="display:none"></span>
+												<span id="info_menu_option2" style="display:none"></span>
+												<span id="info_menu_option3" style="display:none"></span>
+											</div>
+											<div class="popup_option" id="popup_option1" style="display:none">
+												<div class="popup_option_btn">
+													<input type="radio" name="option1" id="option01" value="hot" checked><label for="option01">HOT</label>
+												</div>
+												<div class="popup_option_btn">
+													<input type="radio" name="option1" id="option02" value="ice"><label for="option02">ICED</label>
+												</div>
+											</div>
+											<div class="popup_option">
+												<input type="button" name="minus" id="minus" onclick='checkQuantity("minus")' value="-"/>
+												<input type="number" name="count" id="quantity" min="1" value="1" readonly/>
+												<input type="button" name="plus" id="plus" onclick='checkQuantity("plus")' value="+"/>
+											</div>
+										</div>
+					
 									</div>
-									<div class="popup_list" id="popup_option3" style="display:none">
-										<div class="popup_listname"><span>얼음양</span></div>
-										<div class="popup_listitem">
-											<input type="radio" name="ice" id="0"/>
-											<label for="0">적게</label>
-											<input type="radio" name="ice" id="1" checked/>
-											<label for="1">보통</label>
-											<input type="radio" name="ice" id="2"/>
-											<label for="2">많이</label>
+									<div class="popup_contents2">
+										<div class="popup_list" id="popup_option2" style="display:none">
+											<div class="popup_listname"><span>샷 추가</span></div>
+											<div class="popup_listitem">
+												<input type="button" name="minus" id="minus" onclick='shotCount("minus")' value="-"/>
+												<input type="number" name="option3" id="option3" min="0" value="0" readonly/>
+												<input type="button" name="plus" id="plus" onclick='shotCount("plus")' value="+"/>
+											</div>
+										</div>
+										<div class="popup_list" id="popup_option3" style="display:none">
+											<div class="popup_listname"><span>얼음양</span></div>
+											<div class="popup_listitem">
+												<input type="radio" name="option2" id="ice_0" value="0"/>
+												<label for="ice_0">적게</label>
+												<input type="radio" name="option2" id="ice_1" value="1" checked/>
+												<label for="ice_1">보통</label>
+												<input type="radio" name="option2" id="ice_2" value="2"/>
+												<label for="ice_2">많이</label>
+											</div>
 										</div>
 									</div>
 								</div>
+								<div class="popup_submit">
+									<input type="submit" name="#" id="#" value="확인">
+								</div>
 							</div>
-							<div class="popup_submit">
-								<input type="submit" name="#" id="#" value="확인">
-							</div>
-						</div>
-						<!-- </form> -->
+						</form>
+					
+					
+					
+			
 					</div>
 					</div>
 				</div>
@@ -201,7 +209,8 @@
 	   	var modal = document.getElementById("popup");
 	   
 	   	document.getElementById("info_menu_idx").value 			= row_span[0].innerHTML;
-	   	document.getElementById("info_menu_name").innerHTML 	= row_span[1].innerHTML;
+	   	document.getElementById("info_menu_name").value 		= row_span[1].innerHTML;
+	   	document.getElementById("info_menu_name2").innerHTML 	= row_span[1].innerHTML;
 	   	document.getElementById("info_menu_price").value 		= row_span[2].innerHTML;
 	   	document.getElementById("info_menu_option1").innerHTML 	= row_span[3].innerHTML;
 	   	document.getElementById("info_menu_option2").innerHTML 	= row_span[4].innerHTML;
@@ -231,6 +240,12 @@
 	/* 팝업 닫기 */
 	function closePop() {
 		document.getElementById("popup").style.display ="none";
+		document.getElementById("quantity").value = "1";
+		document.getElementById("option3").value = "0";
+		document.getElementById("option01").checked = true;
+		document.getElementById("ice_1").checked = true;
+		
+
 /* 		popBlur(false); */
 	}
 	
@@ -242,31 +257,34 @@
 			document.getElementById("wrap").style.opacity="0.3";
 		}
 	}
+	
 	/* 수량 증가, 감소 */
-	function quantity(type) {
+	function checkQuantity(type) {
 		const resultElement = document.getElementById("quantity");
 		let quantity = resultElement.value;
-/* 		console.log(quantity); */
+	
 
 		if(type === 'plus') {
 			quantity = parseInt(quantity) + 1;
-			}else if(type === 'minus') {
-				quantity = parseInt(quantity) - 1;
-			    if(quantity < 0) {
-			    	quantity = 0;
-			    }else {
-			    	quantity = quantity;
-			    }
-			}
+		}else if(type === 'minus') {
+			quantity = parseInt(quantity) - 1;
+		    if(quantity < 0) {
+		    	quantity = 0;
+		    }else {
+		    	quantity = quantity;
+		    }
+		}
 		
 		resultElement.value = quantity;
+		
+		console.log(quantity);
 	}
+	
 	/* 샷 추가 */
 	function shotCount(type) {
 		const resultElement = document.getElementById("option3");
 		let option3 = resultElement.value;
-/* 		console.log(quantity); */
-
+ 
 		if(type === 'plus') {
 			option3 = parseInt(option3) + 1;
 			}else if(type === 'minus') {
@@ -279,6 +297,9 @@
 			}
 		
 		resultElement.value = option3;
+		
+ 		console.log(option3);
+
 	}
 </script>
 </html>

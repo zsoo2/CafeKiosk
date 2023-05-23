@@ -3,6 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.cafekiosk.mapper.CustomerMapper">
+  
+  	<!-- 메뉴 조회 -->
 	<select id="getMenuList" resultType="com.cafekiosk.model.ManageMenuVO">
 		SELECT 	menu_idx, menu_name, menu_price, 
 		 		menu_category, menu_picture, 
@@ -10,4 +12,13 @@
 		FROM manage_menu
 		WHERE menu_category = #{tabName};
 	</select>
+	
+	<!-- 장바구니 등록 -->
+	<insert id="insertCart">
+		INSERT INTO cart
+			(menu_idx, menu_name, menu_price, count, option1, option2, option3, option_price, active_YN)
+		VALUES (#{menu_idx}, #{menu_name}, #{menu_price}, #{count}, #{option1}, #{option2}, #{option3}, #{option_price}, #{active_YN});
+	</insert>
+	
+	
   </mapper>
