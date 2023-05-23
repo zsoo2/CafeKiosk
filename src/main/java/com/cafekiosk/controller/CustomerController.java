@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cafekiosk.model.CartVO;
 import com.cafekiosk.model.ManageMenuVO;
 import com.cafekiosk.service.CustomerService;
 
@@ -74,7 +75,36 @@ public class CustomerController {
 		return "/customer/menu_4";
 	}
 	
+	//장바구니 메뉴 추가
+	@RequestMapping(value="/customer/menu_1", method = RequestMethod.POST)
+	public String insertCart(CartVO cart) throws Exception {
+		logger.info("insert Cart 페이지 진입");
 	
+		int itemCount = cart.getCount();
+		int itemPrice = cart.getMenu_price();
+		int itemOption = Integer.parseInt(cart.getOption3())*500;		
+		int totalPrice = itemCount*(itemPrice + itemOption);
+		
+		cart.setOption_price(totalPrice);
+		cart.setActive_YN("Y");
+		 
+		System.out.println(cart);
+		
+		customerService.insertCart(cart);
+		
+		logger.info("insert Cart 성공");
+		
+//		String addr = "";
+//		if(// 장바구니 등록 메뉴 카테고리별 주소 다르게 ) {
+//			addr = "menu_1";
+//		}
+//		
+//		return "redirect:/customer/" + addr ;
+		return "redirect:/customer/menu_1";	// 일단 등록 완료하면 menu_1 로 가는걸로 고정
+	}
+	
+		
+		
 	@RequestMapping(value="/customer/check_member", method = RequestMethod.GET)
 	public void checkMemberPageGet() {
 		logger.info("check_member 페이지 진입");
