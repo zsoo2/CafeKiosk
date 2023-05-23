@@ -57,7 +57,7 @@
 						<div class="itemValue">
 							<select name="menu_category" id="menu_category">						<!-- 아이템카테고리 -->
 								<option value="coffee">커피</option>
-								<option value="tea/ade">티/에이드</option>
+								<option value="teaade">티/에이드</option>
 								<option value="noncoffee">논커피</option>
 								<option value="dessert">디저트</option>
 							</select>			
