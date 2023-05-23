@@ -17,6 +17,8 @@ public class CartVO {
 	private String option3;
 	
 	private int option_price;
+	
+	private String active_YN;
 
 	public int getMenu_idx() {
 		return menu_idx;
@@ -82,13 +84,19 @@ public class CartVO {
 		this.option_price = option_price;
 	}
 
-	
-	
+	public String getActive_YN() {
+		return active_YN;
+	}
+
+	public void setActive_YN(String active_YN) {
+		this.active_YN = active_YN;
+	}
+
 	@Override
 	public String toString() {
 		return "CartVO [menu_idx=" + menu_idx + ", menu_name=" + menu_name + ", menu_price=" + menu_price + ", count="
 				+ count + ", option1=" + option1 + ", option2=" + option2 + ", option3=" + option3 + ", option_price="
-				+ option_price + "]";
+				+ option_price + ", active_YN=" + active_YN + "]";
 	}
 	
 	
