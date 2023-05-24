@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafekiosk.model.CartVO;
 import com.cafekiosk.model.ManageMenuVO;
@@ -43,7 +41,9 @@ public class CustomerController {
 	public String getCoffeePage(Model model) {
 		logger.info("customer_coffee 페이지 진입");
 		List<ManageMenuVO> menuList = customerService.getMenuList("coffee");
+		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
+		model.addAttribute("cartList", cartList);
 		
 		return "/customer/menu_1";
 	}
@@ -52,7 +52,9 @@ public class CustomerController {
 	public String getTeaadePage(Model model) {
 		logger.info("customer_teaade 페이지 진입");
 		List<ManageMenuVO> menuList = customerService.getMenuList("teaade");
+		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
+		model.addAttribute("cartList", cartList);
 		
 		return "/customer/menu_2";
 	}
@@ -61,7 +63,9 @@ public class CustomerController {
 	public String getNoncoffeePage(Model model) {
 		logger.info("customer_noncoffee 페이지 진입");
 		List<ManageMenuVO> menuList = customerService.getMenuList("noncoffee");
+		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
+		model.addAttribute("cartList", cartList);
 		
 		return "/customer/menu_3";
 	}
@@ -70,20 +74,23 @@ public class CustomerController {
 	public String getDessertPage(Model model) {
 		logger.info("customer_dessert 페이지 진입");
 		List<ManageMenuVO> menuList = customerService.getMenuList("dessert");
+		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
+		model.addAttribute("cartList", cartList);
 		
 		return "/customer/menu_4";
 	}
 	
 	//장바구니 메뉴 추가
-	@RequestMapping(value="/customer/menu_1", method = RequestMethod.POST)
-	public String insertCart(CartVO cart) throws Exception {
+	@RequestMapping(value="/customer/insertCart", method = RequestMethod.POST)
+	public String insertCart(CartVO cart, HttpServletRequest request) throws Exception {
 		logger.info("insert Cart 페이지 진입");
 	
 		int itemCount = cart.getCount();
 		int itemPrice = cart.getMenu_price();
-		int itemOption = Integer.parseInt(cart.getOption3())*500;		
-		int totalPrice = itemCount*(itemPrice + itemOption);
+		int shot = 500;
+		int shotCount = Integer.parseInt(cart.getOption3()) * shot;		
+		int totalPrice = itemCount*(itemPrice + shotCount);
 		
 		cart.setOption_price(totalPrice);
 		cart.setActive_YN("Y");
@@ -94,13 +101,22 @@ public class CustomerController {
 		
 		logger.info("insert Cart 성공");
 		
-//		String addr = "";
-//		if(// 장바구니 등록 메뉴 카테고리별 주소 다르게 ) {
-//			addr = "menu_1";
-//		}
-//		
-//		return "redirect:/customer/" + addr ;
-		return "redirect:/customer/menu_1";	// 일단 등록 완료하면 menu_1 로 가는걸로 고정
+		String menu_cate = request.getParameter("menu_cate");
+		String addr = "";
+		
+		if (menu_cate.equals("coffee")) {
+			addr = "menu_1";
+		} else if(menu_cate.equals("teaade")) {
+			addr = "menu_2";
+		} else if(menu_cate.equals("noncoffee")) {
+			addr = "menu_3";
+		} else if(menu_cate.equals("dessert")) {
+			addr = "menu_4";
+		} else {
+			addr = "menu_1";
+		}
+		
+		return "redirect:/customer/" + addr;
 	}
 	
 		

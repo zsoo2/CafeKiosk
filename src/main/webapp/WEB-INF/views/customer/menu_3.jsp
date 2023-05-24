@@ -43,7 +43,7 @@
 								<span>${list.menu_name}</span>
 							</div>
 							<div class="item_price">
-								<span>${list.menu_price}원</span>
+								<span>${list.menu_price}</span>원
 							</div>
 							<span style="display:none">${list.option1_YN}</span>
 							<span style="display:none">${list.option2_YN}</span>
@@ -51,68 +51,70 @@
 						</div>
 					</c:forEach>
 						
-						<!-- <form> -->
-						<div id="popup" class="popup">
-							<div class="popup_close">
-								<img src="../resources/image/icon/x-icon.png" onclick="closePop()">
-							</div>
-							<div class="popup_container">
-								<div class="popup_contents1">
-									<div class="popup_img">
-										<div><img src="../resources/image/menu/americano.png" alt="아메리카노"/></div>
-									</div>
-									<div class="popup_detail">
-										<div class="popup_option">
-											<input type="hidden" id="info_menu_idx">
-											<span id="info_menu_name"></span>
-											<input type="hidden" id="info_menu_price">
-											<span id="info_menu_option1" style="display:none"></span>
-											<span id="info_menu_option2" style="display:none"></span>
-											<span id="info_menu_option3" style="display:none"></span>
-										</div>
-										<div class="popup_option" id="popup_option1" style="display:none">
-											<div class="popup_option_btn">
-												<input type="radio" name="option" id="option01" value="HOT" checked><label for="option01">HOT</label>
-											</div>
-											<div class="popup_option_btn">
-												<input type="radio" name="option" id="option02" value="ICED"><label for="option02">ICED</label>
-											</div>
-										</div>
-										<div class="popup_option">
-											<input type="button" name="minus" id="minus" onclick='quantity("minus")' value="-"/>
-											<input type="number" name="quantity" id="quantity" min="0" value="1" readonly/>
-											<input type="button" name="plus" id="plus"onclick='quantity("plus")'value="+"/>
-										</div>
-									</div>
-				
+						<form id="insertCartForm" method="post" action="/customer/insertCart">
+							<div id="popup" class="popup">
+								<div class="popup_close">
+									<img src="../resources/image/icon/x-icon.png" onclick="closePop()">
 								</div>
-								<div class="popup_contents2">
-									<div class="popup_list" id="popup_option2" style="display:none">
-										<div class="popup_listname"><span>샷 추가</span></div>
-										<div class="popup_listitem">
-											<input type="button" name="minus" id="minus" onclick='shotCount("minus")' value="-"/>
-											<input type="number" name="option3" id="option3" min="0" value="1" readonly/>
-											<input type="button" name="plus" id="plus"onclick='shotCount("plus")'value="+"/>
+								<div class="popup_container">
+									<div class="popup_contents1">
+										<div class="popup_img">
+											<div><img src="../resources/image/menu/americano.png" alt="아메리카노"/></div>
 										</div>
+										<div class="popup_detail">
+											<div class="popup_option">
+												<input type="hidden" id="info_menu_idx" name="menu_idx">
+												<input type="hidden" id="info_menu_name" name="menu_name"> 
+												<input type="hidden" id="info_menu_price" name="menu_price">
+											 	<span id="info_menu_name2"></span>
+												<span id="info_menu_option1" style="display:none"></span>
+												<span id="info_menu_option2" style="display:none"></span>
+												<span id="info_menu_option3" style="display:none"></span>
+											</div>
+											<div class="popup_option" id="popup_option1" style="display:none">
+												<div class="popup_option_btn">
+													<input type="radio" name="option1" id="option1" value="hot" checked><label for="option1">HOT</label>
+												</div>
+												<div class="popup_option_btn">
+													<input type="radio" name="option1" id="option2" value="ice"><label for="option2">ICED</label>
+												</div>
+											</div>
+											<div class="popup_option">
+												<input type="button" name="minus" id="minus" onclick='checkQuantity("minus")' value="-"/>
+												<input type="number" name="count" id="quantity" min="1" value="1" readonly/>
+												<input type="button" name="plus" id="plus" onclick='checkQuantity("plus")' value="+"/>
+											</div>
+										</div>
+					
 									</div>
-									<div class="popup_list" id="popup_option3" style="display:none">
-										<div class="popup_listname"><span>얼음양</span></div>
-										<div class="popup_listitem">
-											<input type="radio" name="ice" id="0"/>
-											<label for="0">적게</label>
-											<input type="radio" name="ice" id="1" checked/>
-											<label for="1">보통</label>
-											<input type="radio" name="ice" id="2"/>
-											<label for="2">많이</label>
+									<div class="popup_contents2">
+										<div class="popup_list" id="popup_option2" style="display:none">
+											<div class="popup_listname"><span>샷 추가</span></div>
+											<div class="popup_listitem">
+												<input type="button" name="minus" id="minus" onclick='shotCount("minus")' value="-"/>
+												<input type="number" name="option3" id="option3" min="0" value="0" readonly/>
+												<input type="button" name="plus" id="plus" onclick='shotCount("plus")' value="+"/>
+											</div>
+										</div>
+										<div class="popup_list" id="popup_option3" style="display:none">
+											<div class="popup_listname"><span>얼음양</span></div>
+											<div class="popup_listitem">
+												<input type="radio" name="option2" id="ice_0" value="1"/>
+												<label for="ice_0">적게</label>
+												<input type="radio" name="option2" id="ice_1" value="2" checked/>
+												<label for="ice_1">보통</label>
+												<input type="radio" name="option2" id="ice_2" value="3"/>
+												<label for="ice_2">많이</label>
+											</div>
 										</div>
 									</div>
 								</div>
+								<input type="hidden" name="menu_cate" value="noncoffee">
+								<div class="popup_submit">
+									<input type="submit" name="#" id="#" value="확인">
+								</div>
 							</div>
-							<div class="popup_submit">
-								<input type="submit" name="#" id="#" value="확인">
-							</div>
-						</div>
-						<!-- </form> -->
+						</form>
 					</div>
 					</div>
 				</div>
@@ -175,6 +177,7 @@
 </div>
 </body>
 <script type="text/javascript">
+
 	function count(type,i) {
 		/* const resultElement = document.getElementById("price"); */
 		const resultElement = document.getElementsByClassName("price")[i-1];
@@ -194,13 +197,23 @@
 		
 		resultElement.value = number;
 	}
+	
 	// 팝업 열기 
 	function PopupInfo(e) {
-		var row_span = e.getElementsByTagName("span");
-	   	var modal = document.getElementById("popup");
+		var row_span 	= e.getElementsByTagName("span");
+	   	var modal 		= document.getElementById("popup");
+	   	
+		document.getElementById("quantity").value 	= "1";
+		document.getElementById("option3").value 	= "0";
+		document.getElementById("option1").checked 	= true;
+		document.getElementById("ice_1").checked 	= true;
+		
+		document.getElementById("option1").value = "hot";
+		document.getElementById("ice_1").value = "2";
 	   
 	   	document.getElementById("info_menu_idx").value 			= row_span[0].innerHTML;
-	   	document.getElementById("info_menu_name").innerHTML 	= row_span[1].innerHTML;
+	   	document.getElementById("info_menu_name").value 		= row_span[1].innerHTML;
+	   	document.getElementById("info_menu_name2").innerHTML 	= row_span[1].innerHTML;
 	   	document.getElementById("info_menu_price").value 		= row_span[2].innerHTML;
 	   	document.getElementById("info_menu_option1").innerHTML 	= row_span[3].innerHTML;
 	   	document.getElementById("info_menu_option2").innerHTML 	= row_span[4].innerHTML;
@@ -208,29 +221,31 @@
 	   	
 	   	if (row_span[3].innerHTML == 'Y') {
 	   		document.getElementById("popup_option1").style.display ="block";
-		}else {
+		}else {	// hot/ice
 			document.getElementById("popup_option1").style.display ="none";
+			document.getElementById("option1").value = "0";							
 		}
 	   	
 	   	if (row_span[5].innerHTML == 'Y') {
 	   		document.getElementById("popup_option2").style.display ="block";
-		}else {
-			document.getElementById("popup_option2").style.display ="none";
+		}else {	// 샷추가
+			document.getElementById("popup_option2").style.display ="none";	
 		}
 	   	
 	   	if (row_span[4].innerHTML == 'Y') {
 	   		document.getElementById("popup_option3").style.display ="block";
-		}else {
+		}else {	// 얼음양
 			document.getElementById("popup_option3").style.display ="none";
+			document.getElementById("ice_1").value = "0";	 						
 		}
 	   	
 	   	modal.style.display ="block";
 	}
-
+	
 	/* 팝업 닫기 */
 	function closePop() {
 		document.getElementById("popup").style.display ="none";
-/* 		popBlur(false); */
+		/* popBlur(false); */
 	}
 	
 	/* 팝업 열고 닫을 때 뒷배경 흐리게 */
@@ -241,31 +256,33 @@
 			document.getElementById("wrap").style.opacity="0.3";
 		}
 	}
+	
 	/* 수량 증가, 감소 */
-	function quantity(type) {
+	function checkQuantity(type) {
 		const resultElement = document.getElementById("quantity");
 		let quantity = resultElement.value;
-/* 		console.log(quantity); */
-
+	
 		if(type === 'plus') {
 			quantity = parseInt(quantity) + 1;
-			}else if(type === 'minus') {
-				quantity = parseInt(quantity) - 1;
-			    if(quantity < 0) {
-			    	quantity = 0;
-			    }else {
-			    	quantity = quantity;
-			    }
-			}
+		}else if(type === 'minus') {
+			quantity = parseInt(quantity) - 1;
+		    if(quantity < 0) {
+		    	quantity = 0;
+		    }else {
+		    	quantity = quantity;
+		    }
+		}
 		
 		resultElement.value = quantity;
+		
+		/* console.log(quantity); */
 	}
+	
 	/* 샷 추가 */
 	function shotCount(type) {
 		const resultElement = document.getElementById("option3");
 		let option3 = resultElement.value;
-/* 		console.log(quantity); */
-
+ 
 		if(type === 'plus') {
 			option3 = parseInt(option3) + 1;
 			}else if(type === 'minus') {
@@ -278,6 +295,9 @@
 			}
 		
 		resultElement.value = option3;
+		
+ 		/* console.log(option3); */
 	}
+	
 </script>
 </html>

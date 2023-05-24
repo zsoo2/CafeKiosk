@@ -25,9 +25,17 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 	@Override
-	//메뉴 등록
 	public void insertCart(CartVO cart) {
+		//장바구니 등록
 		customerMapper.insertCart(cart);
+	}
+	
+	@Override
+	public List<CartVO> getCartList() {
+		//장바구니 목록
+		List<CartVO> cartList = customerMapper.getCartList();
+		
+		return cartList;
 	}
 
 }
