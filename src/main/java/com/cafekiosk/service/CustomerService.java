@@ -12,4 +12,7 @@ public interface CustomerService {
 
 	//장바구니 등록
 	public void insertCart(CartVO cart) throws Exception;
+
+	//장바구니 목록
+	public List<CartVO> getCartList();
 }

@@ -16,9 +16,19 @@
 	<!-- 장바구니 등록 -->
 	<insert id="insertCart">
 		INSERT INTO cart
-			(menu_idx, menu_name, menu_price, count, option1, option2, option3, option_price, active_YN)
-		VALUES (#{menu_idx}, #{menu_name}, #{menu_price}, #{count}, #{option1}, #{option2}, #{option3}, #{option_price}, #{active_YN});
+			(menu_idx, menu_name, menu_price, count, 
+				option1, option2, option3, option_price, active_YN, reg_time)
+		VALUES (#{menu_idx}, #{menu_name}, #{menu_price}, #{count}, 
+				#{option1}, #{option2}, #{option3}, #{option_price}, #{active_YN}, now());
 	</insert>
 	
+  	<!-- 장바구니 조회 -->
+	<select id="getCartList" resultType="com.cafekiosk.model.CartVO">
+		SELECT 	menu_idx, menu_name, menu_price, count, 
+				option1, option2, option3, option_price, active_YN
+		FROM cart
+		WHERE active_YN = 'Y'
+		ORDER BY reg_time;
+	</select>
 	
   </mapper>

@@ -50,10 +50,8 @@
 							<span style="display:none">${list.option3_YN}</span>
 						</div>
 					</c:forEach>
-						
-						
-						
-						<form id="insertCartForm" method="post">
+										
+						<form id="insertCartForm" method="post" action="/customer/insertCart">
 							<div id="popup" class="popup">
 								<div class="popup_close">
 									<img src="../resources/image/icon/x-icon.png" onclick="closePop()">
@@ -66,20 +64,19 @@
 										<div class="popup_detail">
 											<div class="popup_option">
 												<input type="hidden" id="info_menu_idx" name="menu_idx">
-												<input type="text" id="info_menu_name" name="menu_name"> 
-											 <span id="info_menu_name2"></span>
-											<input type="text" id="info_menu_price" name="menu_price">
-										
+												<input type="hidden" id="info_menu_name" name="menu_name"> 
+												<input type="hidden" id="info_menu_price" name="menu_price">
+											 	<span id="info_menu_name2"></span>
 												<span id="info_menu_option1" style="display:none"></span>
 												<span id="info_menu_option2" style="display:none"></span>
 												<span id="info_menu_option3" style="display:none"></span>
 											</div>
 											<div class="popup_option" id="popup_option1" style="display:none">
 												<div class="popup_option_btn">
-													<input type="radio" name="option1" id="option01" value="hot" checked><label for="option01">HOT</label>
+													<input type="radio" name="option1" id="option1" value="hot" checked><label for="option1">HOT</label>
 												</div>
 												<div class="popup_option_btn">
-													<input type="radio" name="option1" id="option02" value="ice"><label for="option02">ICED</label>
+													<input type="radio" name="option1" id="option2" value="ice"><label for="option2">ICED</label>
 												</div>
 											</div>
 											<div class="popup_option">
@@ -102,30 +99,29 @@
 										<div class="popup_list" id="popup_option3" style="display:none">
 											<div class="popup_listname"><span>얼음양</span></div>
 											<div class="popup_listitem">
-												<input type="radio" name="option2" id="ice_0" value="0"/>
+												<input type="radio" name="option2" id="ice_0" value="1"/>
 												<label for="ice_0">적게</label>
-												<input type="radio" name="option2" id="ice_1" value="1" checked/>
+												<input type="radio" name="option2" id="ice_1" value="2" checked/>
 												<label for="ice_1">보통</label>
-												<input type="radio" name="option2" id="ice_2" value="2"/>
+												<input type="radio" name="option2" id="ice_2" value="3"/>
 												<label for="ice_2">많이</label>
 											</div>
 										</div>
 									</div>
 								</div>
+								<input type="hidden" name="menu_cate" value="coffee">
 								<div class="popup_submit">
 									<input type="submit" name="#" id="#" value="확인">
 								</div>
 							</div>
 						</form>
-					
-					
-					
-			
+							
 					</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="cart">
 			<div class="cart_list">
 				<table border= "0">
@@ -139,16 +135,16 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="i" begin="1" end="3">
+						<c:forEach var="list" items="${cartList}" varStatus="status">
 							<tr>
-								<td><c:out value = "${i}"/><p></td>
-								<td>아이스아메리카노</td>
+								<td>${status.count}</td>
+								<td>${list.menu_name}</td>
 								<td>
-									<input type="button" name="minus" id="minus" onclick='count("minus",${i})' value="-"/>
-									<input type="number" name="price" class="price" id="price" min="0" value="1" readonly/>
-									<input type="button" name="plus" id="plus"onclick='count("plus",${i})'value="+"/>
+									<input type="button" name="minus" id="minus" onclick='count("minus", ${status.count})' value="-"/>
+									<input type="number" name="price" class="price" id="price" min="1" value="${list.count}" readonly/>
+									<input type="button" name="plus" id="plus"onclick='count("plus", ${status.count})'value="+"/>
 								</td>
-								<td>3000<span>원</span></td>
+								<td>${list.option_price}<span>원</span></td>
 								<td>
 									<input type="button" name="cancle" id="cancle" class="cancle"/>
 									
@@ -159,6 +155,7 @@
 				</table>
 			</div>
 		</div>
+
 		<div class="payment">
 			<div class="payment_content">
 				<div class="payment_box1">
@@ -184,6 +181,7 @@
 	
 </body>
 <script type="text/javascript">
+
 	function count(type,i) {
 		/* const resultElement = document.getElementById("price"); */
 		const resultElement = document.getElementsByClassName("price")[i-1];
@@ -203,10 +201,19 @@
 		
 		resultElement.value = number;
 	}
+	
 	// 팝업 열기 
 	function PopupInfo(e) {
-		var row_span = e.getElementsByTagName("span");
-	   	var modal = document.getElementById("popup");
+		var row_span 	= e.getElementsByTagName("span");
+	   	var modal 		= document.getElementById("popup");
+	   	
+		document.getElementById("quantity").value 	= "1";
+		document.getElementById("option3").value 	= "0";
+		document.getElementById("option1").checked 	= true;
+		document.getElementById("ice_1").checked 	= true;
+		
+		document.getElementById("option1").value = "hot";
+		document.getElementById("ice_1").value = "2";
 	   
 	   	document.getElementById("info_menu_idx").value 			= row_span[0].innerHTML;
 	   	document.getElementById("info_menu_name").value 		= row_span[1].innerHTML;
@@ -218,20 +225,22 @@
 	   	
 	   	if (row_span[3].innerHTML == 'Y') {
 	   		document.getElementById("popup_option1").style.display ="block";
-		}else {
+		}else {	// hot/ice
 			document.getElementById("popup_option1").style.display ="none";
+			document.getElementById("option1").value = "0";							
 		}
 	   	
 	   	if (row_span[5].innerHTML == 'Y') {
 	   		document.getElementById("popup_option2").style.display ="block";
-		}else {
-			document.getElementById("popup_option2").style.display ="none";
+		}else {	// 샷추가
+			document.getElementById("popup_option2").style.display ="none";	
 		}
 	   	
 	   	if (row_span[4].innerHTML == 'Y') {
 	   		document.getElementById("popup_option3").style.display ="block";
-		}else {
+		}else {	// 얼음양
 			document.getElementById("popup_option3").style.display ="none";
+			document.getElementById("ice_1").value = "0";	 						
 		}
 	   	
 	   	modal.style.display ="block";
@@ -240,13 +249,7 @@
 	/* 팝업 닫기 */
 	function closePop() {
 		document.getElementById("popup").style.display ="none";
-		document.getElementById("quantity").value = "1";
-		document.getElementById("option3").value = "0";
-		document.getElementById("option01").checked = true;
-		document.getElementById("ice_1").checked = true;
-		
-
-/* 		popBlur(false); */
+		/* popBlur(false); */
 	}
 	
 	/* 팝업 열고 닫을 때 뒷배경 흐리게 */
@@ -263,7 +266,6 @@
 		const resultElement = document.getElementById("quantity");
 		let quantity = resultElement.value;
 	
-
 		if(type === 'plus') {
 			quantity = parseInt(quantity) + 1;
 		}else if(type === 'minus') {
@@ -277,7 +279,7 @@
 		
 		resultElement.value = quantity;
 		
-		console.log(quantity);
+		/* console.log(quantity); */
 	}
 	
 	/* 샷 추가 */
@@ -298,8 +300,8 @@
 		
 		resultElement.value = option3;
 		
- 		console.log(option3);
-
+ 		/* console.log(option3); */
 	}
+	
 </script>
 </html>
