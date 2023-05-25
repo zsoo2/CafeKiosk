@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafekiosk.model.CartVO;
-import com.cafekiosk.model.ManageMenuVO;
+import com.cafekiosk.model.KioskManageMenuVO;
 import com.cafekiosk.service.CustomerService;
 
 import lombok.extern.log4j.Log4j;
@@ -41,7 +41,7 @@ public class CustomerController {
 	@RequestMapping(value="/customer/menu_1", method = RequestMethod.GET)	
 	public String getCoffeePage(Model model) {
 		logger.info("customer_coffee 페이지 진입");
-		List<ManageMenuVO> menuList = customerService.getMenuList("coffee");
+		List<KioskManageMenuVO> menuList = customerService.getMenuList("coffee");
 		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
 		model.addAttribute("cartList", cartList);
@@ -52,7 +52,7 @@ public class CustomerController {
 	@RequestMapping(value="/customer/menu_2", method = RequestMethod.GET)	
 	public String getTeaadePage(Model model) {
 		logger.info("customer_teaade 페이지 진입");
-		List<ManageMenuVO> menuList = customerService.getMenuList("teaade");
+		List<KioskManageMenuVO> menuList = customerService.getMenuList("teaade");
 		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
 		model.addAttribute("cartList", cartList);
@@ -63,7 +63,7 @@ public class CustomerController {
 	@RequestMapping(value="/customer/menu_3", method = RequestMethod.GET)	
 	public String getNoncoffeePage(Model model) {
 		logger.info("customer_noncoffee 페이지 진입");
-		List<ManageMenuVO> menuList = customerService.getMenuList("noncoffee");
+		List<KioskManageMenuVO> menuList = customerService.getMenuList("noncoffee");
 		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
 		model.addAttribute("cartList", cartList);
@@ -74,7 +74,7 @@ public class CustomerController {
 	@RequestMapping(value="/customer/menu_4", method = RequestMethod.GET)	
 	public String getDessertPage(Model model) {
 		logger.info("customer_dessert 페이지 진입");
-		List<ManageMenuVO> menuList = customerService.getMenuList("dessert");
+		List<KioskManageMenuVO> menuList = customerService.getMenuList("dessert");
 		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
 		model.addAttribute("cartList", cartList);

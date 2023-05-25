@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cafekiosk.mapper.CustomerMapper;
 import com.cafekiosk.model.CartVO;
-import com.cafekiosk.model.ManageMenuVO;
+import com.cafekiosk.model.KioskManageMenuVO;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -17,9 +17,9 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerMapper customerMapper;
 	
 	@Override
-	public List<ManageMenuVO> getMenuList(String tabName) {
+	public List<KioskManageMenuVO> getMenuList(String tabName) {
 		//메뉴 조회
-		List<ManageMenuVO> menuList = customerMapper.getMenuList(tabName);
+		List<KioskManageMenuVO> menuList = customerMapper.getMenuList(tabName);
 
 		return menuList;
 	}

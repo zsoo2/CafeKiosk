@@ -5,13 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.cafekiosk.model.CartVO;
-import com.cafekiosk.model.ManageMenuVO;
+import com.cafekiosk.model.KioskManageMenuVO;
 
 @Mapper
 public interface CustomerMapper {
 
 	//메뉴 조회
-	public List<ManageMenuVO> getMenuList(String tabName);
+	public List<KioskManageMenuVO> getMenuList(String tabName);
 
 	//장바구니 등록
 	public void insertCart(CartVO cart);

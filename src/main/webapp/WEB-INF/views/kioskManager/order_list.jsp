@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../resources/css/main.css">
-<link rel="stylesheet" href="../resources/css/manager.css">
+<link rel="stylesheet" href="../resources/css/Kioskmanager.css">
 </head>
 <body>
 	<div class="wrapper">
@@ -54,15 +54,32 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="i" begin="1" end="3">
+												<c:forEach var="list" items="${orderList}">
 													<tr>
-														<td>2023-05-03 14:00:00</td>
-														<td><c:out value = "${i}"/><p></td>
-														<td>아이스아메리카노 외 1건</td>
-														<td>1234</td>					<!-- 핸드폰 뒷자리 번호 -->
-														<td>6000</td>
+														<c:set var="except" value ="외"/>										
+														<c:set var="count" value ="건"/>									
+ 														<td><c:out value="${list.order_date }"/></td>
+														<td><c:out value="${list.order_no }"/></td>
+														<c:choose>
+															<c:when test="${list.cnt >= 1}">
+																<td><c:out value="${list.menu_name} ${except} ${list.cnt }${count}"/></td>		<!-- 여러 잔 구매 시 -->
+															</c:when>
+															<c:otherwise>
+																<td><c:out value="${list.menu_name}"/></td>										<!-- 한 잔 구매 시 -->
+															</c:otherwise>
+														</c:choose>
+														<c:choose>
+															<c:when test="${list.user_no ne 'N' }">
+																<td><c:out value="${list.user_no }"/></td>					<!-- 핸드폰 뒷자리 번호 -->
+															</c:when>
+															<c:otherwise>
+																<td><c:out value="-"/></td>									<!-- 미적립 표시 -->
+															</c:otherwise>
+														</c:choose>
+														
+														<td><c:out value="${list.option_price }"/></td>
 														<td><input type="button" name="cancle" id="cancle" class="cancle"/></td>
-													</tr>
+ 													</tr>
 												</c:forEach>
 											</tbody>
 										</table>

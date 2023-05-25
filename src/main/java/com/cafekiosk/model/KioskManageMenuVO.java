@@ -2,7 +2,7 @@ package com.cafekiosk.model;
 
 import java.util.Date;
 
-public class ManageMenuVO {
+public class KioskManageMenuVO {
 
 	private int menu_idx;
 	
