@@ -443,6 +443,8 @@ html {
     display: block;
     overflow: scroll;
     overflow-x: hidden;
+    width: 100%;
+    height: 94%;
 }
 .cart_list>table {
     width: 90%;
@@ -1354,9 +1356,11 @@ html {
 		background-color: #fff0f5;
 	}
 	.cart_list {
-	    display: block;
+	   	display: block;
 	    overflow: scroll;
 	    overflow-x: hidden;
+	    width: 100%;
+	    height: 94%;
 	}
 	.cart_list>table {
 		width: 100%;
@@ -2263,6 +2267,8 @@ html {
 	    display: block;
 	    overflow: scroll;
 	    overflow-x: hidden;
+	    width: 100%;
+	    height: 94%;
 	}
 	.cart_list>table {
 		width: 100%;

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafekiosk.model.CartVO;
 import com.cafekiosk.model.ManageMenuVO;
@@ -18,7 +20,6 @@ import com.cafekiosk.service.CustomerService;
 
 import lombok.extern.log4j.Log4j;
 
-// 이 클래스가 컨트롤러 역할한다고 스프링에 선언
 @Controller
 @Log4j
 public class CustomerController {
@@ -119,6 +120,17 @@ public class CustomerController {
 		return "redirect:/customer/" + addr;
 	}
 	
+	
+	//장바구니 메뉴 삭제
+	@ResponseBody
+	@RequestMapping(value="/customer/deleteCart", method = RequestMethod.POST)
+	public String deleteCart(@RequestParam("idx") String cart_idx) {
+
+		customerService.deleteCart(Integer.parseInt(cart_idx));
+		logger.info("deleteCart 성공");
+		
+		return "";
+	}
 		
 		
 	@RequestMapping(value="/customer/check_member", method = RequestMethod.GET)

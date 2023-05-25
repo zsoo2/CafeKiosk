@@ -133,20 +133,20 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="i" begin="1" end="3">
+						<c:forEach var="list" items="${cartList}" varStatus="status">
 							<tr>
-								<td><c:out value = "${i}"/><p></td>
-								<td>아이스아메리카노</td>
+								<td>${status.count}</td>
+								<td>${list.menu_name}</td>
 								<td>
-									<input type="button" name="minus" id="minus" onclick='count("minus",${i})' value="-"/>
-									<input type="number" name="price" class="price" id="price" min="0" value="1" readonly/>
-									<input type="button" name="plus" id="plus"onclick='count("plus",${i})'value="+"/>
+									<input type="button" name="minus" id="minus" onclick='count("minus", ${status.count})' value="-"/>
+									<input type="number" name="price" class="price" id="price" min="1" value="${list.count}" readonly/>
+									<input type="button" name="plus" id="plus"onclick='count("plus", ${status.count})'value="+"/>
 								</td>
-								<td>3000<span>원</span></td>
+								<td>${list.option_price}<span>원</span></td>
 								<td>
-									<input type="button" name="cancle" id="cancle" class="cancle"/>
-									
-								<!-- <img src="../resources/image/icon/x-icon.png"></td> -->
+									<input type="button" name="cancle" id="cancle" class="cancle" onclick="deleteCart(${list.cart_idx})"/>
+								<!-- <img src="../resources/image/icon/x-icon.png"> -->
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -297,6 +297,18 @@
 		resultElement.value = option3;
 		
  		/* console.log(option3); */
+	}
+
+	// 장바구니 삭제
+	function deleteCart(idx) {
+		$.ajax({
+			type: "post", 
+			url: "/customer/deleteCart",
+			data: {"idx" : idx},
+			success: function (data) {
+				location.reload();
+			}
+		});
 	}
 	
 </script>
