@@ -5,12 +5,16 @@ public class OrderNumberVO {
 	private int order_idx;
 
 	private String order_no;
+
+	private String order_date;
 	
 	private String user_no;
 	
 	private int menu_idx;
 	
 	private String menu_name;
+	
+	private int cnt;
 
 	private int menu_price;
 	
@@ -18,8 +22,8 @@ public class OrderNumberVO {
 	
 	@Override
 	public String toString() {
-		return "ManagerVO [order_idx=" + order_idx + ", order_no=" + order_no + ", user_no=" + user_no + ", menu_idx="
-				+ menu_idx + ", menu_name=" + menu_name + ", menu_price=" + menu_price + ", option_price="
+		return "ManagerVO [order_idx=" + order_idx + ", order_no=" + order_no + ", order_date=" + order_date + ", user_no=" + user_no + ", menu_idx="
+				+ menu_idx + ", menu_name=" + menu_name + ", cnt=" + cnt + ", menu_price=" + menu_price + ", option_price="
 				+ option_price + "]";
 	}
 	
@@ -37,6 +41,13 @@ public class OrderNumberVO {
 
 	public void setOrder_no(String order_no) {
 		this.order_no = order_no;
+	}
+	public String getOrder_date() {
+		return order_date;
+	}
+
+	public void setOrder_date(String order_date) {
+		this.order_date = order_date;
 	}
 
 	public String getUser_no() {
@@ -61,6 +72,14 @@ public class OrderNumberVO {
 
 	public void setMenu_name(String menu_name) {
 		this.menu_name = menu_name;
+	}
+	
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 
 	public int getMenu_price() {
