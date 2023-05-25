@@ -72,8 +72,7 @@ public class KioskManagerController {
 	}
 	
 	@RequestMapping(value="/kioskManager/order_list", method = RequestMethod.GET)
-	public void orderListPageGet(Model model, @RequestParam(value="start_date", required = false) String start_date, 
-												@RequestParam(value="end_date", required = false) String end_date){
+	public void orderListPageGet(Model model){
 		logger.info("order_list 페이지 진입");
 		
 		List<OrderNumberVO> orderList = manageMenuService.getOrderList();
@@ -86,13 +85,13 @@ public class KioskManagerController {
 		
 	}
 	
-	@RequestMapping(value="/Kioskmanager/check_sales", method = RequestMethod.GET)
+	@RequestMapping(value="/kioskManager/check_sales", method = RequestMethod.GET)
 	public void checkSalesPageGet() {
 		logger.info("check_sales 페이지 진입");
 	}
 	
 	//메뉴 등록
-	@RequestMapping(value="Kioskmanager/insert_item", method = RequestMethod.POST)
+	@RequestMapping(value="kioskManager/insert_item", method = RequestMethod.POST)
 	public String insertMenu(KioskManageMenuVO manageMenu) throws Exception{
 		logger.info("insert Menu 진입");
 		
@@ -100,11 +99,11 @@ public class KioskManagerController {
 		manageMenuService.insertMenu(manageMenu);
 		
 		logger.info("insertMenu 성공");
-		return "redirect:/Kioskmanager/insert_item";
+		return "redirect:/kioskManager/insert_item";
 	}
 	
 	//메뉴 등록 - 사진 첨부 
-	@PostMapping("Kioskmanager/insertMenuAjaxAction")
+	@PostMapping("kioskManager/insertMenuAjaxAction")
 	public void uploadAjaxActionPOST(MultipartFile uploadFile) {
 		
 		logger.info("uploadAjaxActionPOST..........");
@@ -116,13 +115,13 @@ public class KioskManagerController {
 	}
 	
 	//메뉴 삭제
-	@RequestMapping(value="Kioskmanager/delete_item", method=RequestMethod.POST)
+	@RequestMapping(value="kioskManager/delete_item", method=RequestMethod.POST)
 		public String deleteMenu(@RequestParam("chk_list") List<Integer> idx ) throws Exception{
 			logger.info("deleteMenu 진입");
 			
 			for(Integer menu_idx : idx) manageMenuService.deleteMenu(menu_idx);
 			
-			return "redirect:/Kioskmanager/kioskManager";
+			return "redirect:/kioskManager/kioskManager";
 			
 	}
 	

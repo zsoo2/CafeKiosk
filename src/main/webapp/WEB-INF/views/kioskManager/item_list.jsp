@@ -18,7 +18,7 @@
 		<form id="listForm" name="listForm" method="post">
 			<div class="itembox">
 				<div class="button_box">
-					<input type="button" id="insert" onclick="location.href='/manager/insert_item'" value="추가">
+					<input type="button" id="insert" onclick="location.href='/kioskManage/insert_item'" value="추가">
 					<input type="button" name="deleteButton" id="deleteButton" onclick="frmFunc()" value="삭제">
 				</div>
 				<div class="list_box">
@@ -43,10 +43,10 @@
 							<c:forEach var="list" items="${menuList}">
 								<tr>
 									<td><input type="checkbox" name="chk_list" class="chk_indiv" onclick="CheckSelectAll()" value="${list.menu_idx}"></td>
-									<td onclick = "location.href='/manager/edit_item?menu_idx=${list.menu_idx}'"><c:out value="${list.menu_idx}"/></td>
-									<td onclick = "location.href='/manager/edit_item?menu_idx=${list.menu_idx}'"><c:out value="${list.menu_name}"/></td>
-									<td onclick = "location.href='/manager/edit_item?menu_idx=${list.menu_idx}'"><c:out value="${list.menu_category}"/></td>
-									<td onclick = "location.href='/manager/edit_item?menu_idx=${list.menu_idx}'"><fmt:formatNumber pattern="###,###,###" value="${list.menu_price}"/><span>원</span></td>
+									<td onclick = "location.href='/kioskManager/edit_item?menu_idx=${list.menu_idx}'"><c:out value="${list.menu_idx}"/></td>
+									<td onclick = "location.href='/kioskManager/edit_item?menu_idx=${list.menu_idx}'"><c:out value="${list.menu_name}"/></td>
+									<td onclick = "location.href='/kioskManager/edit_item?menu_idx=${list.menu_idx}'"><c:out value="${list.menu_category}"/></td>
+									<td onclick = "location.href='/kioskManager/edit_item?menu_idx=${list.menu_idx}'"><fmt:formatNumber pattern="###,###,###" value="${list.menu_price}"/><span>원</span></td>
 								</tr>
 							</c:forEach>
 						</tbody>
