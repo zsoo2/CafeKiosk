@@ -19,6 +19,8 @@ public class KioskManageMenuVO {
 	private String option2_YN;
 	
 	private String option3_YN;
+
+	private String active_YN;
 	
 	private String reg_user;
 	
@@ -89,6 +91,14 @@ public class KioskManageMenuVO {
 	public void setOption3_YN(String option3_YN) {
 		this.option3_YN = option3_YN;
 	}
+	
+	public String getActive_YN() {
+		return active_YN;
+	}
+	
+	public void setActive_YN(String active_YN) {
+		this.active_YN = active_YN;
+	}
 
 	public String getReg_user() {
 		return reg_user;
@@ -118,7 +128,7 @@ public class KioskManageMenuVO {
 	public String toString() {
 		return "ManageMenuVO [menu_idx=" + menu_idx + ", menu_name=" + menu_name + ", menu_price=" + menu_price
 				+ ", menu_category=" + menu_category + ", menu_picture=" + menu_picture + ", option1_YN=" + option1_YN
-				+ ", option2_YN=" + option2_YN + ", option3_YN=" + option3_YN + ", reg_user=" + reg_user + ", reg_time="
+				+ ", option2_YN=" + option2_YN + ", option3_YN=" + option3_YN + ", active_YN=" + active_YN + ", reg_user=" + reg_user + ", reg_time="
 				+ reg_time + ", mod_time=" + mod_time + "]";
 	}
 
