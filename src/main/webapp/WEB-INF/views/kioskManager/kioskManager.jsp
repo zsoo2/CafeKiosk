@@ -18,7 +18,7 @@
 			<div class="contents">
 				<div class="manager_menu">
 					<input type="radio" name="tab_menu" id="tab01" checked>
-					<label for="tab01" onclick="location.href='/kioskManager/manager'">메뉴관리</label>
+					<label for="tab01" onclick="location.href='/kioskManager/kioskManager'">메뉴관리</label>
 					<input type="radio" name="tab_menu" id="tab02">
 					<label for="tab02" onclick="location.href='/kioskManager/order_list'">주문내역</label>
 					<input type="radio" name="tab_menu" id="tab03">
