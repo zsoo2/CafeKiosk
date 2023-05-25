@@ -12,6 +12,7 @@
 	<select id="getMenuList" resultType="com.cafekiosk.model.KioskManageMenuVO">
 		SELECT 	menu_idx, menu_name, menu_price, menu_category
 		FROM manage_menu
+		WHERE	active_YN = "Y"
 	</select>
 	
 	<!-- 메뉴 상세 조회 -->
@@ -28,9 +29,9 @@
 	</update>
 	
 	<!-- 메뉴 삭제 -->
-	<delete id="deleteMenu">
-		DELETE FROM manage_menu WHERE menu_idx = #{menu_idx}
-	</delete>
+	<update id="deleteMenu">
+		UPDATE manage_menu set active_YN="N" WHERE menu_idx = #{menu_idx}
+	</update>
 
 	<!-- 주문 내역 조회 -->
 	<select id="getOrderList" resultType="com.cafekiosk.model.OrderNumberVO">
