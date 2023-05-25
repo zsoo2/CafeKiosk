@@ -16,7 +16,10 @@ public interface CustomerMapper {
 	//장바구니 등록
 	public void insertCart(CartVO cart);
 
-	//장바구니 목록
+	//장바구니 조회
 	public List<CartVO> getCartList();
+
+	//장바구니 삭제
+	public void deleteCart(int cart_idx);
 	
 }

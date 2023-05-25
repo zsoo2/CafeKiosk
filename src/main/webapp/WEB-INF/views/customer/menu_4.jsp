@@ -145,7 +145,7 @@
 								</td>
 								<td>${list.option_price}<span>원</span></td>
 								<td>
-									<input type="button" name="cancle" id="cancle" class="cancle"/>
+									<input type="button" name="cancle" id="cancle" class="cancle" onclick="deleteCart(${list.cart_idx})"/>
 								<!-- <img src="../resources/image/icon/x-icon.png"> -->
 								</td>
 							</tr>
@@ -299,6 +299,18 @@
 		
  		/* console.log(option3); */
 	}
-
+	
+	// 장바구니 삭제
+	function deleteCart(idx) {
+		$.ajax({
+			type: "post", 
+			url: "/customer/deleteCart",
+			data: {"idx" : idx},
+			success: function (data) {
+				location.reload();
+			}
+		});
+	}
+	
 </script>
 </html>

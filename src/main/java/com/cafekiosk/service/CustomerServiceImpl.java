@@ -32,10 +32,16 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public List<CartVO> getCartList() {
-		//장바구니 목록
+		//장바구니 조회
 		List<CartVO> cartList = customerMapper.getCartList();
 		
 		return cartList;
+	}
+	
+	@Override
+	public void deleteCart(int cart_idx) {
+		//장바구니 삭제
+		customerMapper.deleteCart(cart_idx);
 	}
 
 }

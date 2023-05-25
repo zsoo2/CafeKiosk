@@ -24,11 +24,19 @@
 	
   	<!-- 장바구니 조회 -->
 	<select id="getCartList" resultType="com.cafekiosk.model.CartVO">
-		SELECT 	menu_idx, menu_name, menu_price, count, 
-				option1, option2, option3, option_price, active_YN
+		SELECT 	cart_idx, menu_idx, menu_name, menu_price, count, 
+				option1, option2, option3, option_price, active_YN, reg_time
 		FROM cart
 		WHERE active_YN = 'Y'
 		ORDER BY reg_time;
 	</select>
+	
+	<!-- 장바구니 삭제 -->
+	<update id="deleteCart" parameterType="com.cafekiosk.model.CartVO">
+		UPDATE cart
+		SET
+			active_YN= 'N'
+		WHERE cart_idx = #{cart_idx}
+	</update>
 	
   </mapper>
