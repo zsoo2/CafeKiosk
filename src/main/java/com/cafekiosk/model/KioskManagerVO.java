@@ -1,6 +1,6 @@
 package com.cafekiosk.model;
 
-public class ManagerVO {
+public class KioskManagerVO {
 
 	
 

@@ -15,83 +15,96 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cafekiosk.model.ManageMenuVO;
-import com.cafekiosk.service.ManageMenuService;
+import com.cafekiosk.model.KioskManageMenuVO;
+import com.cafekiosk.model.OrderNumberVO;
+import com.cafekiosk.service.KioskManageMenuService;
+import com.cafekiosk.service.OrderNumberService;
 
 import lombok.extern.log4j.Log4j;
 
 // 이 클래스가 컨트롤러 역할한다고 스프링에 선언
 @Controller
 @Log4j
-public class ManagerController {
+public class KioskManagerController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
+	private static final Logger logger = LoggerFactory.getLogger(KioskManagerController.class);
 	
 	@Autowired
-	private ManageMenuService manageMenuService;
+	private KioskManageMenuService manageMenuService;
+	private OrderNumberService orderNumberService;
 	
 	//메인 페이지 이동
-	@RequestMapping(value="/manager/manager", method = RequestMethod.GET)
+	@RequestMapping(value="/kioskManager/kioskManager", method = RequestMethod.GET)
 	public void mainPageGet(Model model) {
 		logger.info("manager 페이지 진입");
 		
-		List<ManageMenuVO> menuList = manageMenuService.getMenuList();
+		List<KioskManageMenuVO> menuList = manageMenuService.getMenuList();
 		
 		model.addAttribute("menuList", menuList);
 	}
 
 	/* 메뉴 상세 */
-	@RequestMapping("/manager/edit_item")
+	@RequestMapping("/kioskManager/edit_item")
 	public String getMenuInfo(@RequestParam("menu_idx")int menu_idx, Model model) {
 		
 		logger.info("getMenuInfo()..........");
 		
 		model.addAttribute("menuInfo", manageMenuService.getMenuInfo(menu_idx));
 		
-		return "/manager/edit_item";
+		return "/kioskManager/edit_item";
 	}
 	
 	/* 메뉴 수정 */
-	@RequestMapping(value="manager/edit_item", method = RequestMethod.POST)
-	public String editMenuInfo(ManageMenuVO manageMenu) throws Exception{
+	@RequestMapping(value="kioskManager/edit_item", method = RequestMethod.POST)
+	public String editMenuInfo(KioskManageMenuVO manageMenu) throws Exception{
 		logger.info("editMenuInfo()...");
 		
 		//메뉴 수정 서비스 실행
 		manageMenuService.editMenuInfo(manageMenu);
 		
 		logger.info("editMenuInfo 성공");
-		return "redirect:/manager/manager";
+		return "redirect:/kioskManager/kioskManager";
 	}
 	
-	@RequestMapping(value="/manager/insert_item", method = RequestMethod.GET)
+	@RequestMapping(value="/kioskManager/insert_item", method = RequestMethod.GET)
 	public void insertItemPageGet() {
 		logger.info("insert_item 페이지 진입1");
 	}
 	
-	@RequestMapping(value="/manager/order_list", method = RequestMethod.GET)
-	public void orderListPageGet() {
+	@RequestMapping(value="/kioskManager/order_list", method = RequestMethod.GET)
+	public void orderListPageGet(Model model, @RequestParam(value="start_date", required = false) String start_date, 
+												@RequestParam(value="end_date", required = false) String end_date){
 		logger.info("order_list 페이지 진입");
+		
+		List<OrderNumberVO> orderList = manageMenuService.getOrderList();
+		
+		/* System.out.println(orderList); */
+	
+		
+		model.addAttribute("orderList", orderList);
+		
+		
 	}
 	
-	@RequestMapping(value="/manager/check_sales", method = RequestMethod.GET)
+	@RequestMapping(value="/Kioskmanager/check_sales", method = RequestMethod.GET)
 	public void checkSalesPageGet() {
 		logger.info("check_sales 페이지 진입");
 	}
 	
 	//메뉴 등록
-	@RequestMapping(value="manager/insert_item", method = RequestMethod.POST)
-	public String insertMenu(ManageMenuVO manageMenu) throws Exception{
+	@RequestMapping(value="Kioskmanager/insert_item", method = RequestMethod.POST)
+	public String insertMenu(KioskManageMenuVO manageMenu) throws Exception{
 		logger.info("insert Menu 진입");
 		
 		//메뉴등록 서비스 실행
 		manageMenuService.insertMenu(manageMenu);
 		
 		logger.info("insertMenu 성공");
-		return "redirect:/manager/insert_item";
+		return "redirect:/Kioskmanager/insert_item";
 	}
 	
 	//메뉴 등록 - 사진 첨부 
-	@PostMapping("manager/insertMenuAjaxAction")
+	@PostMapping("Kioskmanager/insertMenuAjaxAction")
 	public void uploadAjaxActionPOST(MultipartFile uploadFile) {
 		
 		logger.info("uploadAjaxActionPOST..........");
@@ -103,15 +116,15 @@ public class ManagerController {
 	}
 	
 	//메뉴 삭제
-	@RequestMapping(value="manager/delete_item", method=RequestMethod.POST)
+	@RequestMapping(value="Kioskmanager/delete_item", method=RequestMethod.POST)
 		public String deleteMenu(@RequestParam("chk_list") List<Integer> idx ) throws Exception{
 			logger.info("deleteMenu 진입");
 			
 			for(Integer menu_idx : idx) manageMenuService.deleteMenu(menu_idx);
 			
-			return "redirect:/manager/manager";
+			return "redirect:/Kioskmanager/kioskManager";
 			
-		}
+	}
 	
 }
 	

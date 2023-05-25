@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../resources/css/main.css">
-<link rel="stylesheet" href="../resources/css/manager.css">
+<link rel="stylesheet" href="../resources/css/kioskManager.css">
 </head>
 <body>
 	<div class="wrapper">

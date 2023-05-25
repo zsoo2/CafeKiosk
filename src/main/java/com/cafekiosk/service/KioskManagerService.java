@@ -1,5 +1,5 @@
 package com.cafekiosk.service;
 
-public class ManagerService {
+public class KioskManagerService {
 
 }

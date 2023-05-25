@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
 <title>ManagerMainPage</title>
 <link rel="stylesheet" href="../resources/css/main.css">
-<link rel="stylesheet" href="../resources/css/manager.css">
+<link rel="stylesheet" href="../resources/css/kioskManager.css">
 </head>
 <body>
 	<div class="wrapper">

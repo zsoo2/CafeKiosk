@@ -28,7 +28,7 @@
 						<span>적립할 번호를 입력하세요.</span>
 					</div>
 					<div class="number_box">
-						<input type="text" id="number_box" value="010"/>
+						<input type="text" id="number_box" value="010" maxlength="13"/>
 					</div>
 					<div class="keypad_box">
 						<div><input type="text" class="numKey" value="1" onclick="add(1)" readonly></div>
@@ -46,7 +46,7 @@
 					</div>
 					<div class="check_box">
 						<div>
-							<button type="button" onclick="location.href='/customer/customer'">이전화면</button>
+							<button type="button" onclick="location.href='/customer/menu_1'">이전화면</button>
 							<button type="button" onclick="location.href='/customer/payment'">건너뛰기</button>
 						</div>
 					</div>
@@ -61,7 +61,9 @@
 		var numBox = document.getElementById('number_box');
 		var numBoxValue = numBox.value;
 
-			numBox.value = numBox.value + char;
+		if(numBoxValue.length < 11){
+			numBox.value = numBox.value + char;			
+		}
 	}
 	
 	function deleteNum() {
@@ -70,7 +72,50 @@
 		
 		numBox.value = numBoxValue.substring(0, numBoxValue.length-1);
 	}
-
+/* 	$(document).on("input", "#number_box", function() { 
+		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
+	}); */
+function autoHypenPhone(str){
+        str = str.replace(/[^0-9]/g, '');
+        var tmp = '';
+        if( str.length < 4){
+            return str;
+        }else if(str.length < 7){
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3);
+            return tmp;
+        }else if(str.length < 11){
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3, 3);
+            tmp += '-';
+            tmp += str.substr(6);
+            return tmp;
+        }else{              
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3, 4);
+            tmp += '-';
+            tmp += str.substr(7);
+            return tmp;
+        }
+        return str;
+    }
+	var cellPhone = document.getElementById('number_box');
+		cellPhone.oninput = function(event){
+        event = event || window.event;
+        var _val = this.value.trim();
+        this.value = autoHypenPhone(_val) ;
+	}
+/* 	$(function () {
+		var $inputElement = $("#number_box");
+		var value = $inputElement.value;
+		$inputElement.change(function(){
+			console.log(value);
+			alert(value);
+		})
+	}); */
 	
 </script>
 </html>

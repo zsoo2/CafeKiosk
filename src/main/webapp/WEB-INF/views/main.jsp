@@ -14,7 +14,7 @@
 	<div class="wrap">
 		<div class ="login_area">
 			<div class="login_button"><span><a href="/customer/menu_1">손님</a></span></div>
-			<div class="login_button"><span><a href="/manager/manager">관리자</a></span></div>	
+			<div class="login_button"><span><a href="/kioskManager/kioskManager">관리자</a></span></div>	
 		</div>	
 	</div>
 </div>

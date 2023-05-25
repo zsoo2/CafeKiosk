@@ -5,7 +5,7 @@
   <mapper namespace="com.cafekiosk.mapper.CustomerMapper">
   
   	<!-- 메뉴 조회 -->
-	<select id="getMenuList" resultType="com.cafekiosk.model.ManageMenuVO">
+	<select id="getMenuList" resultType="com.cafekiosk.model.KioskManageMenuVO">
 		SELECT 	menu_idx, menu_name, menu_price, 
 		 		menu_category, menu_picture, 
 		 		option1_YN, option2_YN, option3_YN
