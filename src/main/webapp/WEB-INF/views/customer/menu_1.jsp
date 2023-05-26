@@ -80,9 +80,9 @@
 												</div>
 											</div>
 											<div class="popup_option">
-												<input type="button" name="minus" id="minus" onclick='checkQuantity("minus")' value="-"/>
+												<input type="button" name="minus" class="minus" onclick='checkQuantity("minus")' value="-"/>
 												<input type="number" name="count" id="quantity" min="1" value="1" readonly/>
-												<input type="button" name="plus" id="plus" onclick='checkQuantity("plus")' value="+"/>
+												<input type="button" name="plus" class="plus" onclick='checkQuantity("plus")' value="+"/>
 											</div>
 										</div>
 					
@@ -91,9 +91,9 @@
 										<div class="popup_list" id="popup_option2" style="display:none">
 											<div class="popup_listname"><span>샷 추가</span></div>
 											<div class="popup_listitem">
-												<input type="button" name="minus" id="minus" onclick='shotCount("minus")' value="-"/>
+												<input type="button" name="minus" class="minus" onclick='shotCount("minus")' value="-"/>
 												<input type="number" name="option3" id="option3" min="0" value="0" readonly/>
-												<input type="button" name="plus" id="plus" onclick='shotCount("plus")' value="+"/>
+												<input type="button" name="plus" class="plus" onclick='shotCount("plus")' value="+"/>
 											</div>
 										</div>
 										<div class="popup_list" id="popup_option3" style="display:none">
@@ -131,7 +131,7 @@
 							<th>제품명</th>
 							<th>수량</th>
 							<th>가격</th>
-							<th>엑스</th>
+							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -140,9 +140,11 @@
 								<td>${status.count}</td>
 								<td>${list.menu_name}</td>
 								<td>
-									<input type="button" name="minus" id="minus" onclick='count("minus", ${status.count})' value="-"/>
-									<input type="number" name="price" class="price" id="price" min="1" value="${list.count}" readonly/>
-									<input type="button" name="plus" id="plus"onclick='count("plus", ${status.count})'value="+"/>
+									<input type="button" name="minus" class="minus" 
+											onclick='editCart("minus", ${status.count}, ${list.menu_price}, ${list.option3}, ${list.cart_idx})' value="-"/>
+									<input type="number" name="price" class="count" min="1" value="${list.count}" readonly/>
+									<input type="button" name="plus" class="plus" 
+											onclick='editCart("plus", ${status.count}, ${list.menu_price}, ${list.option3}, ${list.cart_idx})' value="+"/>
 								</td>
 								<td>${list.option_price}<span>원</span></td>
 								<td>
@@ -160,11 +162,11 @@
 			<div class="payment_content">
 				<div class="payment_box1">
 					<div class="payment_text"><span>주문수량 :</span></div>
-					<div class="payment_quantityNum"><span>3</span></div>
+					<div class="payment_quantityNum"><span>${totalCnt} 개</span></div>
 				</div>
 				<div class="payment_box1">
 					<div class="payment_text"><span>주문금액 :</span></div>
-					<div class="payment_amountNum"><span>9000</span></div>
+					<div class="payment_amountNum"><span>${totalSumCom} 원</span></div>
 				</div>
 			</div>
 			<div class="payment_content">
@@ -178,15 +180,32 @@
 		</div>
 	</div>
 </div>
-	
 </body>
-<script type="text/javascript">
 
+<script type="text/javascript">
+	// 장바구니 수정
+	function editCart(type, i, price, option, idx) {
+		count(type, i);		
+		const resultElement = document.getElementsByClassName("count")[i-1];
+		let cnt = resultElement.value;
+		
+		$.ajax({
+			type: "post", 
+			url: "/customer/editCart",
+			data: {	"idx" : idx,
+					"price" : price,
+					"option" : option,
+					"cnt" : cnt	},
+			success: function (data) {
+				location.reload();
+			}
+		}); 
+	}
+	
 	function count(type,i) {
 		/* const resultElement = document.getElementById("price"); */
-		const resultElement = document.getElementsByClassName("price")[i-1];
+		const resultElement = document.getElementsByClassName("count")[i-1];
 		let number = resultElement.value;
-		console.log(i);
 		
 		if(type === 'plus') {
 			   number = parseInt(number) + 1;
@@ -225,20 +244,20 @@
 	   	
 	   	if (row_span[3].innerHTML == 'Y') {
 	   		document.getElementById("popup_option1").style.display ="block";
-		}else {	// hot/ice
+		}else {
 			document.getElementById("popup_option1").style.display ="none";
 			document.getElementById("option1").value = "0";							
 		}
 	   	
 	   	if (row_span[5].innerHTML == 'Y') {
 	   		document.getElementById("popup_option2").style.display ="block";
-		}else {	// 샷추가
+		}else {	
 			document.getElementById("popup_option2").style.display ="none";	
 		}
 	   	
 	   	if (row_span[4].innerHTML == 'Y') {
 	   		document.getElementById("popup_option3").style.display ="block";
-		}else {	// 얼음양
+		}else {	
 			document.getElementById("popup_option3").style.display ="none";
 			document.getElementById("ice_1").value = "0";	 						
 		}

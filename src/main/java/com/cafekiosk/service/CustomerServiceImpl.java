@@ -43,5 +43,10 @@ public class CustomerServiceImpl implements CustomerService {
 		//장바구니 삭제
 		customerMapper.deleteCart(cart_idx);
 	}
-
+	
+	@Override
+	public void editCart(int cart_idx, int count, int option_price) {
+		//장바구니 수정
+		customerMapper.editCart(cart_idx, count, option_price);
+	}
 }
