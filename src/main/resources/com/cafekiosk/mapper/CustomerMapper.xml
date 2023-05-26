@@ -39,4 +39,13 @@
 		WHERE cart_idx = #{cart_idx}
 	</update>
 	
+	<!-- 장바구니 수정 -->
+	<update id="editCart" parameterType="com.cafekiosk.model.CartVO">
+		UPDATE cart
+		SET
+			count = #{count},
+			option_price = #{option_price}
+		WHERE cart_idx = #{cart_idx}
+	</update>
+	
   </mapper>

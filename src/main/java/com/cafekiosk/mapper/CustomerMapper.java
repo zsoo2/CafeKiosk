@@ -3,6 +3,7 @@ package com.cafekiosk.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.cafekiosk.model.CartVO;
 import com.cafekiosk.model.KioskManageMenuVO;
@@ -21,5 +22,8 @@ public interface CustomerMapper {
 
 	//장바구니 삭제
 	public void deleteCart(int cart_idx);
+
+	//장바구니 수정
+	public void editCart(@Param("cart_idx") int cart_idx, @Param("count") int count, @Param("option_price") int option_price);
 	
 }

@@ -18,4 +18,8 @@ public interface CustomerService {
 
 	//장바구니 삭제
 	public void deleteCart(int cart_idx);
+	
+	//장바구니 수정
+	public void editCart(int cart_idx, int cart_cnt, int option_price);
+
 }

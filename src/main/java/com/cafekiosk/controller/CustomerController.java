@@ -1,5 +1,6 @@
 package com.cafekiosk.controller;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +46,18 @@ public class CustomerController {
 		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
 		model.addAttribute("cartList", cartList);
+
+		int totalSum = 0;
+		int totalCnt = 0;
+		
+		for (int i = 0; i < cartList.size(); i++) {
+			totalSum += cartList.get(i).getOption_price();
+			totalCnt += cartList.get(i).getCount();
+		}		
+		DecimalFormat decFormat = new DecimalFormat("###,###");
+		String totalSumCom = decFormat.format(totalSum);
+		model.addAttribute("totalSumCom", totalSumCom);
+		model.addAttribute("totalCnt", totalCnt);
 		
 		return "/customer/menu_1";
 	}
@@ -57,6 +70,18 @@ public class CustomerController {
 		model.addAttribute("menuList", menuList);
 		model.addAttribute("cartList", cartList);
 		
+		int totalSum = 0;
+		int totalCnt = 0;
+		
+		for (int i = 0; i < cartList.size(); i++) {
+			totalSum += cartList.get(i).getOption_price();
+			totalCnt += cartList.get(i).getCount();
+		}		
+		DecimalFormat decFormat = new DecimalFormat("###,###");
+		String totalSumCom = decFormat.format(totalSum);
+		model.addAttribute("totalSumCom", totalSumCom);
+		model.addAttribute("totalCnt", totalCnt);
+		
 		return "/customer/menu_2";
 	}
 	
@@ -67,6 +92,18 @@ public class CustomerController {
 		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
 		model.addAttribute("cartList", cartList);
+
+		int totalSum = 0;
+		int totalCnt = 0;
+		
+		for (int i = 0; i < cartList.size(); i++) {
+			totalSum += cartList.get(i).getOption_price();
+			totalCnt += cartList.get(i).getCount();
+		}		
+		DecimalFormat decFormat = new DecimalFormat("###,###");
+		String totalSumCom = decFormat.format(totalSum);
+		model.addAttribute("totalSumCom", totalSumCom);
+		model.addAttribute("totalCnt", totalCnt);
 		
 		return "/customer/menu_3";
 	}
@@ -78,6 +115,19 @@ public class CustomerController {
 		List<CartVO> cartList = customerService.getCartList();
 		model.addAttribute("menuList", menuList);
 		model.addAttribute("cartList", cartList);
+
+		int totalSum = 0;
+		int totalCnt = 0;
+		
+		for (int i = 0; i < cartList.size(); i++) {
+			totalSum += cartList.get(i).getOption_price();
+			totalCnt += cartList.get(i).getCount();
+		}		
+		
+		DecimalFormat decFormat = new DecimalFormat("###,###");
+		String totalSumCom = decFormat.format(totalSum);
+		model.addAttribute("totalSumCom", totalSumCom);
+		model.addAttribute("totalCnt", totalCnt);
 		
 		return "/customer/menu_4";
 	}
@@ -132,7 +182,27 @@ public class CustomerController {
 		return "";
 	}
 		
+	//장바구니 메뉴 수정
+	@ResponseBody
+	@RequestMapping(value="/customer/editCart", method = RequestMethod.POST)
+	public String editCart( @RequestParam("idx") 	String idx, 
+							@RequestParam("price") 	String price, 
+							@RequestParam("option") String option,
+							@RequestParam("cnt")	String cnt				) {
 		
+		int cart_idx 	= Integer.parseInt(idx);
+		int cart_price 	= Integer.parseInt(price);
+		int cart_option = Integer.parseInt(option);
+		int count	= Integer.parseInt(cnt);
+		int option_price = (cart_price + cart_option) * count;
+		
+		customerService.editCart(cart_idx, count, option_price);
+			
+		logger.info("editCart 성공");
+		
+		return "";
+	}
+	
 	@RequestMapping(value="/customer/check_member", method = RequestMethod.GET)
 	public void checkMemberPageGet() {
 		logger.info("check_member 페이지 진입");
