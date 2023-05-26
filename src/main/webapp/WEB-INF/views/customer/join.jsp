@@ -13,6 +13,7 @@
   crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../resources/css/main.css">
 <link rel="stylesheet" href="../resources/css/customer.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <!-- <form id="joinForm" name="joinForm" action="#" method="post"> -->
@@ -86,10 +87,10 @@
     const modal = document.getElementById("modal");
     function modalOn() {
     	if($("input:checkbox[id='chk_btn1']").is(":checked") != true){
-    		alert("약관 동의에 체크해주세요");
+    		swal.fire("약관 동의에 체크해주세요");
     		return;
     	} else if ($("input:checkbox[id='chk_btn2']").is(":checked") != true){
-    		alert("연령 확인에 체크해주세요");
+    		swal.fire("연령 확인에 체크해주세요");
     		return
     	} else {
 	        modal.style.display = "flex";
@@ -116,7 +117,7 @@
 			return location.href='/customer/payment';
 		}
 	}
-	alert("체크해주세요");
+	swal.fire("체크해주세요");
 	return false;
 }
 </script>
