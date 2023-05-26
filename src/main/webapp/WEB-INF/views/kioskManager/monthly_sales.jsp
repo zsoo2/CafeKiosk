@@ -9,12 +9,14 @@
 <body>
 	<div class="space"></div>
 	<div class="eachSales">
+	<form name="monthlySales" id="monthlySales" method="post" action="/kioskManager/monthly_sales">
 		<div class="selectDate">
-			<input type="date" id="start_date_sales" name="start_date" value="">
+			<input type="date" id="start_date_sales" name="start_date" value="<%= start_date%>">
 			<span> ~ </span>
-			<input type="date" id="end_date_sales" name="end_date" value="">
+			<input type="date" id="end_date_sales" name="end_date" value="<%= end_date%>">
 			<input type="submit" value="검색">
 		</div>
+	</form>
 		<div class="monthlySales">
 			<table border="1">
 				<colgroup>
@@ -30,11 +32,13 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach var="list" items="${monthlySales}">
 					<tr>
-						<td>aaa</td>
-						<td>aaa</td>
-						<td>aaa</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.order_date }"/></td>
+						<td>${list.total_cnt }</td>
+						<td>${list.option_price }</td>
 					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -58,8 +62,4 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-	document.getElementById("start_date_sales").value = new Date().toISOString().substring(0,10);
-	document.getElementById("end_date_sales").value = new Date().toISOString().substring(0,10);
-</script>
 </html>

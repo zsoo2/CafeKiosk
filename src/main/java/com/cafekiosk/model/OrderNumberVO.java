@@ -1,30 +1,38 @@
 package com.cafekiosk.model;
 
+import java.util.Date;
+
 public class OrderNumberVO {
 	
 	private int order_idx;
 
 	private String order_no;
 
-	private String order_date;
+	private Date order_date;
 	
 	private String user_no;
+	
+	private int cart_idx;
 	
 	private int menu_idx;
 	
 	private String menu_name;
 	
 	private int cnt;
+	
+	private int total_cnt;
 
 	private int menu_price;
 	
 	private int option_price;
 	
+	private String active_YN;
+	
 	@Override
 	public String toString() {
 		return "ManagerVO [order_idx=" + order_idx + ", order_no=" + order_no + ", order_date=" + order_date + ", user_no=" + user_no + ", menu_idx="
-				+ menu_idx + ", menu_name=" + menu_name + ", cnt=" + cnt + ", menu_price=" + menu_price + ", option_price="
-				+ option_price + "]";
+				+ menu_idx + ", menu_name=" + menu_name + ", cnt=" + cnt + ", total_cnt=" + total_cnt + ", menu_price=" + menu_price + ", option_price="
+				+ option_price + ", active_YN=" + " + active_YN]";
 	}
 	
 	public int getOrder_idx() {
@@ -42,11 +50,11 @@ public class OrderNumberVO {
 	public void setOrder_no(String order_no) {
 		this.order_no = order_no;
 	}
-	public String getOrder_date() {
+	public Date getOrder_date() {
 		return order_date;
 	}
 
-	public void setOrder_date(String order_date) {
+	public void setOrder_date(Date order_date) {
 		this.order_date = order_date;
 	}
 
@@ -96,5 +104,29 @@ public class OrderNumberVO {
 
 	public void setOption_price(int option_price) {
 		this.option_price = option_price;
+	}
+
+	public int getCart_idx() {
+		return cart_idx;
+	}
+
+	public void setCart_idx(int cart_idx) {
+		this.cart_idx = cart_idx;
+	}
+
+	public String getActive_YN() {
+		return active_YN;
+	}
+
+	public void setActive_YN(String active_YN) {
+		this.active_YN = active_YN;
+	}
+
+	public int getTotal_cnt() {
+		return total_cnt;
+	}
+
+	public void setTotal_cnt(int total_cnt) {
+		this.total_cnt = total_cnt;
 	}
 }

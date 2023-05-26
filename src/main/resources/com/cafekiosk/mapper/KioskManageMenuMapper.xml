@@ -35,9 +35,46 @@
 
 	<!-- 주문 내역 조회 -->
 	<select id="getOrderList" resultType="com.cafekiosk.model.OrderNumberVO">
+		<![CDATA[
 		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, count(order_no)-1 AS cnt, menu_price, sum(option_price) AS option_price
 		FROM 	order_number
+		WHERE 	left(order_no,8) >= replace(#{start_date},'-','')
+		AND		left(order_no,8) <= replace(#{end_date},'-','')
+		AND		active_YN = "Y"
 		GROUP BY order_no
+		ORDER BY order_date DESC
+		]]>
+	</select>
+	
+	<!-- 주문 내역 삭제 -->
+	<update id="deleteOrder" parameterType="com.cafekiosk.model.OrderNumberVO">
+		UPDATE 	order_number
+		SET		active_YN= 'N'
+		WHERE 	order_no = #{order_no}
+	</update>
+	
+	<!-- 일매출 내역 조회 -->
+	<select id="getDaySales" resultType="com.cafekiosk.model.OrderNumberVO">
+		<![CDATA[
+		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, count(order_no)-1 AS cnt, menu_price, sum(option_price) AS option_price
+		FROM 	order_number
+		WHERE 	left(order_no,8) = replace(#{this_day},'-','')
+		AND		active_YN = "Y"
+		GROUP BY order_no
+		ORDER BY order_date DESC
+		]]>
+	</select>
+	
+	<!-- 월매출 내역 조회 -->
+	<select id="getMonthlySales" resultType="com.cafekiosk.model.OrderNumberVO">
+		<![CDATA[
+		SELECT 	order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, count(LEFT(order_no,8)) AS total_cnt, sum(option_price) AS option_price 
+		FROM 	order_number 
+		WHERE 	left(order_no,8) >= replace(#{start_date},'-','')
+		AND		left(order_no,8) <= replace(#{end_date},'-','')
+		AND 	active_YN = "Y" 
+		GROUP BY left(order_no ,8)
+		ORDER BY order_date DESC
+		]]>
 	</select>
   </mapper>
-  
