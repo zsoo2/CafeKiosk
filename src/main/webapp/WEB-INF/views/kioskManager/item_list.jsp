@@ -12,6 +12,7 @@
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	<div class="container">
@@ -80,37 +81,47 @@
 	   }
 	}
 	
-	// 체크박스 선택 여부 확인
-	function CheckTest() {
-		var checkboxes = document.getElementsByName("chk_list");
-		
-		for (var i = 0; i < checkboxes.length; i++) {
-			if (checkboxes[i].checked) {
-				return true;
-			}
-		}	
-		alert("삭제할 항목을 선택하세요.");
-		return false;		
-	}
+	 // 체크박스 선택 여부 확인
+	   function CheckTest() {
+	      var checkboxes = document.getElementsByName("chk_list");
+	      
+	      for (var i = 0; i < checkboxes.length; i++) {
+	         if (checkboxes[i].checked) {
+	            return true;
+	         }
+	      }   
+	      swal.fire("삭제할 항목을 선택하세요.");
+	      return false;      
+	   }
 
 
-	/* alert */
-	function frmFunc(){
-
-		if(CheckTest() == false) {
-		} else{
-			var rtn;
-			rtn = confirm('정말 삭제하시겠습니까?');
-			
-			if(rtn) {
-				/* 메뉴삭제 버튼(메뉴 삭제 기능 작동) */
-				$("#listForm").attr("action", "delete_item");
-				$("#listForm").submit();
-			} else{
-				return false;
-			}
-		}
-	}
+	   /* alert */
+	   function frmFunc(){
+	      if(CheckTest() == false) {
+	      } else{
+	         Swal.fire({
+	              title: '정말 삭제하시겠습니까?',
+	              text: "",
+	              icon: 'warning',
+	              showCancelButton: true,
+	              confirmButtonColor: '#3085d6',
+	              cancelButtonColor: '#d33',
+	              confirmButtonText: 'Yes'
+	            }).then((result) => {
+	              if (result.isConfirmed) {
+	               /* 메뉴삭제 버튼(메뉴 삭제 기능 작동) */
+	               $("#listForm").attr("action", "delete_item");
+	                $("#listForm").submit();
+	                
+	                Swal.fire(
+	                  '삭제되었습니다',
+	                  '',
+	                  'success'
+	                )
+	              }
+	            })
+	      }
+	   }
 
 </script>
 </html>
