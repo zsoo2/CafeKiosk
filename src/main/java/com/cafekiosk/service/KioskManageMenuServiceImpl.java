@@ -56,30 +56,75 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 
 	@Override
 	// 주문내역 전체 조회
-	public List<OrderNumberVO> getOrderList() {
-		List<OrderNumberVO> orderList = manageMenuMapper.getOrderList();
-		
-		/* 여기서 날짜 바꾸려고 한 흔적..
-		 * SimpleDateFormat stringToDate = new SimpleDateFormat("yyyyMMddHHmmss");
-		 * //string을 날짜형식으로 변환하기 위해 선언 SimpleDateFormat dateFormat = new
-		 * SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		 * 
-		 * for(int i = 0; i < orderList.size();i++) { String getOrder_no =
-		 * orderList.get(i).getOrder_no(); //반복문 돌려서 order_no 가져옴 String setOrder_date =
-		 * orderList.set(i, null).getOrder_no(); try { Date formatDate =
-		 * stringToDate.parse(getOrder_no); //string을 date형식으로 파싱
-		 * 
-		 * String order_date = dateFormat.format(formatDate); //원하는 형식으로 date포맷 변환
-		 * System.out.println(order_date);
-		 * 
-		 * 
-		 * } catch (ParseException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 * 
-		 * }
-		 */
+	public List<OrderNumberVO> getOrderList(String start_date, String end_date) {
 
+		/* System.out.println(start_date); */
+		
+		 //여기서 날짜 바꾸려고 한 흔적.. 
+		Date date = new Date();
+		SimpleDateFormat dateStr = new SimpleDateFormat("yyyy-MM-dd"); //string을 날짜형식으로 변환하기 위해 선언
+		 
+		 if (start_date == null) {
+			 start_date = dateStr.format(date);
+		 } else {
+			 start_date = start_date;
+		 }
+		 
+		if(end_date == null) {
+			end_date = dateStr.format(date);
+		} else {
+			end_date = end_date;
+		}
+		List<OrderNumberVO> orderList = manageMenuMapper.getOrderList(start_date, end_date);
 		return orderList;
 	}
+	
+	@Override
+	// 주문내역 삭제
+	public void deleteOrder(String order_no) {
+		manageMenuMapper.deleteOrder(order_no);
+	}
+	
+	@Override
+	// 일매출 내역 조회
+	public List<OrderNumberVO> getDaySales(String this_day) {
+		
+		 //여기서 날짜 바꾸려고 한 흔적.. 
+		Date date = new Date();
+		SimpleDateFormat dateStr = new SimpleDateFormat("yyyy-MM-dd"); //string을 날짜형식으로 변환하기 위해 선언
+		 
+		 if (this_day == null) {
+			 this_day = dateStr.format(date);
+		 } else {
+			 this_day = this_day;
+		 }
 
+		List<OrderNumberVO> daySales = manageMenuMapper.getDaySales(this_day);
+		return daySales;
+	}
+	
+	@Override
+	// 월매출 전체 조회
+	public List<OrderNumberVO> getMonthlySales(String start_date, String end_date) {
+
+		/* System.out.println(start_date); */
+		
+		 //여기서 날짜 바꾸려고 한 흔적.. 
+		Date date = new Date();
+		SimpleDateFormat dateStr = new SimpleDateFormat("yyyy-MM-dd"); //string을 날짜형식으로 변환하기 위해 선언
+		 
+		 if (start_date == null) {
+			 start_date = dateStr.format(date);
+		 } else {
+			 start_date = start_date;
+		 }
+		 
+		if(end_date == null) {
+			end_date = dateStr.format(date);
+		} else {
+			end_date = end_date;
+		}
+		List<OrderNumberVO> monthlySales = manageMenuMapper.getMonthlySales(start_date, end_date);
+		return monthlySales;
+	}
 }

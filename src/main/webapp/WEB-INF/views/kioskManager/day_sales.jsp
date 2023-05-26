@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +11,12 @@
 <body>
 	<div class="space"></div>
 	<div class="eachSales">
+		<form name="daySales" id="daySales" method="post" action="/kioskManager/day_sales">
 		<div class="selectDate">
-			<input type="date" id="this_day" name="this_day" value="">
+			<input type="date" id="this_day" name="this_day" value="<%=this_day%>">
 			<input type="submit" value="검색">
 		</div>
+		</form>
 		<div class="daySales">
 			<table border="1">
 				<colgroup>
@@ -30,12 +34,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>aaa</td>
-						<td>aaa</td>
-						<td>aaa</td>
-						<td>aaa</td>
-					</tr>
+					<c:forEach var="list" items="${daySales}">
+						<tr>
+							<td>${list.order_no}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.order_date }"/></td>
+							<td><fmt:formatDate pattern="HH:mm:ss" value="${list.order_date }"/></td>
+							<td>${list.option_price }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -59,7 +65,4 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-	document.getElementById("this_day").value = new Date().toISOString().substring(0,10);
-</script>
 </html>

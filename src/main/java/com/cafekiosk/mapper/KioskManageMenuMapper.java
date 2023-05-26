@@ -1,6 +1,9 @@
 package com.cafekiosk.mapper;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.cafekiosk.model.KioskManageMenuVO;
 import com.cafekiosk.model.OrderNumberVO;
@@ -23,5 +26,14 @@ public interface KioskManageMenuMapper {
 	public void deleteMenu(int menu_idx);
 	
 	//주문 내역 조회
-	public List<OrderNumberVO> getOrderList();
+	public List<OrderNumberVO> getOrderList(@Param("start_date") String start_date, @Param("end_date") String end_date);
+	
+	//주문 내역 삭제
+	public void deleteOrder(String order_no);
+	
+	//일매출 내역 조회
+	public List<OrderNumberVO> getDaySales(@Param("this_day") String this_day);
+	
+	//월매출 내역 조회
+	public List<OrderNumberVO> getMonthlySales(@Param("start_date") String start_date, @Param("end_date") String end_date);
 }

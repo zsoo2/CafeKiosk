@@ -1,5 +1,6 @@
 package com.cafekiosk.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,5 +26,14 @@ public interface KioskManageMenuService {
 	public void deleteMenu(int menu_idx);
 	
 	//주문 내역 조회
-	public List<OrderNumberVO> getOrderList();
+	public List<OrderNumberVO> getOrderList(String start_date, String end_date);
+	
+	//주문 내역 삭제
+	public void deleteOrder(String order_no);
+	
+	//일매출 내역 조회
+	public List<OrderNumberVO> getDaySales(String this_day);
+	
+	//월매출 내역 조회
+	public List<OrderNumberVO> getMonthlySales(String start_date, String end_date);
 }
