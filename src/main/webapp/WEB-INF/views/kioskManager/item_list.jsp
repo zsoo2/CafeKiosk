@@ -18,7 +18,7 @@
 		<form id="listForm" name="listForm" method="post">
 			<div class="itembox">
 				<div class="button_box">
-					<input type="button" id="insert" onclick="location.href='/kioskManage/insert_item'" value="추가">
+					<input type="button" id="insert" onclick="location.href='/kioskManager/insert_item'" value="추가">
 					<input type="button" name="deleteButton" id="deleteButton" onclick="frmFunc()" value="삭제">
 				</div>
 				<div class="list_box">
