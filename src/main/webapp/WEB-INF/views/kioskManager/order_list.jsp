@@ -1,10 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.*, java.text.*" %>
+
+<%
+	Date date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String today = simpleDate.format(date);
+	
+	String start_date = request.getParameter("start_date");
+	String end_date = request.getParameter("end_date");
+	
+	if(start_date == null) {
+		start_date = today;
+	} else {
+		start_date = request.getParameter("start_date");
+	}
+	
+	if(end_date == null) {
+		end_date = today;
+	}else {
+		end_date = request.getParameter("end_date");
+	}
+/*  	out.println(start_date);
+	out.println(end_date); */
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
+<script
+  src="https://code.jquery.com/jquery-3.6.4.js"
+  integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+  crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../resources/css/main.css">
 <link rel="stylesheet" href="../resources/css/kioskManager.css">
 </head>
@@ -25,14 +55,15 @@
 					
 					<div class="conbox con2">
 						<div class="container">
-							<form action="#" name="selectToday" method="post">
+							<form name="selectToday" method="post" action="order_list">
 								<div class="itembox">
 									<div class="selectDate">
-										<input type="date" id="start_date" name="start_date" value="">
+										<input type="date" id="start_date" name="start_date" value="<%= start_date%>">
 										<span> ~ </span>
-										<input type="date" id="end_date" name="end_date" value="">
+										<input type="date" id="end_date" name="end_date" value="<%= end_date%>">
 										<input type="submit" value="검색">
 									</div>
+							</form>
 									<div class="order_list">
 										<table>
 											<colgroup>
@@ -57,12 +88,12 @@
 												<c:forEach var="list" items="${orderList}">
 													<tr>
 														<c:set var="except" value ="외"/>										
-														<c:set var="count" value ="건"/>									
- 														<td><c:out value="${list.order_date }"/></td>
+														<c:set var="count" value ="건"/>
+ 														<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${list.order_date }"/></td>
 														<td><c:out value="${list.order_no }"/></td>
 														<c:choose>
-															<c:when test="${list.cnt >= 1}">
-																<td><c:out value="${list.menu_name} ${except} ${list.cnt }${count}"/></td>		<!-- 여러 잔 구매 시 -->
+															<c:when test="${list.cnt > 1}">
+																<td><c:out value="${list.menu_name} ${except} ${list.cnt -1}${count}"/></td>		<!-- 여러 잔 구매 시 -->
 															</c:when>
 															<c:otherwise>
 																<td><c:out value="${list.menu_name}"/></td>										<!-- 한 잔 구매 시 -->
@@ -78,7 +109,7 @@
 														</c:choose>
 														
 														<td><c:out value="${list.option_price }"/></td>
-														<td><input type="button" name="cancle" id="cancle" class="cancle"/></td>
+														<td><input type="button" name="cancle" id="cancle" class="cancle" onclick="deleteOrder(${list.order_no})"/></td>
  													</tr>
 												</c:forEach>
 											</tbody>
@@ -98,7 +129,7 @@
 										</ul>
 									</div>
 								</div>
-							</form>
+<!-- 							</form> -->
 						</div>
 					</div>
 				</div>
@@ -107,7 +138,33 @@
 	</div>
 </body>
 <script type="text/javascript">
-	document.getElementById("start_date").value = new Date().toISOString().substring(0,10);
-	document.getElementById("end_date").value = new Date().toISOString().substring(0,10);
+	//오늘 날짜 셋팅
+	 var start_date = document.getElementById("start_date").value;
+	 var end_date = document.getElementById("end_date").value;
+	 
+	// console.log(start_date);
+	 if(start_date == null){
+		 start_date = new Date().toISOString().substring(0,10);
+	 } else {
+		 start_date = <%=start_date%>;
+	 }
+	 
+	 if(end_date == null){
+		 end_date = new Date().toISOString().substring(0,10);
+	 } else {
+		 end_date = <%=end_date%>;
+	 }
+ 
+	// 장바구니 삭제
+	function deleteOrder(order_no) {
+		$.ajax({
+			type: "post", 
+			url: "/kioskManager/deleteOrder",
+			data: {"order_no" : order_no},
+			success: function (data) {
+				location.reload();
+			}
+		});
+	}
 </script>
 </html>

@@ -36,7 +36,7 @@
 	<!-- 주문 내역 조회 -->
 	<select id="getOrderList" resultType="com.cafekiosk.model.OrderNumberVO">
 		<![CDATA[
-		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, count(order_no)-1 AS cnt, menu_price, sum(option_price) AS option_price
+		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, count(*) as total_cnt, count(order_no) AS cnt, menu_price, sum(option_price) AS option_price
 		FROM 	order_number
 		WHERE 	left(order_no,8) >= replace(#{start_date},'-','')
 		AND		left(order_no,8) <= replace(#{end_date},'-','')
@@ -56,7 +56,7 @@
 	<!-- 일매출 내역 조회 -->
 	<select id="getDaySales" resultType="com.cafekiosk.model.OrderNumberVO">
 		<![CDATA[
-		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, count(order_no)-1 AS cnt, menu_price, sum(option_price) AS option_price
+		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, count(order_no) AS cnt, menu_price, sum(option_price) AS option_price
 		FROM 	order_number
 		WHERE 	left(order_no,8) = replace(#{this_day},'-','')
 		AND		active_YN = "Y"

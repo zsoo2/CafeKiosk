@@ -11,10 +11,11 @@
 	<div class="eachSales">
 	<form name="monthlySales" id="monthlySales" method="post" action="/kioskManager/monthly_sales">
 		<div class="selectDate">
-			<input type="date" id="start_date_sales" name="start_date" value="<%= start_date%>">
+			<input type="date" id="start_date" name="start_date" value="<%= start_date%>">
 			<span> ~ </span>
-			<input type="date" id="end_date_sales" name="end_date" value="<%= end_date%>">
-			<input type="submit" value="검색">
+			<input type="date" id="end_date" name="end_date" value="<%= end_date%>">
+			<input type="hidden" id="chkStatus2" name="chkStatus2" value="checked">
+			<input type="button" value="검색" onclick="month()">
 		</div>
 	</form>
 		<div class="monthlySales">
@@ -48,7 +49,7 @@
 					<span>판매건수</span>
 				</div>
 				<div class="resultAmount">
-					<span>1000</span>
+					<span>${monthCnt }</span>
 				</div>
 			</div>
 			<div class="resultList">
@@ -56,10 +57,18 @@
 					<span>판매금액</span>
 				</div>
 				<div class="resultAmount">
-					<span>10000000</span>
+					<span>${monthSum }</span>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+<script>
+	function month(){
+		var monthForm = document.monthlySales;
+		
+		monthForm.submit();
+	
+	}
+</script>
 </html>

@@ -32,6 +32,20 @@
 	}else {
 		this_day = request.getParameter("this_day");
 	}
+
+	String chkStatus1 = request.getParameter("chkStatus1");
+	String chkStatus2 = request.getParameter("chkStatus2");
+	if (chkStatus1==null){
+		chkStatus1 = "checked";
+	} else {
+		chkStatus1 = chkStatus1;
+	}
+	
+	if (chkStatus2==null){
+		chkStatus2 = "";
+	} else {
+		chkStatus2 = chkStatus2;
+	}
 %>
 
 <!DOCTYPE html>
@@ -65,9 +79,9 @@
 						<div class="container">
 							<div class="itembox">
 								<div class="select">
-									<input type="radio" name="selectSales" id="daySales" checked>
+									<input type="radio" name="selectSales" id="daySales" <%=chkStatus1 %>>
 									<label for="daySales">일매출</label>
-									<input type="radio" name="selectSales" id="monthlySales">
+									<input type="radio" name="selectSales" id="monthlySales" <%=chkStatus2 %>>
 									<label for="monthlySales">월매출</label>
 									
 									<div class="conbox con1">
@@ -109,6 +123,6 @@
 	 } else {
 		 this_day = <%=this_day%>;
 	 }
- 
+
 </script>
 </html>
