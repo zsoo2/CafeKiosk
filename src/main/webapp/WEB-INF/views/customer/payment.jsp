@@ -31,7 +31,8 @@
 					<div class="payment_amount">
 						<div>
 							<span>결제금액 : </span>
-							<span>@@@@</span>
+							<input type="hidden" id="totalSum" value="totalSum">
+							<span>${totalSumCom}</span>
 							<span>원</span>
 						</div>
 						<div class="payment_button">
@@ -48,11 +49,13 @@
 								<col width="60%">
 								<col width="30%">
 							</colgroup>
-							<tr>
-								<td>1</td>
-								<td>아이스 아메리카노</td>
-								<td>2500</td>
-							</tr>
+							<c:forEach var="list" items="${cartList}" varStatus="status">
+								<tr>
+									<td>${status.count}</td>
+									<td>${list.menu_name}</td>
+									<td>${list.option_price} 원</td>
+								</tr>
+							</c:forEach>
 						</table>
 					</div>
 				</div>

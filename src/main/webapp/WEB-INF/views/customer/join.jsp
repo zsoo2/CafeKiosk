@@ -16,7 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-<!-- <form id="joinForm" name="joinForm" action="#" method="post"> -->
+<form id="joinForm" action="/customer/order" method="post">
 	<div class="wrapper">
 		<div class="wrap">
 			<div class="top">
@@ -26,9 +26,11 @@
 				<div class="member_container">
 					<div class="join_container">
 						<div class="text_container">
-							<span>xxxx</span><span>님</span><br>
+						<input type="hidden" id="user_no" name="user_no" value="${user_no}">
+						<input type="hidden" id="check_result" name="check_result" value="${check_result}">
+							<span>${user_no}</span><span>님</span><br>
 							<span>스탬프</span>
-							<span>n</span>
+							<span>1</span>
 							<span>개 적립하시겠습니까?</span>
 						</div>
 						<div class="check_container">
@@ -59,8 +61,9 @@
 					                <span>결제 진행하시겠습니까?</span>
 					            </div>
 					            <div class="content">
-   									<input type="button" name="#" id="#" value="취소" onclick="location.href='#'"/>
-									<input type="submit" name="#" id="#" value="확인" onclick="location.href='/customer/payment'"/>
+   									<input type="button" value="취소" onclick="modalOff()"/>
+									<input type="submit" value="확인">
+									<!-- <input type="submit" name="#" value="확인" onclick="location.href='/customer/payment'"/> -->
 					            </div>
 					        </div>
 					    </div>
@@ -69,7 +72,7 @@
 			</div>
 		</div>
 	</div>
-<!-- </form>	 -->
+</form>
 </body>
 <script type="text/javascript">
 	var button = document.getElementById('detail');
@@ -104,21 +107,22 @@
     }
     
     const closeBtn = modal.querySelector(".close-area")
-	    closeBtn.addEventListener("click", e => {
-	        modalOff();
-	    });
+    closeBtn.addEventListener("click", e => {
+        modalOff();
+    });
 
 //동의 체크박스 부분
 	function Check() {
-	var arrSelect = document.getElelementsByName("chkSelect");
-	
-	for (var i = 0; i<arrSelect.length; i++) {
-		if(arrSelect[i].checked) {
-			return location.href='/customer/payment';
+		var arrSelect = document.getElelementsByName("chkSelect");
+		
+		for (var i = 0; i<arrSelect.length; i++) {
+			if(arrSelect[i].checked) {
+				return location.href='/customer/payment';
+			}
 		}
+		swal.fire("체크해주세요");
+		return false;
 	}
-	swal.fire("체크해주세요");
-	return false;
-}
+
 </script>
 </html>
