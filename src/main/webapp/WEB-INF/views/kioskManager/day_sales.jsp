@@ -11,11 +11,12 @@
 <body>
 	<div class="space"></div>
 	<div class="eachSales">
-		<form name="daySales" id="daySales" method="post" action="/kioskManager/day_sales">
+		<form name="daySales" id="daySales" method="post">
 		<div class="selectDate">
 			<input type="date" id="this_day" name="this_day" value="<%=this_day%>">
 			<input type="hidden" id="chkStatus1" name="chkStatus1" value="checked">
-			<input type="submit" value="검색">
+			<input type="button" value="검색" onclick="search()">
+			<input type="button" value="다운로드" onclick="excel_day()">
 		</div>
 		</form>
 		<div class="daySales">
@@ -66,4 +67,16 @@
 		</div>
 	</div>
 </body>
+<script>
+	function search(){
+		var form = document.daySales;
+		form.action = "/kioskManager/day_sales";
+		form.submit();
+	}
+	function excel_day(){
+		var form = document.daySales;
+		form.action = "/kioskManager/excel_download_day";
+		form.submit();
+	}
+</script>
 </html>

@@ -57,13 +57,14 @@
 					
 					<div class="conbox con2">
 						<div class="container">
-							<form name="selectToday" method="post" action="order_list">
+							<form name="selectToday" method="post">
 								<div class="itembox">
 									<div class="selectDate">
 										<input type="date" id="start_date" name="start_date" value="<%= start_date%>">
 										<span> ~ </span>
 										<input type="date" id="end_date" name="end_date" value="<%= end_date%>">
-										<input type="submit" value="검색">
+										<input type="button" value="검색" onclick="search()">
+										<input type="button" value="다운로드" onclick="excel()">
 									</div>
 							</form>
 									<div class="order_list">
@@ -167,6 +168,17 @@
 				location.reload();
 			}
 		});
+	}
+	
+	function search(){
+		var form = document.selectToday;
+		form.action = "/kioskManager/order_list";
+		form.submit();
+	}
+	function excel(){
+		var form = document.selectToday;
+		form.action = "/kioskManager/excel_download";
+		form.submit();
 	}
 </script>
 </html>
