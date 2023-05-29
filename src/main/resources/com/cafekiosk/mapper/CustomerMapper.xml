@@ -36,7 +36,7 @@
 		UPDATE cart
 		SET
 			active_YN= 'N'
-		WHERE cart_idx = #{cart_idx}
+		WHERE cart_idx = #{cart_idx};
 	</update>
 	
 	<!-- 장바구니 수정 -->
@@ -45,7 +45,28 @@
 		SET
 			count = #{count},
 			option_price = #{option_price}
-		WHERE cart_idx = #{cart_idx}
+		WHERE cart_idx = #{cart_idx};
 	</update>
+	
+	<!-- 멤버 조회 -->
+	<select id="checkMember" resultType="int">
+		SELECT COUNT(user_no)
+		FROM customer
+		WHERE user_no = #{user_no};
+	</select>
+	
+	<!-- 멤버 등록 -->
+	<insert id="insertMember">
+		INSERT INTO customer
+			(user_no, coupon_cnt)
+		VALUES (#{user_no}, '0');
+	</insert>
+	
+	<!-- 주문 등록 -->
+	<insert id="insertOrder" parameterType="com.cafekiosk.model.OrderNumberVO">
+		INSERT INTO order_number
+			(order_no, user_no, cart_idx, menu_idx, menu_name, menu_price, option_price, active_YN)
+		VALUES (#{order_no}, #{user_no}, #{cart_idx}, #{menu_idx}, #{menu_name}, #{menu_price}, #{option_price}, 'Y');
+	</insert>
 	
   </mapper>

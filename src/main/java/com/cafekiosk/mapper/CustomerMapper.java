@@ -25,5 +25,14 @@ public interface CustomerMapper {
 
 	//장바구니 수정
 	public void editCart(@Param("cart_idx") int cart_idx, @Param("count") int count, @Param("option_price") int option_price);
+
+	//맴버 확인
+	public Integer checkMember(String user_no);
+
+	//멤버 등록
+	public void insertMember(String user_no);
+
+	//주문 등록
+	public void insertOrder(@Param("order_no") String order_no, @Param("user_no") String user_no, @Param("cart_idx") int cart_idx, @Param("menu_idx") int menu_idx, @Param("menu_name") String menu_name, @Param("menu_price") int menu_price, @Param("option_price") int option_price);
 	
 }

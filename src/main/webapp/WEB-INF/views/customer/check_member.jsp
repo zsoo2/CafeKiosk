@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="../resources/css/customer.css">
 </head>
 <body>			
-<!-- <form id="checkForm" name="checkForm" action="/customer/join" method="post"> -->
+<form id="checkForm" name="checkForm" action="/customer/join" method="post">
 	<div class="wrapper">
 		<div class="wrap">
 			<div class="top">
@@ -28,7 +28,7 @@
 						<span>적립할 번호를 입력하세요.</span>
 					</div>
 					<div class="number_box">
-						<input type="text" id="number_box" value="010" maxlength="13"/>
+						<input type="text" id="number_box" name="user_no" value="010" maxlength="13"/>
 					</div>
 					<div class="keypad_box">
 						<div><input type="text" class="numKey" value="1" onclick="add(1)" readonly></div>
@@ -40,7 +40,11 @@
 					    <div><input type="text" class="numKey" value="7" onclick="add(7)" readonly></div>
 					    <div><input type="text" class="numKey" value="8" onclick="add(8)" readonly></div>
 					    <div><input type="text" class="numKey" value="9" onclick="add(9)" readonly></div>
-					    <div><input type="submit" value="적립하기" onclick="location.href='/customer/join'" readonly></div>
+					    <div>
+					    	<!-- <input type="button" id="checkNum" value="적립하기"> -->
+ 					    	<input type="submit" value="적립하기">
+ 					    	<!-- <input type="button" id="checkNum" value="적립하기" onclick="location.href='/customer/join'"> -->
+					    </div>
 					    <div><input type="text" class="numKey" value="0" onclick="add(0)" readonly></div>
 					    <div><input type="text" class="btn" value="←" onclick="deleteNum()"readonly></div>
 					</div>
@@ -54,7 +58,7 @@
 			</div>
 		</div>
 	</div>
-<!-- </form>	 -->
+</form>
 </body>
 <script type="text/javascript">
 	function add(char){
@@ -117,5 +121,6 @@ function autoHypenPhone(str){
 		})
 	}); */
 	
+
 </script>
 </html>

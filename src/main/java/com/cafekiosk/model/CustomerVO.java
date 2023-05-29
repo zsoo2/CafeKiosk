@@ -4,7 +4,7 @@ public class CustomerVO {
 
 	private String user_no;
 	
-	private String coupon_cnt;
+	private int coupon_cnt;
 
 	public String getUser_no() {
 		return user_no;
@@ -14,15 +14,14 @@ public class CustomerVO {
 		this.user_no = user_no;
 	}
 
-	public String getCoupon_cnt() {
+	public int getCoupon_cnt() {
 		return coupon_cnt;
 	}
 
-	public void setCoupon_cnt(String coupon_cnt) {
+	public void setCoupon_cnt(int coupon_cnt) {
 		this.coupon_cnt = coupon_cnt;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "CustomerVO [user_no=" + user_no + ", coupon_cnt=" + coupon_cnt + "]";

@@ -49,4 +49,26 @@ public class CustomerServiceImpl implements CustomerService {
 		//장바구니 수정
 		customerMapper.editCart(cart_idx, count, option_price);
 	}
+	
+	@Override
+	public Integer checkMember(String user_no) {
+		//멤버 확인
+		Integer check_result = customerMapper.checkMember(user_no);
+
+		return check_result;
+	}
+	
+	@Override
+	public void insertMember(String user_no) {
+		//멤버 등록
+		customerMapper.insertMember(user_no);
+		
+	}
+	
+	@Override
+	public void insertOrder(String order_no, String user_no, int cart_idx, int menu_idx, String menu_name, int menu_price, int option_price) {
+		//멤버 등록
+		customerMapper.insertOrder(order_no, user_no, cart_idx, menu_idx, menu_name, menu_price, option_price);
+	
+	}
 }

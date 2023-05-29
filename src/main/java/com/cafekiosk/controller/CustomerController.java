@@ -1,6 +1,8 @@
 package com.cafekiosk.controller;
 
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +59,7 @@ public class CustomerController {
 		DecimalFormat decFormat = new DecimalFormat("###,###");
 		String totalSumCom = decFormat.format(totalSum);
 		model.addAttribute("totalSumCom", totalSumCom);
+		/* model.addAttribute("totalSum", totalSum); */
 		model.addAttribute("totalCnt", totalCnt);
 		
 		return "/customer/menu_1";
@@ -170,7 +173,6 @@ public class CustomerController {
 		return "redirect:/customer/" + addr;
 	}
 	
-	
 	//장바구니 메뉴 삭제
 	@ResponseBody
 	@RequestMapping(value="/customer/deleteCart", method = RequestMethod.POST)
@@ -207,15 +209,54 @@ public class CustomerController {
 	public void checkMemberPageGet() {
 		logger.info("check_member 페이지 진입");
 	}
+
 	
 	@RequestMapping(value="/customer/join", method = RequestMethod.GET)
 	public void joinPageGet() {
 		logger.info("join 페이지 진입");
 	}
 	
-	@RequestMapping(value="/customer/order_number", method = RequestMethod.GET)
-	public void orderNumberPageGet() {
-		logger.info("order_number 페이지 진입");
+	@RequestMapping(value="/customer/join", method = RequestMethod.POST)
+	public String joinPage (@RequestParam("user_no") String user_no, Model model) {
+		logger.info("join 페이지 진입");
+		user_no = user_no.replaceAll("-", "");
+		int check_result = customerService.checkMember(user_no);
+		
+		model.addAttribute("user_no", user_no);
+		model.addAttribute("check_result", check_result);
+		
+		return "/customer/join";
+	}
+	
+	/*
+	 * @RequestMapping(value="/customer/checkPoints", method = RequestMethod.POST)
+	 * public int checkMember(@RequestParam("user_no") String user_no) {
+	 * return 0; }
+	 */
+	
+	@RequestMapping(value="/customer/order", method = RequestMethod.POST)
+	public String insertOrder(@RequestParam("user_no") 		String user_no,
+							  @RequestParam("check_result") int check_result) {
+		logger.info("insertOrder 페이지 진입");
+	
+		if(check_result == 0) { 
+			  customerService.insertMember(user_no);	// 새 멤버 등록
+		}
+
+	    LocalDateTime now = LocalDateTime.now();
+	    String order_no = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+          
+	    List<CartVO> cartList = customerService.getCartList();
+		for (int i = 0; i < cartList.size(); i++) {
+			int cart_idx 		= cartList.get(i).getCart_idx();
+			int menu_idx 		= cartList.get(i).getMenu_idx();
+			String menu_name 	= cartList.get(i).getMenu_name();
+			int menu_price 	= cartList.get(i).getMenu_price();
+			int option_price 	= cartList.get(i).getOption_price();
+			  
+			customerService.insertOrder(order_no, user_no, cart_idx, menu_idx, menu_name, menu_price, option_price);
+		}
+		return "redirect:/customer/payment";		  
 	}
 	
 	@RequestMapping(value="/customer/popup_option", method = RequestMethod.GET)
@@ -224,9 +265,21 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value="/customer/payment", method = RequestMethod.GET)
-	public void paymentPageGet() {
+	public void paymentPageGet(Model model) {
 		logger.info("payment 페이지 진입");
-	}
+		
+		List<CartVO> cartList = customerService.getCartList();
+
+		int totalSum = 0;
 	
+		for (int i = 0; i < cartList.size(); i++) {
+			totalSum += cartList.get(i).getOption_price();
+		}		
+		DecimalFormat decFormat = new DecimalFormat("###,###");
+		String totalSumCom = decFormat.format(totalSum);
+		model.addAttribute("totalSumCom", totalSumCom);
+		model.addAttribute("totalSum", totalSum);
+		model.addAttribute("cartList", cartList);
+	}
 	
 }

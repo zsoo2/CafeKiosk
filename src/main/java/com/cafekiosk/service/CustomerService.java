@@ -22,4 +22,13 @@ public interface CustomerService {
 	//장바구니 수정
 	public void editCart(int cart_idx, int cart_cnt, int option_price);
 
+	//멤버 화인
+	public Integer checkMember(String user_no);
+
+	//멤버 등록
+	public void insertMember(String user_no);
+
+	//주문 등록
+	public void insertOrder(String order_no, String user_no, int cart_idx, int menu_idx, String menu_name, int menu_price, int option_price);
+
 }
