@@ -14,6 +14,7 @@
 		<form name="daySales" id="daySales" method="post" action="/kioskManager/day_sales">
 		<div class="selectDate">
 			<input type="date" id="this_day" name="this_day" value="<%=this_day%>">
+			<input type="hidden" id="chkStatus1" name="chkStatus1" value="checked">
 			<input type="submit" value="검색">
 		</div>
 		</form>
@@ -39,7 +40,7 @@
 							<td>${list.order_no}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.order_date }"/></td>
 							<td><fmt:formatDate pattern="HH:mm:ss" value="${list.order_date }"/></td>
-							<td>${list.option_price }</td>
+							<td>${list.option_price }원</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -51,7 +52,7 @@
 					<span>판매건수</span>
 				</div>
 				<div class="resultAmount">
-					<span>1000</span>
+					<span>${dayCnt }</span>
 				</div>
 			</div>
 			<div class="resultList">
@@ -59,7 +60,7 @@
 					<span>판매금액</span>
 				</div>
 				<div class="resultAmount">
-					<span>10000000</span>
+					<span>${daySum }</span>
 				</div>
 			</div>
 		</div>

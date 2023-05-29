@@ -1,8 +1,11 @@
 package com.cafekiosk.controller;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -120,14 +123,20 @@ public class KioskManagerController {
 	public String daySalesGet(Model model, HttpServletRequest request, @RequestParam(required=false) String this_day){
 		logger.info("daySales 페이지 진입");
 			
-		/*
-		 * request.setAttribute("start_date",request.getParameter("start_date"));
-		 * request.setAttribute("end_date", request.getParameter("end_date"));
-		 */
-
 		List<OrderNumberVO> daySales = manageMenuService.getDaySales(this_day);
-		
+				
 		model.addAttribute("daySales", daySales);
+				
+		int cnt = daySales.get(0).getCnt();
+		int sum = daySales.get(0).getOption_price();
+
+		DecimalFormat decFormat = new DecimalFormat("###,###");
+		
+		String dayCnt = decFormat.format(cnt);		
+		String daySum = decFormat.format(sum);
+
+		model.addAttribute("dayCnt", dayCnt);		
+		model.addAttribute("daySum", daySum);
 		
 		return "kioskManager/check_sales";
 	}
@@ -139,19 +148,25 @@ public class KioskManagerController {
 									@RequestParam(required=false) String end_date){
 		logger.info("monthlySales 페이지 진입");
 			
-		/*
-		 * request.setAttribute("start_date",request.getParameter("start_date"));
-		 * request.setAttribute("end_date", request.getParameter("end_date"));
-		 */
-
 		List<OrderNumberVO> monthlySales = manageMenuService.getMonthlySales(start_date, end_date);
 		
 		model.addAttribute("monthlySales", monthlySales);
 		
+		int cnt = monthlySales.stream().mapToInt(OrderNumberVO::getTotal_cnt).sum();
+		int sum = monthlySales.stream().mapToInt(OrderNumberVO::getOption_price).sum();
+
+		DecimalFormat decFormat = new DecimalFormat("###,###");
+		
+		String monthCnt = decFormat.format(cnt);		
+		String monthSum = decFormat.format(sum);
+
+		model.addAttribute("monthCnt", monthCnt);		
+		model.addAttribute("monthSum", monthSum);
+
 		return "kioskManager/check_sales";
 	}
 	
-
+	
 	// 메뉴 등록
 	@RequestMapping(value = "kioskManager/insert_item", method = RequestMethod.POST)
 	public String insertMenu(KioskManageMenuVO manageMenu) throws Exception {
