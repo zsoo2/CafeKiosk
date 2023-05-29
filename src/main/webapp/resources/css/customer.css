@@ -133,6 +133,30 @@ html {
 .customer_menu>input[id="tab04"]:checked ~ .con4 {
 	display: block;
 } 
+
+/* 임의의 영역 생성 */
+.scroll_container { 
+  width: 200px;
+  height: 200px;
+  overflow-y: scroll;
+}
+
+/* 아래의 모든 코드는 영역::코드로 사용 */
+.scroll_container::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+
+.scroll_container::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #f7bbcd; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+.scroll_container::-webkit-scrollbar-track {
+    background:#ffd5d5b3;  /*스크롤바 뒷 배경 색상*/
+}
+
 .scroll_container {
 	position: relative;
     overflow: auto;
@@ -446,6 +470,24 @@ html {
     width: 100%;
     height: 94%;
 }
+
+/* 아래의 모든 코드는 영역::코드로 사용 */
+.cart_list::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+
+.cart_list::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #f7bbcd; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+.cart_list::-webkit-scrollbar-track {
+    background:#ffd5d5b3;  /*스크롤바 뒷 배경 색상*/
+}
+
+
 .cart_list>table {
     width: 90%;
     height: 100%;
