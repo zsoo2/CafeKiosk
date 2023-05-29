@@ -166,7 +166,6 @@ public class KioskManagerController {
 		return "kioskManager/check_sales";
 	}
 	
-
 	// 메뉴 등록
 	@RequestMapping(value = "kioskManager/insert_item", method = RequestMethod.POST)
 	public String insertMenu(KioskManageMenuVO manageMenu) throws Exception {
