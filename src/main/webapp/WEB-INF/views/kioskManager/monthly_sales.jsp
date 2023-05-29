@@ -11,13 +11,14 @@
 <body>
 	<div class="space"></div>
 	<div class="eachSales">
-	<form name="monthlySales" id="monthlySales" method="post" action="/kioskManager/monthly_sales">
+	<form name="monthlySales" id="monthlySales" method="post">
 		<div class="selectDate">
 			<input type="date" id="start_date" name="start_date" value="<%= start_date%>">
 			<span> ~ </span>
 			<input type="date" id="end_date" name="end_date" value="<%= end_date%>">
 			<input type="hidden" id="chkStatus2" name="chkStatus2" value="checked">
 			<input type="button" value="검색" onclick="month()">
+			<input type="button" value="다운로드" onclick="excel_month()">
 		</div>
 	</form>
 		<div class="monthlySales">
@@ -68,9 +69,13 @@
 <script>
 	function month(){
 		var monthForm = document.monthlySales;
-		
+		monthForm.action = "/kioskManager/monthly_sales";
+		monthForm.submit();	
+	}
+	function excel_month(){
+		var monthForm = document.monthlySales;
+		monthForm.action = "/kioskManager/excel_download_month";
 		monthForm.submit();
-	
 	}
 </script>
 </html>

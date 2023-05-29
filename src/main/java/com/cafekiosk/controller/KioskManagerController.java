@@ -8,6 +8,7 @@ import java.util.stream.Collector;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,10 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cafekiosk.model.KioskManageMenuVO;
@@ -201,6 +205,33 @@ public class KioskManagerController {
 
 		return "redirect:/kioskManager/kioskManager";
 
+	}
+	
+	@RequestMapping(value = "kioskManager/excel_download", method = RequestMethod.POST)
+	@ResponseBody
+	// 주문내역 엑셀 다운로드
+	public void excelDown(@ModelAttribute OrderNumberVO orderNumberVO, HttpServletResponse response, HttpServletRequest request, String start_date, String end_date)
+						throws Exception{
+		manageMenuService.excelDown(orderNumberVO, response, start_date, end_date);
+		logger.info("엑셀 주문내역 성공");
+	}
+	
+	@RequestMapping(value = "kioskManager/excel_download_day", method = RequestMethod.POST)
+	@ResponseBody
+	// 일매출 엑셀 다운로드
+	public void excelDownDay(@ModelAttribute OrderNumberVO orderNumberVO, HttpServletResponse response, HttpServletRequest request, String this_day)
+						throws Exception{
+		manageMenuService.excelDownDay(orderNumberVO, response, this_day);
+		logger.info("엑셀 일매출 성공");
+	}
+	
+	@RequestMapping(value = "kioskManager/excel_download_month", method = RequestMethod.POST)
+	@ResponseBody
+	// 월매출 엑셀 다운로드
+	public void excelDownMonth(@ModelAttribute OrderNumberVO orderNumberVO, HttpServletResponse response, HttpServletRequest request, String start_date, String end_date)
+						throws Exception{
+		manageMenuService.excelDownMonth(orderNumberVO, response, start_date, end_date);
+		logger.info("엑셀 월매출 성공");
 	}
 
 }

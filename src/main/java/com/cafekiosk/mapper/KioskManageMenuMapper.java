@@ -36,4 +36,13 @@ public interface KioskManageMenuMapper {
 	
 	//월매출 내역 조회
 	public List<OrderNumberVO> getMonthlySales(@Param("start_date") String start_date, @Param("end_date") String end_date);
+	
+	//주문내역 엑셀 다운로드
+	public List<OrderNumberVO> getExcelList(@Param("start_date") String start_date, @Param("end_date") String end_date);
+	
+	//주문내역 엑셀 다운로드
+	public List<OrderNumberVO> getExcelListDay(@Param("this_day") String this_day);
+	
+	//주문내역 엑셀 다운로드
+	public List<OrderNumberVO> getExcelListMonth(@Param("start_date") String start_date, @Param("end_date") String end_date);
 }

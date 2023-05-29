@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.cafekiosk.model.KioskManageMenuVO;
 import com.cafekiosk.model.OrderNumberVO;
@@ -36,4 +37,13 @@ public interface KioskManageMenuService {
 	
 	//월매출 내역 조회
 	public List<OrderNumberVO> getMonthlySales(String start_date, String end_date);
+	
+	//주문내역 엑셀 다운로드
+	public void excelDown(OrderNumberVO orderNumberVO, HttpServletResponse response, String start_date, String end_date) throws Exception;
+	
+	//일매출 엑셀 다운로드
+	public void excelDownDay(OrderNumberVO orderNumberVO, HttpServletResponse response, String this_day) throws Exception;
+		
+	//월매출 엑셀 다운로드
+	public void excelDownMonth(OrderNumberVO orderNumberVO, HttpServletResponse response, String start_date, String end_date) throws Exception;
 }
