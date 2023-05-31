@@ -12,6 +12,7 @@
   crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../resources/css/main.css">
 <link rel="stylesheet" href="../resources/css/customer.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -159,11 +160,11 @@
 			<div class="payment_content">
 				<div class="payment_box1">
 					<div class="payment_text"><span>주문수량 :</span></div>
-					<div class="payment_quantityNum"><span>${totalCnt} 개</span></div>
+					<div class="payment_quantityNum"><span>${totalCnt}</span>개</div>
 				</div>
 				<div class="payment_box1">
 					<div class="payment_text"><span>주문금액 :</span></div>
-					<div class="payment_amountNum"><span>${totalSumCom} 원</span></div>
+					<div class="payment_amountNum"><span>${totalSumCom}</span>원</div>
 				</div>
 			</div>
 			<div class="payment_content">
@@ -171,7 +172,7 @@
 					<img src="../resources/image/icon/cancle-icon.png">
 				</div>
 				<div class="payment_box2">
-					<img src="../resources/image/icon/pay-icon.png" onclick="location.href='/customer/check_member'">
+					<img src="../resources/image/icon/pay-icon.png" onclick="payItem()">
 				</div>
 			</div>
 		</div>
@@ -333,6 +334,16 @@
 				location.reload();
 			}
 		});
+	}
+	
+	// 결제하기
+	function payItem() {
+		var item_cnt = document.querySelector('.payment_quantityNum span').innerText;
+		if(item_cnt < 1) {
+			swal.fire("상품을 장바구니에 담아주세요");
+		}else {
+			location.href='/customer/check_member'
+		}
 	}
 	
 </script>
