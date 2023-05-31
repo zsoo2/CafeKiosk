@@ -77,4 +77,41 @@
 		ORDER BY order_date DESC
 		]]>
 	</select>
+	
+	<!-- 주문내역 엑셀 다운로드 -->
+	<select id="getExcelList" resultType="com.cafekiosk.model.OrderNumberVO">
+		<![CDATA[
+		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, menu_price, option_price
+		FROM 	order_number
+		WHERE 	left(order_no,8) >= replace(#{start_date},'-','')
+		AND		left(order_no,8) <= replace(#{end_date},'-','')
+		AND		active_YN = "Y"
+		ORDER BY order_date DESC
+		]]>
+	</select>
+	
+	<!-- 일매출 엑셀 다운로드 -->
+	<select id="getExcelListDay" resultType="com.cafekiosk.model.OrderNumberVO">
+		<![CDATA[
+		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, count(order_no) AS cnt, sum(option_price) AS option_price
+		FROM 	order_number
+		WHERE 	left(order_no,8) = replace(#{this_day},'-','')
+		AND		active_YN = "Y"
+		GROUP BY order_no
+		ORDER BY order_date DESC
+		]]>
+	</select>
+	
+	<!-- 월매출 엑셀 다운로드 -->
+	<select id="getExcelListMonth" resultType="com.cafekiosk.model.OrderNumberVO">
+		<![CDATA[
+		SELECT 	order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, count(LEFT(order_no,8)) AS total_cnt, sum(option_price) AS option_price 
+		FROM 	order_number 
+		WHERE 	left(order_no,8) >= replace(#{start_date},'-','')
+		AND		left(order_no,8) <= replace(#{end_date},'-','')
+		AND 	active_YN = "Y" 
+		GROUP BY left(order_no ,8)
+		ORDER BY order_date DESC
+		]]>
+	</select>
   </mapper>
