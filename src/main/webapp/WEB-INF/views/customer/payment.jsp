@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="../resources/css/customer.css">
 </head>
 <body>
-<!-- <form name="payForm" id="payForm" action="#" method="post"> -->
+<form id="payForm" action="/customer/payment" method="post">
 	<div class="wrapper">
 		<div class="wrap">
 			<div class="top">
-				<span><a href="/customer/join">이전으로</a></span>
+				<span><a href="../">처음으로</a></span>
 				<span>카드결제</span>			
 			</div>
 			<div class="contents">
@@ -30,13 +30,15 @@
 					</div>
 					<div class="payment_amount">
 						<div>
+						<input type="hidden" name="order_no" value="${order_no}">
+						<input type="hidden" name="user_no" value="${user_no}">
+						<input type="hidden" name="total_price" value="${total_price}">
 							<span>결제금액 : </span>
-							<input type="hidden" id="totalSum" value="totalSum">
-							<span>${totalSumCom}</span>
+							<span>${total_com}</span>
 							<span>원</span>
 						</div>
 						<div class="payment_button">
-							<input type="button" value="결제하기">
+							<input type="button" id="payBtn" onclick="paymentBtn()" value="결제하기">
 						</div>
 					</div>
 				</div>
@@ -56,12 +58,23 @@
 									<td>${list.option_price} 원</td>
 								</tr>
 							</c:forEach>
+								<tr style="display: ${display}">
+									<td>*</td>
+									<td>쿠폰 할인</td>
+									<td>-2800 원</td>
+								</tr>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<!-- </form> -->
+</form>
 </body>
+<script type="text/javascript">
+	function paymentBtn() {
+		alert("결제되었습니다.");
+		document.getElementById("payForm").submit();
+	}
+</script>
 </html>

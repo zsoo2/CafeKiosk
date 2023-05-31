@@ -41,7 +41,6 @@
 					    <div><input type="text" class="numKey" value="8" onclick="add(8)" readonly></div>
 					    <div><input type="text" class="numKey" value="9" onclick="add(9)" readonly></div>
 					    <div>
-					    	<!-- <input type="button" id="checkNum" value="적립하기"> -->
  					    	<input type="submit" value="적립하기">
  					    	<!-- <input type="button" id="checkNum" value="적립하기" onclick="location.href='/customer/join'"> -->
 					    </div>
@@ -51,7 +50,7 @@
 					<div class="check_box">
 						<div>
 							<button type="button" onclick="location.href='/customer/menu_1'">이전화면</button>
-							<button type="button" onclick="location.href='/customer/payment'">건너뛰기</button>
+							<button type="button" onclick="location.href='/customer/order'">건너뛰기</button>
 						</div>
 					</div>
 				</div>

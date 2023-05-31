@@ -49,7 +49,7 @@
 						</div>
 						<div class="popup_submit" id="join_popup">
 							<div>
-								<input type="button" name="#" id="#" value="취소" onclick="location.href='#'"/>
+								<input type="button" name="#" id="#" value="취소" onclick="location.href='/customer/check_member'"/>
 								<input type="button" name="#" id="#" value="확인" onclick="modalOn()"/>
 							</div>
 						</div>
@@ -86,7 +86,7 @@
 		}
 	};
 
-//확인 팝업창 뜨는 부분
+	//확인 팝업창 뜨는 부분
     const modal = document.getElementById("modal");
     function modalOn() {
     	if($("input:checkbox[id='chk_btn1']").is(":checked") != true){
@@ -111,7 +111,7 @@
         modalOff();
     });
 
-//동의 체크박스 부분
+	//동의 체크박스 부분
 	function Check() {
 		var arrSelect = document.getElelementsByName("chkSelect");
 		
