@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.cafekiosk.mapper.CustomerMapper;
 import com.cafekiosk.model.CartVO;
 import com.cafekiosk.model.KioskManageMenuVO;
+import com.cafekiosk.model.OrderNumberVO;
+import com.cafekiosk.model.PaymentVO;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -66,9 +68,37 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 	@Override
-	public void insertOrder(String order_no, String user_no, int cart_idx, int menu_idx, String menu_name, int menu_price, int option_price) {
-		//멤버 등록
-		customerMapper.insertOrder(order_no, user_no, cart_idx, menu_idx, menu_name, menu_price, option_price);
+	public void insertOrder(OrderNumberVO order) {
+		//주문 등록
+		customerMapper.insertOrder(order);
+	}
 	
+	@Override
+	public void editOrder(String order_no) {
+		customerMapper.editOrder(order_no);
+	}
+	
+	@Override
+	public void editCartActive() {
+		customerMapper.editCartActive();
+	}
+	
+	@Override
+	public Integer checkCoupon(String user_no) {
+		//멤버 확인
+		Integer check_coupon = customerMapper.checkCoupon(user_no);
+
+		return check_coupon;
+	}
+	
+	@Override
+	public void editCoupon(String user_no, int coupon_cnt) {
+		//쿠폰 개수 수정
+		customerMapper.editCoupon(user_no, coupon_cnt);
+	}
+	
+	@Override
+	public void insertPayment(PaymentVO payment) {
+		customerMapper.insertPayment(payment);
 	}
 }

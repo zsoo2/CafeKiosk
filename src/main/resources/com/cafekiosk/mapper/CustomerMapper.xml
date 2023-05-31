@@ -63,10 +63,48 @@
 	</insert>
 	
 	<!-- 주문 등록 -->
-	<insert id="insertOrder" parameterType="com.cafekiosk.model.OrderNumberVO">
+	<insert id="insertOrder">
 		INSERT INTO order_number
 			(order_no, user_no, cart_idx, menu_idx, menu_name, menu_price, option_price, active_YN)
 		VALUES (#{order_no}, #{user_no}, #{cart_idx}, #{menu_idx}, #{menu_name}, #{menu_price}, #{option_price}, 'Y');
+	</insert>
+	
+	<!-- order CartActive 수정 -->
+	<update id="editOrder" parameterType="com.cafekiosk.model.OrderNumberVO">
+		UPDATE order_number
+		SET
+			active_YN = 'N'
+		WHERE order_no = #{order_no};
+	</update>
+	
+	<!-- CartActive 수정 -->
+	<update id="editCartActive" parameterType="com.cafekiosk.model.CartVO">
+		UPDATE cart
+		SET
+			active_YN = 'N'
+		WHERE active_YN = 'Y';
+	</update>
+	
+	<!-- 쿠폰 개수 조회 -->
+	<select id="checkCoupon" resultType="int">
+		SELECT coupon_cnt
+		FROM customer
+		WHERE user_no = #{user_no};
+	</select>
+	
+	<!-- 쿠폰 개수 수정 -->
+	<update id="editCoupon" parameterType="com.cafekiosk.model.CustomerVO">
+		UPDATE customer
+		SET
+			coupon_cnt = #{coupon_cnt}
+		WHERE user_no = #{user_no};
+	</update>
+	
+	<!-- 결제 등록 -->
+	<insert id="insertPayment">
+		INSERT INTO payment
+			(order_no, user_no, coupon_YN, total_price, pay_status, order_date, order_time)
+		VALUES (#{order_no}, #{user_no}, #{coupon_YN}, #{total_price}, 'Y', DATE_FORMAT(now(), '%Y-%m-%d'), DATE_FORMAT(now(), '%H:%i:%s'));
 	</insert>
 	
   </mapper>

@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.cafekiosk.model.CartVO;
 import com.cafekiosk.model.KioskManageMenuVO;
+import com.cafekiosk.model.OrderNumberVO;
+import com.cafekiosk.model.PaymentVO;
 
 public interface CustomerService {
 
@@ -29,6 +31,21 @@ public interface CustomerService {
 	public void insertMember(String user_no);
 
 	//주문 등록
-	public void insertOrder(String order_no, String user_no, int cart_idx, int menu_idx, String menu_name, int menu_price, int option_price);
+	public void insertOrder(OrderNumberVO order);
+
+	//order active_YN 변경
+	public void editOrder(String order_no);
+
+	//cart active_YN 변경
+	public void editCartActive();
+
+	// coupon cnt
+	public Integer checkCoupon(String user_no);
+
+	//쿠폰 개수 수정
+	public void editCoupon(String user_no, int coupon_cnt);
+
+	//결제 등록
+	public void insertPayment(PaymentVO payment);
 
 }
