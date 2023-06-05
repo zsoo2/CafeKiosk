@@ -968,6 +968,11 @@ html {
 	text-align: center;
 	font-size: 1.2vw;
 }
+
+.payment_container .payment_title .payment_div {
+	text-align: center;
+	margin-top: 20%;
+}
 /* 반응형 */
 @media (max-width: 1024px){
 	.contents {
@@ -1876,6 +1881,11 @@ html {
 		text-align: center;
 		font-size: 1.2vw;
 	}
+	
+	.payment_container .payment_title .payment_div {
+		text-align: center;
+		margin-top: 35%;
+	}
 }
 /* 반응형 */
 @media (max-width: 768px){
@@ -2783,5 +2793,10 @@ html {
 		width: 100%;
 		text-align: center;
 		font-size: 1.2vw;
+	}
+	
+	.payment_container .payment_title .payment_div {
+		text-align: center;
+		margin-top: 40%;
 	}
 }
