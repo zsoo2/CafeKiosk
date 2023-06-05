@@ -30,9 +30,9 @@
 					</div>
 					<div class="payment_amount">
 						<div>
-						<input type="hidden" name="order_no" value="${order_no}">
-						<input type="hidden" name="user_no" value="${user_no}">
-						<input type="hidden" name="total_price" value="${total_price}">
+						<input type="hidden" id="order_no" name="order_no" value="${order_no}">
+						<input type="hidden" id="user_no" name="user_no" value="${user_no}">
+						<input type="hidden" id="total_price" name="total_price" value="${total_price}">
 							<span>결제금액 : </span>
 							<span>${total_com}</span>
 							<span>원</span>
@@ -72,9 +72,29 @@
 </form>
 </body>
 <script type="text/javascript">
-	function paymentBtn() {
-		alert("결제되었습니다.");
-		document.getElementById("payForm").submit();
-	}
+ 	function paymentBtn() {
+ 		var order_no = $("#order_no").val();
+		var user_no = $("#user_no").val();
+		var total_price = $("#total_price").val();
+		
+ 		$.ajax({
+			url: "/customer/orderPay",
+			type:'get',
+			data:{
+				 order_no: order_no
+				,user_no: user_no
+				,total_price: total_price
+			},
+			success: function (data) {
+				location.href=data.next_redirect_pc_url;
+			},
+			error: function (data) {
+				alert(error);
+			}	
+		});
+		
+		// alert("결제되었습니다.");
+		//document.getElementById("payForm").submit();
+	}	 
 </script>
 </html>

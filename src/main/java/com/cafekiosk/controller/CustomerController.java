@@ -1,13 +1,13 @@
 package com.cafekiosk.controller;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cafekiosk.model.ApproveResponse;
 import com.cafekiosk.model.CartVO;
 import com.cafekiosk.model.KioskManageMenuVO;
 import com.cafekiosk.model.OrderNumberVO;
 import com.cafekiosk.model.PaymentVO;
+import com.cafekiosk.model.ReadyResponse;
 import com.cafekiosk.service.CustomerService;
+import com.cafekiosk.service.KakaoPayServiceImpl;
 
 import lombok.extern.log4j.Log4j;
 
@@ -35,6 +38,9 @@ public class CustomerController {
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private KakaoPayServiceImpl kakaoPayServiceImpl;
 	
 	
 	//메인 페이지 이동
@@ -331,30 +337,69 @@ public class CustomerController {
 		model.addAttribute("user_no", user_no);
 	}
 	
-	// 결제
-	@RequestMapping(value="/customer/payment", method = RequestMethod.POST)
-	public String insertPayment(@RequestParam(value="order_no", required=false) String order_no,
-							    @RequestParam(value="user_no", required=false) String user_no,
-							    @RequestParam(value="total_price", required=false) String total_price,
-							    PaymentVO payment) {
-		logger.info("payment 페이지 진입");		
+	@RequestMapping(value="/customer/order_complete", method = RequestMethod.GET)
+	public void orderCompletePage() {
+		logger.info("orderCompletePage 페이지 진입");
+	}
+		
+	@RequestMapping(value="/customer/orderPay", method = RequestMethod.GET)
+	public @ResponseBody ReadyResponse payReady(CartVO cart, PaymentVO payment, Model model, HttpServletRequest request,
+												@RequestParam(value="order_no", required=false) String order_no,
+												@RequestParam(value="user_no", required=false) String user_no, 
+												@RequestParam(value="total_price", required=false) String total_price) {
+		logger.info("payReady 페이지 진입");
+		
+		System.out.println(order_no + " order_no");
+		System.out.println(user_no + " user_no");
+		System.out.println(total_price + " total_price");
+		// 장바구니 내역
+		List<CartVO> cartList = customerService.getCartList();
+		// 뫄뫄 상품 외 N개
+		String item_name = cartList.get(0).getMenu_name() + " 외" + String.valueOf(cartList.size() -1) + " 개";
+		int quantity = cartList.size();
+		logger.info("quantity : " + quantity);
+		// 카카오페이 서버에 1차 준비 요청
+		ReadyResponse readyResponse = kakaoPayServiceImpl.payReady(item_name, quantity, order_no, user_no, total_price);
+		logger.info("결제고유번호 : " + readyResponse.getTid());
+		logger.info("결제요청 URL : " + readyResponse.getNext_redirect_pc_url());
+		//model.addAttribute("tid", readyResponse.getTid());
+		
+		 HttpSession session = request.getSession();
+		 String tid = readyResponse.getTid();
+		 session.setAttribute("order_no", order_no);
+		 session.setAttribute("user_no", user_no);
+		 session.setAttribute("tid", tid);
+		    
+		return readyResponse;
+	}
+	
 
+	@RequestMapping(value="/customer/orderComplete", method = RequestMethod.GET)
+	public String orderComplete(@RequestParam("pg_token") String pgToken, HttpServletRequest request, PaymentVO payment) {
+		
+		HttpSession session = request.getSession();
+	    String order_no = (String) session.getAttribute("order_no");
+	    String user_no = (String) session.getAttribute("user_no");
+	    String tid = (String) session.getAttribute("tid");
+
+		ApproveResponse approveResponse = kakaoPayServiceImpl.payApprove(order_no, user_no, tid, pgToken);	
+	
 		if(user_no == "" || user_no == null) {user_no = "N";}	// 비회원 주문
 
 		customerService.editOrder(order_no);
 		customerService.editCartActive();
 		String coupon_YN = "N";
+		int final_price = approveResponse.getAmount().getTotal();
+		String total_price = Integer.toString(final_price);
 		if(!user_no.equals("N")) {
 			int coupon_cnt = 0;
 			int check_coupon = customerService.checkCoupon(user_no);
-			
+
 			if(check_coupon < 10) {
 				coupon_cnt = check_coupon + 1;
 			}else {
 				coupon_cnt = check_coupon -10 + 1;
 				coupon_YN = "Y";
-				int final_price = Integer.parseInt(total_price);
-				total_price = Integer.toString(final_price);
 			}
 			customerService.editCoupon(user_no, coupon_cnt);	
 		}
@@ -365,16 +410,24 @@ public class CustomerController {
 	     payment.setTotal_price(total_price);
 	     
 	     customerService.insertPayment(payment);
-
-	     return "redirect:/customer/menu_1";
+			
+		if(session != null) {
+			session.invalidate(); // 세션 삭제
+		}
+		
+		return "redirect:/customer/order_complete";
+    }
+    
+	@RequestMapping(value="/customer/orderCancel", method = RequestMethod.GET)
+	public void payCancel() {
+	}
+    	
+	@RequestMapping(value="/customer/orderFail", method = RequestMethod.GET)
+	public void payFail() {
 	}
 	
-	
-
 	@RequestMapping(value="/customer/popup_option", method = RequestMethod.GET)
 	public void popupOptionPageGet() {
 		logger.info("popup_option 페이지 진입");
 	}
-	
-	
 }
