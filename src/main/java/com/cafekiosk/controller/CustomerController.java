@@ -336,11 +336,7 @@ public class CustomerController {
 		model.addAttribute("order_no", order_no);
 		model.addAttribute("user_no", user_no);
 	}
-	
-	@RequestMapping(value="/customer/order_complete", method = RequestMethod.GET)
-	public void orderCompletePage() {
-		logger.info("orderCompletePage 페이지 진입");
-	}
+
 		
 	@RequestMapping(value="/customer/orderPay", method = RequestMethod.GET)
 	public @ResponseBody ReadyResponse payReady(CartVO cart, PaymentVO payment, Model model, HttpServletRequest request,
@@ -368,13 +364,12 @@ public class CustomerController {
 		 session.setAttribute("order_no", order_no);
 		 session.setAttribute("user_no", user_no);
 		 session.setAttribute("tid", tid);
-		    
+
 		return readyResponse;
 	}
 	
-
-	@RequestMapping(value="/customer/orderComplete", method = RequestMethod.GET)
-	public String orderComplete(@RequestParam("pg_token") String pgToken, HttpServletRequest request, PaymentVO payment) {
+	@RequestMapping(value="/customer/payComplete", method = RequestMethod.GET)
+	public String payComplete(@RequestParam("pg_token") String pgToken, HttpServletRequest request, PaymentVO payment) {
 		
 		HttpSession session = request.getSession();
 	    String order_no = (String) session.getAttribute("order_no");
@@ -414,15 +409,20 @@ public class CustomerController {
 			session.invalidate(); // 세션 삭제
 		}
 		
-		return "redirect:/customer/order_complete";
+		return "redirect:/customer/pay_complete";
     }
     
-	@RequestMapping(value="/customer/orderCancel", method = RequestMethod.GET)
+	@RequestMapping(value="/customer/payCancel", method = RequestMethod.GET)
 	public void payCancel() {
 	}
     	
-	@RequestMapping(value="/customer/orderFail", method = RequestMethod.GET)
+	@RequestMapping(value="/customer/payFail", method = RequestMethod.GET)
 	public void payFail() {
+	}
+	
+	@RequestMapping(value="/customer/pay_complete", method = RequestMethod.GET)
+	public void payCompletePage() {
+		logger.info("payCompletePage 페이지 진입");
 	}
 	
 	@RequestMapping(value="/customer/popup_option", method = RequestMethod.GET)
