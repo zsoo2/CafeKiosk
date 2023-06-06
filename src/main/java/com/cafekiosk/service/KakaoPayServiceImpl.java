@@ -40,12 +40,10 @@ public class KakaoPayServiceImpl {
 
 		ReadyResponse readyResponse = template.postForObject(url, requestEntity, ReadyResponse.class);
 
-		System.out.println("결재준비 응답객체: " + readyResponse);
 		return readyResponse;
 	}
 	
-	
-	// 결제 승인요청 메서드
+	// 결제 승인요청
 	public ApproveResponse payApprove(String order_no, String user_no, String tid, String pgToken) {
 
 		System.out.println(tid + " service <-------- tid");
@@ -58,25 +56,22 @@ public class KakaoPayServiceImpl {
 		parameters.add("partner_user_id", user_no);
 		parameters.add("pg_token", pgToken);
 		
-		 // 하나의 map안에 header와 parameter값을 담아줌.
 		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
-		
 
 		RestTemplate template = new RestTemplate();
 		String url = "https://kapi.kakao.com/v1/payment/approve";
-        // 보낼 외부 url, 요청 메시지(header,parameter), 처리후 값을 받아올 클래스. 
+ 
 		ApproveResponse approveResponse = template.postForObject(url, requestEntity, ApproveResponse.class);
-		System.out.println("결재승인 응답객체: " + approveResponse);
 		
 		return approveResponse;
 	}
 	
 	// 요청 헤더 정보
-		private HttpHeaders getHeaders() {
-			HttpHeaders headers = new HttpHeaders();
-			headers.set("Authorization", "KakaoAK bec8650de2709c469225246fd7358713");
-			headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-			return headers;
-		}
+	private HttpHeaders getHeaders() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "KakaoAK bec8650de2709c469225246fd7358713");
+		headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		return headers;
+	}
 		
 }

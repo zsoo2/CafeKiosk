@@ -352,13 +352,12 @@ public class CustomerController {
 		System.out.println(order_no + " order_no");
 		System.out.println(user_no + " user_no");
 		System.out.println(total_price + " total_price");
-		// 장바구니 내역
+
 		List<CartVO> cartList = customerService.getCartList();
-		// 뫄뫄 상품 외 N개
 		String item_name = cartList.get(0).getMenu_name() + " 외" + String.valueOf(cartList.size() -1) + " 개";
 		int quantity = cartList.size();
 		logger.info("quantity : " + quantity);
-		// 카카오페이 서버에 1차 준비 요청
+
 		ReadyResponse readyResponse = kakaoPayServiceImpl.payReady(item_name, quantity, order_no, user_no, total_price);
 		logger.info("결제고유번호 : " + readyResponse.getTid());
 		logger.info("결제요청 URL : " + readyResponse.getNext_redirect_pc_url());

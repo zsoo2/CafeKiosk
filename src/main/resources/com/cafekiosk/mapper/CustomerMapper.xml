@@ -69,15 +69,15 @@
 		VALUES (#{order_no}, #{user_no}, #{cart_idx}, #{menu_idx}, #{menu_name}, #{menu_price}, #{option_price}, 'Y');
 	</insert>
 	
-	<!-- order CartActive 수정 -->
+	<!-- 결제후 Order Active 수정 -->
 	<update id="editOrder" parameterType="com.cafekiosk.model.OrderNumberVO">
 		UPDATE order_number
 		SET
-			active_YN = 'N'
+			active_YN = 'P'
 		WHERE order_no = #{order_no};
 	</update>
 	
-	<!-- CartActive 수정 -->
+	<!-- 결제후 Cart Active 수정 -->
 	<update id="editCartActive" parameterType="com.cafekiosk.model.CartVO">
 		UPDATE cart
 		SET
@@ -104,7 +104,7 @@
 	<insert id="insertPayment">
 		INSERT INTO payment
 			(order_no, user_no, coupon_YN, total_price, pay_status, order_date, order_time)
-		VALUES (#{order_no}, #{user_no}, #{coupon_YN}, #{total_price}, 'Y', DATE_FORMAT(now(), '%Y-%m-%d'), DATE_FORMAT(now(), '%H:%i:%s'));
+		VALUES (#{order_no}, #{user_no}, #{coupon_YN}, #{total_price}, 'P', DATE_FORMAT(now(), '%Y-%m-%d'), DATE_FORMAT(now(), '%H:%i:%s'));
 	</insert>
 	
   </mapper>
