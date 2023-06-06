@@ -281,9 +281,9 @@ public class KioskManagerController {
 	@RequestMapping(value = "kioskManager/excel_download_month", method = RequestMethod.POST)
 	@ResponseBody
 	// 월매출 엑셀 다운로드
-	public void excelDownMonth(@ModelAttribute PaymentVO paymentVO, HttpServletResponse response, HttpServletRequest request, String start_date, String end_date)
+	public void excelDownMonth(Model model,@ModelAttribute PaymentVO paymentVO, HttpServletResponse response, HttpServletRequest request, String start_date, String end_date)
 						throws Exception{
-		manageMenuService.excelDownMonth(paymentVO, response, start_date, end_date);
+		manageMenuService.excelDownMonth(model, paymentVO, response, start_date, end_date);
 		logger.info("엑셀 월매출 성공");
 	}
 

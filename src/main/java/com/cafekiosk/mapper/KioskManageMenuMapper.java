@@ -51,10 +51,10 @@ public interface KioskManageMenuMapper {
 	//주문내역 엑셀 다운로드
 	public List<OrderNumberVO> getExcelList(@Param("start_date") String start_date, @Param("end_date") String end_date);
 	
-	//주문내역 엑셀 다운로드
+	//일매출 엑셀 다운로드
 	public List<PaymentVO> getExcelListDay(@Param("this_day") String this_day);
 	
-	//주문내역 엑셀 다운로드
+	//월매출 엑셀 다운로드(
 	public List<PaymentVO> getExcelListMonth(@Param("start_date") String start_date, @Param("end_date") String end_date);
 	
 	//게시글 총 갯수
