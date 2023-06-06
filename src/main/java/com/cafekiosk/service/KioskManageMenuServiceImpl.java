@@ -19,6 +19,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.cafekiosk.mapper.KioskManageMenuMapper;
 import com.cafekiosk.model.KioskManageMenuVO;
@@ -340,10 +341,36 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 
 	@Override
 	//월매출 엑셀 다운로드
-	public void excelDownMonth(PaymentVO paymentVO, HttpServletResponse response, String start_date,
+	public void excelDownMonth(Model model, PaymentVO paymentVO, HttpServletResponse response, String start_date,
 			String end_date) throws Exception {
 		// TODO Auto-generated method stub
 		List<PaymentVO> getExcelListMonth = manageMenuMapper.getExcelListMonth(start_date, end_date);
+		List<PaymentVO> monthlySalesCoupon = manageMenuMapper.getMonthlySalesCoupon(start_date, end_date);
+		
+		int sum = 0;
+		
+		for (int i = 0; i < getExcelListMonth.size(); i++) {
+			String order_no = getExcelListMonth.get(i).getOrder_no().substring(0,8);					//월매출 내역의 주문일
+			String order_date = monthlySalesCoupon.get(i).getOrder_no().substring(0,8);			//월매출 쿠폰 사용 여부 내역의 주문일
+			//String order_date = monthlySalesCoupon.get(i).getOrder_no().replace("-","");
+
+			//System.out.println(order_no);
+			//System.out.println(order_date);
+			
+			if(order_no .equals(order_date)) {
+			 int total_price =
+				Integer.parseInt(getExcelListMonth.get(i).getTotal_price()) - monthlySalesCoupon.get(i).getCp_cnt()*2800;
+			 	//System.out.println(monthlySalesCoupon.get(i).getCp_cnt());
+			 	
+			 	String final_price = Integer.toString(total_price);
+			 	getExcelListMonth.get(i).setTotal_price(final_price);
+			}
+			sum += Integer.parseInt(getExcelListMonth.get(i).getTotal_price());
+		}
+
+		//System.out.println(sum);
+		model.addAttribute("getExcelListMonth", getExcelListMonth);
+		
 		
 		   try {
 		      //Excel Down 시작
@@ -389,6 +416,7 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 		      }
 
 		      for(PaymentVO excelData : getExcelListMonth ) {
+	    	  
 			      row = sheet.createRow(rowNo++);
 			      
 			      cell = row.createCell(0);
@@ -406,6 +434,10 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 			      cell = row.createCell(3);
 			      cell.setCellStyle(bodyStyle);
 			      cell.setCellValue(excelData.getTotal_price());
+			      
+					/*
+					 * cell = row.createCell(4); cell.setCellStyle(bodyStyle); cell.setCellValue();
+					 */
 
 		      }	 
 
