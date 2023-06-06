@@ -26,12 +26,12 @@ public class KakaoPayServiceImpl {
 		parameters.add("quantity", String.valueOf(quantity));	
 		parameters.add("total_amount", total_price);	
 		parameters.add("tax_free_amount", "0");	
-//		parameters.add("approval_url", "http://localhost:8082/customer/orderComplete");	
-//		parameters.add("cancel_url", "http://localhost:8082/customer/orderCancel");	
-//		parameters.add("fail_url", "http://localhost:8082/customer/orderFail");	
-		parameters.add("approval_url", "http://hello4018.cafe24.com/customer/orderComplete");	
-		parameters.add("cancel_url", "http://hello4018.cafe24.com/customer/orderCancel");	
-		parameters.add("fail_url", "http://hello4018.cafe24.com/customer/orderFail");	
+		parameters.add("approval_url", "http://localhost:8082/customer/payComplete");	
+		parameters.add("cancel_url", "http://localhost:8082/customer/payCancel");	
+		parameters.add("fail_url", "http://localhost:8082/customer/payFail");	
+//		parameters.add("approval_url", "http://hello4018.cafe24.com/customer/payComplete");	
+//		parameters.add("cancel_url", "http://hello4018.cafe24.com/customer/payCancel");	
+//		parameters.add("fail_url", "http://hello4018.cafe24.com/customer/payFail");	
 		
 		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
