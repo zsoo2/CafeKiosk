@@ -15,12 +15,12 @@
 		<div class="selectDate">
 			<input type="date" id="this_day" name="this_day" value="<%=this_day%>">
 			<input type="hidden" id="chkStatus1" name="chkStatus1" value="checked">
-			<input type="button" value="검색" onclick="search()">
-			<input type="button" value="다운로드" onclick="excel_day()">
+			<input type="button" id="search_btn" value="검색" onclick="search()">
+			<input type="button" id="download_btn" value="다운로드" onclick="excel_day()">
 		</div>
 		</form>
 		<div class="daySales">
-			<table border="1">
+			<table>
 				<colgroup>
 					<col width="25%">
 					<col width="25%">
@@ -41,7 +41,7 @@
 							<td>${list.order_no}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.order_date }"/></td>
 							<td><fmt:formatDate pattern="HH:mm:ss" value="${list.order_date }"/></td>
-							<td>${list.option_price }원</td>
+							<td>${list.total_price }원</td>
 						</tr>
 					</c:forEach>
 				</tbody>

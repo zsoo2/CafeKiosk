@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 import com.cafekiosk.mapper.KioskManageMenuMapper;
 import com.cafekiosk.model.KioskManageMenuVO;
 import com.cafekiosk.model.OrderNumberVO;
+import com.cafekiosk.model.PagingVO;
+import com.cafekiosk.model.PaymentVO;
 
 @Service
 public class KioskManageMenuServiceImpl implements KioskManageMenuService {
@@ -97,7 +99,7 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 	
 	@Override
 	// 일매출 내역 조회
-	public List<OrderNumberVO> getDaySales(String this_day) {
+	public List<PaymentVO> getDaySales(String this_day) {
 		
 		 //여기서 날짜 바꾸려고 한 흔적.. 
 		Date date = new Date();
@@ -109,13 +111,21 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 			 this_day = this_day;
 		 }
 
-		List<OrderNumberVO> daySales = manageMenuMapper.getDaySales(this_day);
+		List<PaymentVO> daySales = manageMenuMapper.getDaySales(this_day);
 		return daySales;
 	}
-	
+
+	@Override
+	// 일매출 내역, 합계 조회
+	public List<PaymentVO> getDaySalesCntSum(String this_day) {
+		// TODO Auto-generated method stub
+		List<PaymentVO> daySalesCntSum = manageMenuMapper.getDaySalesCntSum(this_day);
+		return daySalesCntSum;
+	}
+
 	@Override
 	// 월매출 전체 조회
-	public List<OrderNumberVO> getMonthlySales(String start_date, String end_date) {
+	public List<PaymentVO> getMonthlySales(String start_date, String end_date) {
 
 		/* System.out.println(start_date); */
 		
@@ -134,8 +144,24 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 		} else {
 			end_date = end_date;
 		}
-		List<OrderNumberVO> monthlySales = manageMenuMapper.getMonthlySales(start_date, end_date);
+		List<PaymentVO> monthlySales = manageMenuMapper.getMonthlySales(start_date, end_date);
 		return monthlySales;
+	}
+
+	@Override
+	// 월매출 내역, 합계 조회
+	public List<OrderNumberVO> getMonthlySalesCntSum(String start_date, String end_date) {
+		// TODO Auto-generated method stub
+		List<OrderNumberVO> monthlySalesCntSum = manageMenuMapper.getMonthlySalesCntSum(start_date, end_date);
+		return monthlySalesCntSum;
+	}
+	
+	@Override
+	// 월매출 일자별 쿠폰 개수
+	public List<PaymentVO> getMonthlySalesCoupon(String start_date, String end_date) {
+		// TODO Auto-generated method stub
+		List<PaymentVO> monthlySalesCoupon = manageMenuMapper.getMonthlySalesCoupon(start_date, end_date);
+		return monthlySalesCoupon;
 	}
 
 	@Override
@@ -231,10 +257,10 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 
 	@Override
 	//일매출 엑셀 다운로드
-	public void excelDownDay(OrderNumberVO orderNumberVO, HttpServletResponse response, String this_day)
+	public void excelDownDay(PaymentVO paymentVO, HttpServletResponse response, String this_day)
 			throws Exception {
 		// TODO Auto-generated method stub
-		List<OrderNumberVO> getExcelListDay = manageMenuMapper.getExcelListDay(this_day);
+		List<PaymentVO> getExcelListDay = manageMenuMapper.getExcelListDay(this_day);
 		
 		   try {
 		      //Excel Down 시작
@@ -279,7 +305,7 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 			      cell.setCellValue(headerArray[i]);
 		      }
 
-		      for(OrderNumberVO excelData : getExcelListDay ) {
+		      for(PaymentVO excelData : getExcelListDay ) {
 			      row = sheet.createRow(rowNo++);
 			      
 			      cell = row.createCell(0);
@@ -296,7 +322,7 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 	
 			      cell = row.createCell(3);
 			      cell.setCellStyle(bodyStyle);
-			      cell.setCellValue(excelData.getOption_price());
+			      cell.setCellValue(excelData.getTotal_price());
 		      }	 
 
 		      // 컨텐츠 타입과 파일명 지정
@@ -314,10 +340,10 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 
 	@Override
 	//월매출 엑셀 다운로드
-	public void excelDownMonth(OrderNumberVO orderNumberVO, HttpServletResponse response, String start_date,
+	public void excelDownMonth(PaymentVO paymentVO, HttpServletResponse response, String start_date,
 			String end_date) throws Exception {
 		// TODO Auto-generated method stub
-		List<OrderNumberVO> getExcelListMonth = manageMenuMapper.getExcelListMonth(start_date, end_date);
+		List<PaymentVO> getExcelListMonth = manageMenuMapper.getExcelListMonth(start_date, end_date);
 		
 		   try {
 		      //Excel Down 시작
@@ -362,7 +388,7 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 			      cell.setCellValue(headerArray[i]);
 		      }
 
-		      for(OrderNumberVO excelData : getExcelListMonth ) {
+		      for(PaymentVO excelData : getExcelListMonth ) {
 			      row = sheet.createRow(rowNo++);
 			      
 			      cell = row.createCell(0);
@@ -379,7 +405,7 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 		 
 			      cell = row.createCell(3);
 			      cell.setCellStyle(bodyStyle);
-			      cell.setCellValue(excelData.getOption_price());
+			      cell.setCellValue(excelData.getTotal_price());
 
 		      }	 
 
@@ -395,6 +421,23 @@ public class KioskManageMenuServiceImpl implements KioskManageMenuService {
 		   		e.printStackTrace();
 		      }		
 	}
+
+	@Override
+	//게시글 총 갯수
+	public int getListCount(String start_date, String end_date) {
+		// TODO Auto-generated method stub
+		return manageMenuMapper.getListCount(start_date, end_date);
+	}
+
+	@Override
+	//페이징 처리 게시글 조회	
+	public List<OrderNumberVO> getSelectList(PagingVO pagingVO, String start_date, String end_date) {
+		// TODO Auto-generated method stub
+
+		return manageMenuMapper.getSelectList(pagingVO, start_date, end_date);
+	}
+	
+	
 	
 	
 	

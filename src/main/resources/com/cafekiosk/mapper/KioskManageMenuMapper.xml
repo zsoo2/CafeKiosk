@@ -40,7 +40,8 @@
 		FROM 	order_number
 		WHERE 	left(order_no,8) >= replace(#{start_date},'-','')
 		AND		left(order_no,8) <= replace(#{end_date},'-','')
-		AND		active_YN = "Y"
+		AND		(active_YN = "P"
+		OR		active_YN = "Y")
 		GROUP BY order_no
 		ORDER BY order_date DESC
 		]]>
@@ -49,32 +50,101 @@
 	<!-- 주문 내역 삭제 -->
 	<update id="deleteOrder" parameterType="com.cafekiosk.model.OrderNumberVO">
 		UPDATE 	order_number
-		SET		active_YN= 'N'
-		WHERE 	order_no = #{order_no}
+		SET		active_YN= 'C'
+		WHERE 	order_no = #{order_no};
+		
+		UPDATE	payment
+		SET		pay_status = 'C'
+		WHERE	order_no = #{order_no};
 	</update>
 	
 	<!-- 일매출 내역 조회 -->
-	<select id="getDaySales" resultType="com.cafekiosk.model.OrderNumberVO">
+	<select id="getDaySales" resultType="com.cafekiosk.model.PaymentVO">
 		<![CDATA[
-		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, count(order_no) AS cnt, menu_price, sum(option_price) AS option_price
-		FROM 	order_number
-		WHERE 	left(order_no,8) = replace(#{this_day},'-','')
-		AND		active_YN = "Y"
-		GROUP BY order_no
-		ORDER BY order_date DESC
+		SELECT		a.order_no, STR_TO_DATE(a.order_no, '%Y%m%d%H%i%s') AS order_date, a.total_price, COUNT(a.order_no) AS cnt
+		FROM		payment a
+		LEFT JOIN	order_number b
+		ON 			a.order_no = b.order_no
+		WHERE		LEFT(a.order_no,8) = REPLACE(#{this_day},'-','')
+		AND			b.active_YN = "P"
+		AND			a.pay_status = "P"
+		GROUP BY 	a.order_no
+		ORDER BY 	a.order_date DESC
+		]]>
+	</select>
+	
+	<!-- 일매출 내역, 합계 조회 -->
+	<select id="getDaySalesCntSum" resultType="com.cafekiosk.model.PaymentVO">
+		<![CDATA[
+		SELECT COUNT(c.order_no) AS cnt, IFNULL(CAST(SUM(c.total_price) as unsigned),0) AS total_price
+		FROM ( 
+			SELECT		a.order_no, STR_TO_DATE(a.order_no, '%Y%m%d%H%i%s') AS order_date, a.total_price, COUNT(a.order_no) AS cnt
+			FROM		payment a
+			LEFT JOIN	order_number b
+			ON 			a.order_no = b.order_no
+			WHERE		LEFT(a.order_no,8) = REPLACE(#{this_day},'-','')
+			AND			b.active_YN = "P"
+			AND			a.pay_status = "P"
+			GROUP BY 	a.order_no
+			ORDER BY 	a.order_date DESC
+			) c
 		]]>
 	</select>
 	
 	<!-- 월매출 내역 조회 -->
-	<select id="getMonthlySales" resultType="com.cafekiosk.model.OrderNumberVO">
+	<select id="getMonthlySales" resultType="com.cafekiosk.model.PaymentVO">
 		<![CDATA[
-		SELECT 	order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, count(LEFT(order_no,8)) AS total_cnt, sum(option_price) AS option_price 
-		FROM 	order_number 
-		WHERE 	left(order_no,8) >= replace(#{start_date},'-','')
-		AND		left(order_no,8) <= replace(#{end_date},'-','')
-		AND 	active_YN = "Y" 
-		GROUP BY left(order_no ,8)
+		SELECT	a.order_no, STR_TO_DATE(a.order_no, '%Y%m%d%H%i%s') AS order_date, COUNT(DISTINCT a.order_no) as total_cnt, COUNT(a.order_no) AS cnt, sum(b.option_price) as total_price, a.coupon_YN
+		FROM	payment a
+		LEFT JOIN		order_number b
+		ON 		a.order_no = b.order_no
+		WHERE	LEFT(a.order_no,8) >= replace(#{start_date},'-','') 
+		AND 	LEFT(a.order_no,8) <= replace(#{end_date},'-','') 
+		AND		b.active_YN = "P"
+		AND		a.pay_status = "P"
+		GROUP BY LEFT(a.order_no, 8)
 		ORDER BY order_date DESC
+		]]>
+	</select>
+	
+	<!-- 월매출 내역,합계 조회 -->
+	<select id="getMonthlySalesCntSum" resultType="com.cafekiosk.model.PaymentVO">
+		<![CDATA[
+		SELECT COUNT(c.order_no) AS cnt, SUM(c.total_price) AS total_price
+		FROM ( 
+			SELECT	a.order_no, STR_TO_DATE(a.order_no, '%Y%m%d%H%i%s') AS order_date, COUNT(DISTINCT a.order_no) as total_cnt, COUNT(a.order_no) AS cnt, a.total_price
+			FROM	payment a
+			LEFT JOIN		order_number b
+			ON 		a.order_no = b.order_no
+			WHERE	LEFT(a.order_no,8) >= replace(#{start_date},'-','') 
+			AND 	LEFT(a.order_no,8) <= replace(#{end_date},'-','') 
+			AND		b.active_YN = "P"
+			AND		a.pay_status = "P"
+			GROUP BY LEFT(a.order_no, 8)
+			ORDER BY order_date DESC
+			) c
+		]]>
+	</select>
+	
+	<!-- 월매출 일자별 쿠폰 개수 -->
+		<select id="getMonthlySalesCoupon" resultType="com.cafekiosk.model.PaymentVO">
+		<![CDATA[
+			SELECT *, IFNULL(sum(b.cnt), 0) AS cp_cnt, IFNULL(b.order_num, DATE_FORMAT(NOW(),'%Y-%m-%d')) AS order_no
+			FROM payment AS a
+			LEFT JOIN (
+				SELECT 	COUNT(coupon_YN) AS cnt, 
+				STR_TO_DATE(LEFT(order_no, 8),'%Y%m%d') AS order_num,
+				order_no as order_no_string
+				FROM payment 
+				WHERE LEFT(order_no,8) >= replace(#{start_date},'-','') 
+				AND LEFT(order_no,8) <= replace(#{end_date},'-','')
+				AND pay_status = 'P'
+				AND coupon_YN = 'Y' 
+				GROUP BY LEFT(order_no_string, 8) 
+			) as b
+			ON a.order_no = b.order_no_string
+			GROUP BY LEFT(a.order_no, 8) 
+			ORDER BY a.order_no DESC
 		]]>
 	</select>
 	
@@ -85,33 +155,66 @@
 		FROM 	order_number
 		WHERE 	left(order_no,8) >= replace(#{start_date},'-','')
 		AND		left(order_no,8) <= replace(#{end_date},'-','')
-		AND		active_YN = "Y"
+		AND		(active_YN = "Y"
+		OR		active_YN = "P")
 		ORDER BY order_date DESC
 		]]>
 	</select>
 	
 	<!-- 일매출 엑셀 다운로드 -->
-	<select id="getExcelListDay" resultType="com.cafekiosk.model.OrderNumberVO">
+	<select id="getExcelListDay" resultType="com.cafekiosk.model.PaymentVO">
 		<![CDATA[
-		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, count(order_no) AS cnt, sum(option_price) AS option_price
-		FROM 	order_number
-		WHERE 	left(order_no,8) = replace(#{this_day},'-','')
-		AND		active_YN = "Y"
-		GROUP BY order_no
-		ORDER BY order_date DESC
+		SELECT		a.order_no, STR_TO_DATE(a.order_no, '%Y%m%d%H%i%s') AS order_date, a.total_price, COUNT(a.order_no) AS cnt
+		FROM		payment a
+		LEFT JOIN	order_number b
+		ON 			a.order_no = b.order_no
+		WHERE		LEFT(a.order_no,8) = REPLACE(#{this_day},'-','')
+		AND			b.active_YN = "P"
+		AND			a.pay_status = "P"
+		GROUP BY 	a.order_no
+		ORDER BY 	a.order_date DESC
 		]]>
 	</select>
 	
 	<!-- 월매출 엑셀 다운로드 -->
-	<select id="getExcelListMonth" resultType="com.cafekiosk.model.OrderNumberVO">
+	<select id="getExcelListMonth" resultType="com.cafekiosk.model.PaymentVO">
 		<![CDATA[
-		SELECT 	order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, count(LEFT(order_no,8)) AS total_cnt, sum(option_price) AS option_price 
-		FROM 	order_number 
-		WHERE 	left(order_no,8) >= replace(#{start_date},'-','')
-		AND		left(order_no,8) <= replace(#{end_date},'-','')
-		AND 	active_YN = "Y" 
-		GROUP BY left(order_no ,8)
+		SELECT	a.order_no, STR_TO_DATE(a.order_no, '%Y%m%d%H%i%s') AS order_date, COUNT(DISTINCT a.order_no) as total_cnt, COUNT(a.order_no) AS cnt, sum(b.option_price) as total_price, a.coupon_YN
+		FROM	payment a
+		LEFT JOIN		order_number b
+		ON 		a.order_no = b.order_no
+		WHERE	LEFT(a.order_no,8) >= replace(#{start_date},'-','') 
+		AND 	LEFT(a.order_no,8) <= replace(#{end_date},'-','') 
+		AND		b.active_YN = "P"
+		AND		a.pay_status = "P"
+		GROUP BY LEFT(a.order_no, 8)
 		ORDER BY order_date DESC
 		]]>
+	</select>
+	
+	<!-- 총 게시글 갯수 출력 -->
+	<select id="getListCount" resultType="int">
+	<![CDATA[
+		SELECT 	COUNT(*) 
+		FROM 	order_number
+		WHERE	(active_YN = 'Y'
+		OR		active_YN = 'P')
+		AND 	left(order_no,8) >= replace(#{start_date},'-','')
+		AND		left(order_no,8) <= replace(#{end_date},'-','')
+	]]>
+	</select>
+	
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="getSelectList" resultType="com.cafekiosk.model.OrderNumberVO">
+	<![CDATA[
+		SELECT 	order_idx, order_no, str_to_date(order_no, '%Y%m%d%H%i%s') AS order_date, user_no, menu_idx, menu_name, menu_price, option_price
+		FROM 	order_number
+		WHERE	(active_YN = 'Y'
+		OR		active_YN = 'P')
+		AND 	left(order_no,8) >= replace(#{start_date},'-','')
+		AND		left(order_no,8) <= replace(#{end_date},'-','')
+		ORDER BY order_no DESC
+		LIMIT	#{vo.start}, #{vo.end}
+	]]>
 	</select>
   </mapper>

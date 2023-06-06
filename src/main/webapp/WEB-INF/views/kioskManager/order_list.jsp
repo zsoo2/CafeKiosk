@@ -57,16 +57,16 @@
 					
 					<div class="conbox con2">
 						<div class="container">
-							<form name="selectToday" method="post">
-								<div class="itembox">
+							<div class="itembox">
+								<form name="selectToday" method="get">								
 									<div class="selectDate">
 										<input type="date" id="start_date" name="start_date" value="<%= start_date%>">
 										<span> ~ </span>
 										<input type="date" id="end_date" name="end_date" value="<%= end_date%>">
-										<input type="button" value="검색" onclick="search()">
-										<input type="button" value="다운로드" onclick="excel()">
+										<input type="button" id="search_btn" value="검색" onclick="search()">
+										<input type="button" id="download_btn" value="다운로드" onclick="excel()">
 									</div>
-							</form>
+								</form>
 									<div class="order_list">
 										<table>
 											<colgroup>
@@ -88,7 +88,8 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="list" items="${orderList}">
+												<%-- <c:forEach var="list" items="${orderList}"> --%>
+												<c:forEach var="list" items="${viewAll}">
 													<tr>
 														<c:set var="except" value ="외"/>										
 														<c:set var="count" value ="건"/>
@@ -119,20 +120,30 @@
 										</table>
 									</div>
 									<div class="page">
-										<ul class="pagination modal">
-											<li><a href="#" class="first">처음 페이지</a></li>
-											<li><a href="#" class="arrow left"><<</a></li>
-											<li><a href="#" class="active num">1</a></li>
-											<li><a href="#" class="num">2</a></li>
-											<li><a href="#" class="num">3</a></li>
-											<li><a href="#" class="num">4</a></li>
-											<li><a href="#" class="num">5</a></li>
-											<li><a href="#" class="arrow right">>></a></li>
-											<li><a href="#" class="last">끝 페이지</a></li>
-										</ul>
+										<div class="pagination">
+ 											<c:if test="${paging.startPage != 1 }">
+												<a href="/kioskManager/order_list?start_date=<%=start_date %>&end_date=<%=end_date %>&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">이전페이지</a>
+											</c:if>
+											<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+												
+												<c:choose>
+													<c:when test="${p == paging.nowPage }">
+														<b>${p }</b>
+													</c:when>
+<%-- 													<c:when test="${p != paging.nowPage }">
+														<a href="/kioskManager/order_list?start_date=<%=start_date %>&end_date=<%=end_date %>&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+													</c:when> --%>
+													<c:otherwise>
+														<a href="/kioskManager/order_list?start_date=<%=start_date %>&end_date=<%=end_date %>&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+ 											<c:if test="${paging.endPage != paging.lastPage}">
+												<a href="/kioskManager/order_list?start_date=<%=start_date %>&end_date=<%=end_date %>&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">다음페이지</a>
+											</c:if>										
+											
+										</div>
 									</div>
-								</div>
-<!-- 							</form> -->
 						</div>
 					</div>
 				</div>
@@ -172,11 +183,13 @@
 	
 	function search(){
 		var form = document.selectToday;
+		form.method = "get";
 		form.action = "/kioskManager/order_list";
 		form.submit();
 	}
 	function excel(){
 		var form = document.selectToday;
+		form.method = "post";
 		form.action = "/kioskManager/excel_download";
 		form.submit();
 	}

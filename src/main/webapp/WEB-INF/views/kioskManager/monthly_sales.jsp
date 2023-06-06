@@ -17,21 +17,23 @@
 			<span> ~ </span>
 			<input type="date" id="end_date" name="end_date" value="<%= end_date%>">
 			<input type="hidden" id="chkStatus2" name="chkStatus2" value="checked">
-			<input type="button" value="검색" onclick="month()">
-			<input type="button" value="다운로드" onclick="excel_month()">
+			<input type="button" id="search_btn" value="검색" onclick="month()">
+			<input type="button" id="download_btn" value="다운로드" onclick="excel_month()">
 		</div>
 	</form>
 		<div class="monthlySales">
-			<table border="1">
+			<table>
 				<colgroup>
 					<col width="33%">
-					<col width="33%">
+					<col width="22%">
+					<col width="22%">
 					<col width="33%">
 				</colgroup>
 				<thead>
 					<tr>
 						<th>날짜</th>
 						<th>판매건</th>
+						<th>판매수량</th>
 						<th>금액</th>
 					</tr>
 				</thead>
@@ -39,8 +41,9 @@
 					<c:forEach var="list" items="${monthlySales}">
 					<tr>
 						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.order_date }"/></td>
-						<td>${list.total_cnt }</td>
-						<td>${list.option_price }</td>
+						<td>${list.total_cnt }</td>								<!-- 판매건 -->
+						<td>${list.cnt }</td>									<!-- 판매수량 -->
+						<td>${list.total_price }원</td>
 					</tr>
 					</c:forEach>
 				</tbody>
