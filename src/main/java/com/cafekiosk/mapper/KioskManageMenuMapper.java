@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.cafekiosk.model.KioskManageMenuVO;
 import com.cafekiosk.model.OrderNumberVO;
+import com.cafekiosk.model.PagingVO;
+import com.cafekiosk.model.PaymentVO;
 
 public interface KioskManageMenuMapper {
 
@@ -32,17 +34,32 @@ public interface KioskManageMenuMapper {
 	public void deleteOrder(String order_no);
 	
 	//일매출 내역 조회
-	public List<OrderNumberVO> getDaySales(@Param("this_day") String this_day);
+	public List<PaymentVO> getDaySales(@Param("this_day") String this_day);
+	
+	//일매출 내역, 합계 조회
+	public List<PaymentVO> getDaySalesCntSum(@Param("this_day") String this_day);
 	
 	//월매출 내역 조회
-	public List<OrderNumberVO> getMonthlySales(@Param("start_date") String start_date, @Param("end_date") String end_date);
+	public List<PaymentVO> getMonthlySales(@Param("start_date") String start_date, @Param("end_date") String end_date);
 	
+	//월매출 내역, 합계 조회
+	public List<OrderNumberVO> getMonthlySalesCntSum(@Param("start_date") String start_date, @Param("end_date") String end_date);
+	
+	//월매출 일자별 쿠폰 개수
+	public List<PaymentVO> getMonthlySalesCoupon(@Param("start_date") String start_date, @Param("end_date") String end_date);
+		
 	//주문내역 엑셀 다운로드
 	public List<OrderNumberVO> getExcelList(@Param("start_date") String start_date, @Param("end_date") String end_date);
 	
 	//주문내역 엑셀 다운로드
-	public List<OrderNumberVO> getExcelListDay(@Param("this_day") String this_day);
+	public List<PaymentVO> getExcelListDay(@Param("this_day") String this_day);
 	
 	//주문내역 엑셀 다운로드
-	public List<OrderNumberVO> getExcelListMonth(@Param("start_date") String start_date, @Param("end_date") String end_date);
+	public List<PaymentVO> getExcelListMonth(@Param("start_date") String start_date, @Param("end_date") String end_date);
+	
+	//게시글 총 갯수
+	public int getListCount(@Param("start_date") String start_date, @Param("end_date") String end_date);
+	
+	//페이징 처리 게시글 조회
+	public List<OrderNumberVO> getSelectList(@Param("vo") PagingVO pagingVO, @Param("start_date") String start_date, @Param("end_date") String end_date); 
 }

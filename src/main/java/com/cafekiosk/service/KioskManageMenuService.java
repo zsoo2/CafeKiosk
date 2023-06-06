@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cafekiosk.model.KioskManageMenuVO;
 import com.cafekiosk.model.OrderNumberVO;
+import com.cafekiosk.model.PagingVO;
+import com.cafekiosk.model.PaymentVO;
 
 public interface KioskManageMenuService {
 
@@ -33,17 +35,32 @@ public interface KioskManageMenuService {
 	public void deleteOrder(String order_no);
 	
 	//일매출 내역 조회
-	public List<OrderNumberVO> getDaySales(String this_day);
+	public List<PaymentVO> getDaySales(String this_day);
+	
+	//일매출 내역,합계 조회
+	public List<PaymentVO> getDaySalesCntSum(String this_day);
 	
 	//월매출 내역 조회
-	public List<OrderNumberVO> getMonthlySales(String start_date, String end_date);
+	public List<PaymentVO> getMonthlySales(String start_date, String end_date);
+
+	//월매출 내역, 합계 조회
+	public List<OrderNumberVO> getMonthlySalesCntSum(String start_date, String end_date);
+	
+	//월매출 일자별 쿠폰 개수
+	public List<PaymentVO> getMonthlySalesCoupon(String start_date, String end_date);
 	
 	//주문내역 엑셀 다운로드
 	public void excelDown(OrderNumberVO orderNumberVO, HttpServletResponse response, String start_date, String end_date) throws Exception;
 	
 	//일매출 엑셀 다운로드
-	public void excelDownDay(OrderNumberVO orderNumberVO, HttpServletResponse response, String this_day) throws Exception;
+	public void excelDownDay(PaymentVO paymentVO, HttpServletResponse response, String this_day) throws Exception;
 		
 	//월매출 엑셀 다운로드
-	public void excelDownMonth(OrderNumberVO orderNumberVO, HttpServletResponse response, String start_date, String end_date) throws Exception;
+	public void excelDownMonth(PaymentVO paymentVO, HttpServletResponse response, String start_date, String end_date) throws Exception;
+	
+	//게시글 총 갯수
+	public int getListCount(String start_date, String end_date);
+	
+	//페이징 처리 게시글 조회
+	public List<OrderNumberVO> getSelectList(PagingVO pagingVO, String start_date, String end_date); 
 }

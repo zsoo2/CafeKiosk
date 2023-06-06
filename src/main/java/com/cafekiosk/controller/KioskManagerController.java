@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cafekiosk.model.KioskManageMenuVO;
 import com.cafekiosk.model.OrderNumberVO;
+import com.cafekiosk.model.PagingVO;
+import com.cafekiosk.model.PaymentVO;
 import com.cafekiosk.service.KioskManageMenuService;
 import com.cafekiosk.service.OrderNumberService;
 
@@ -83,28 +86,48 @@ public class KioskManagerController {
 	}
 
 	/* 주문 내역 조회 */
-	@RequestMapping(value="/kioskManager/order_list", method = {RequestMethod.GET, RequestMethod.POST})
-	public String orderListPageGet(Model model, HttpServletRequest request,
-									@RequestParam(required=false) String start_date, @RequestParam(required=false) String end_date){
-		logger.info("order_list 페이지 진입");
+	/*
+	 * @RequestMapping(value="/kioskManager/order_list", method =
+	 * {RequestMethod.GET, RequestMethod.POST}) public String orderListPageGet(Model
+	 * model, HttpServletRequest request,
+	 * 
+	 * @RequestParam(required=false) String
+	 * start_date, @RequestParam(required=false) String end_date){
+	 * logger.info("order_list 페이지 진입");
+	 * 
+	 * request.setAttribute("start_date",request.getParameter("start_date"));
+	 * request.setAttribute("end_date", request.getParameter("end_date"));
+	 * 
+	 * List<OrderNumberVO> orderList = manageMenuService.getOrderList(start_date,
+	 * end_date);
+	 * 
+	 * model.addAttribute("orderList", orderList);
+	 * 
+	 * return "kioskManager/order_list"; }
+	 */
+	
+	@RequestMapping(value ="/kioskManager/order_list", method = RequestMethod.GET)
+	public String getSelectList(PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
+			, @RequestParam(required=false) String start_date
+			, @RequestParam(required=false) String end_date
+	) {
 		
-		/*
-		 * if(start_date != null) {
-		 * request.setAttribute("start_date",request.getParameter("start_date")); } else
-		 * { request.setAttribute("start_date",""); }
-		 */
-			
-		 request.setAttribute("start_date",request.getParameter("start_date"));
-		 request.setAttribute("end_date", request.getParameter("end_date"));
-		 
-			/*
-			 * System.out.println(start_date); System.out.println(end_date);
-			 */
-		
-		List<OrderNumberVO> orderList = manageMenuService.getOrderList(start_date, end_date);
-		
-		model.addAttribute("orderList", orderList);
-		
+		int total = manageMenuService.getListCount(start_date, end_date);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "10";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "10";
+		}
+		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", vo);
+		System.out.println(vo.getStart());
+		System.out.println(vo.getEnd());
+		model.addAttribute("viewAll", manageMenuService.getSelectList(vo, start_date, end_date));
 		return "kioskManager/order_list";
 	}
 	
@@ -127,17 +150,20 @@ public class KioskManagerController {
 	public String daySalesGet(Model model, HttpServletRequest request, @RequestParam(required=false) String this_day){
 		logger.info("daySales 페이지 진입");
 			
-		List<OrderNumberVO> daySales = manageMenuService.getDaySales(this_day);
+		List<PaymentVO> daySales = manageMenuService.getDaySales(this_day);
+		List<PaymentVO> daySalesCntSum = manageMenuService.getDaySalesCntSum(this_day);
+		
 				
 		model.addAttribute("daySales", daySales);
+		model.addAttribute("daySalesCntSum", daySalesCntSum);
 				
-		int cnt = daySales.get(0).getCnt();
-		int sum = daySales.get(0).getOption_price();
-
+		int cnt = daySalesCntSum.get(0).getCnt();
+		int sum = Integer.parseInt(daySalesCntSum.get(0).getTotal_price());
+		
 		DecimalFormat decFormat = new DecimalFormat("###,###");
 		
 		String dayCnt = decFormat.format(cnt);		
-		String daySum = decFormat.format(sum);
+		String daySum = decFormat.format(Math.floor(sum));
 
 		model.addAttribute("dayCnt", dayCnt);		
 		model.addAttribute("daySum", daySum);
@@ -152,19 +178,46 @@ public class KioskManagerController {
 									@RequestParam(required=false) String end_date){
 		logger.info("monthlySales 페이지 진입");
 			
-		List<OrderNumberVO> monthlySales = manageMenuService.getMonthlySales(start_date, end_date);
+		List<PaymentVO> monthlySales = manageMenuService.getMonthlySales(start_date, end_date);
+		List<OrderNumberVO> monthlySalesCntSum = manageMenuService.getMonthlySalesCntSum(start_date, end_date);
+		List<PaymentVO> monthlySalesCoupon = manageMenuService.getMonthlySalesCoupon(start_date, end_date);
+
+		int sum = 0;
 		
+		model.addAttribute("monthlySalesCntSum", monthlySalesCntSum);
+		model.addAttribute("monthlySalesCoupon", monthlySalesCoupon);
+		
+		for (int i = 0; i < monthlySales.size(); i++) {
+			String order_no = monthlySales.get(i).getOrder_no().substring(0,8);					//월매출 내역의 주문일
+			String order_date = monthlySalesCoupon.get(i).getOrder_no().substring(0,8);			//월매출 쿠폰 사용 여부 내역의 주문일
+			//String order_date = monthlySalesCoupon.get(i).getOrder_no().replace("-","");
+
+			//System.out.println(order_no);
+			//System.out.println(order_date);
+			
+			if(order_no .equals(order_date)) {
+			 int total_price =
+				Integer.parseInt(monthlySales.get(i).getTotal_price()) - monthlySalesCoupon.get(i).getCp_cnt()*2800;
+			 	//System.out.println(monthlySalesCoupon.get(i).getCp_cnt());
+			 	
+			 	String final_price = Integer.toString(total_price);
+			 	monthlySales.get(i).setTotal_price(final_price);
+			}
+			sum += Integer.parseInt(monthlySales.get(i).getTotal_price());
+		}
+
+		//System.out.println(sum);
 		model.addAttribute("monthlySales", monthlySales);
 		
-		int cnt = monthlySales.stream().mapToInt(OrderNumberVO::getTotal_cnt).sum();
-		int sum = monthlySales.stream().mapToInt(OrderNumberVO::getOption_price).sum();
+		int cnt = monthlySales.stream().mapToInt(PaymentVO::getTotal_cnt).sum();
+
 
 		DecimalFormat decFormat = new DecimalFormat("###,###");
 		
-		String monthCnt = decFormat.format(cnt);		
+		String monthCnt = decFormat.format(cnt);
 		String monthSum = decFormat.format(sum);
 
-		model.addAttribute("monthCnt", monthCnt);		
+		model.addAttribute("monthCnt", monthCnt);
 		model.addAttribute("monthSum", monthSum);
 
 		return "kioskManager/check_sales";
@@ -219,19 +272,20 @@ public class KioskManagerController {
 	@RequestMapping(value = "kioskManager/excel_download_day", method = RequestMethod.POST)
 	@ResponseBody
 	// 일매출 엑셀 다운로드
-	public void excelDownDay(@ModelAttribute OrderNumberVO orderNumberVO, HttpServletResponse response, HttpServletRequest request, String this_day)
+	public void excelDownDay(@ModelAttribute PaymentVO paymentVO, HttpServletResponse response, HttpServletRequest request, String this_day)
 						throws Exception{
-		manageMenuService.excelDownDay(orderNumberVO, response, this_day);
+		manageMenuService.excelDownDay(paymentVO, response, this_day);
 		logger.info("엑셀 일매출 성공");
 	}
 	
 	@RequestMapping(value = "kioskManager/excel_download_month", method = RequestMethod.POST)
 	@ResponseBody
 	// 월매출 엑셀 다운로드
-	public void excelDownMonth(@ModelAttribute OrderNumberVO orderNumberVO, HttpServletResponse response, HttpServletRequest request, String start_date, String end_date)
+	public void excelDownMonth(@ModelAttribute PaymentVO paymentVO, HttpServletResponse response, HttpServletRequest request, String start_date, String end_date)
 						throws Exception{
-		manageMenuService.excelDownMonth(orderNumberVO, response, start_date, end_date);
+		manageMenuService.excelDownMonth(paymentVO, response, start_date, end_date);
 		logger.info("엑셀 월매출 성공");
 	}
+
 
 }

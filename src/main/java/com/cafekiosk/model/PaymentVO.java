@@ -1,6 +1,7 @@
 package com.cafekiosk.model;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class PaymentVO {
 
@@ -14,15 +15,19 @@ public class PaymentVO {
 
 	private String pay_status;
 	
-	private Calendar order_date;
+	private Date order_date;
 	
-	private Calendar order_time;
+	private int cnt;
+	
+	private int total_cnt;
+	
+	private int cp_cnt;
 	
 	@Override
 	public String toString() {
 		return "PaymentVO [order_no=" + order_no + ", user_no=" + user_no + ", coupon_YN=" + coupon_YN
 				+ ", total_price=" + total_price + ", pay_status=" + pay_status + ", order_date=" + order_date
-				+ ", order_time=" + order_time + "]";
+				+ "]";
 	}
 	
 	public String getOrder_no() {
@@ -65,20 +70,36 @@ public class PaymentVO {
 		this.pay_status = pay_status;
 	}
 
-	public Calendar getOrder_date() {
+	public Date getOrder_date() {
 		return order_date;
 	}
 
-	public void setOrder_date(Calendar order_date) {
+	public void setOrder_date(Date order_date) {
 		this.order_date = order_date;
 	}
 
-	public Calendar getOrder_time() {
-		return order_time;
+	public int getCnt() {
+		return cnt;
 	}
 
-	public void setOrder_time(Calendar order_time) {
-		this.order_time = order_time;
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
+	public int getTotal_cnt() {
+		return total_cnt;
+	}
+
+	public void setTotal_cnt(int total_cnt) {
+		this.total_cnt = total_cnt;
+	}
+
+	public int getCp_cnt() {
+		return cp_cnt;
+	}
+
+	public void setCp_cnt(int cp_cnt) {
+		this.cp_cnt = cp_cnt;
 	}
 
 	
