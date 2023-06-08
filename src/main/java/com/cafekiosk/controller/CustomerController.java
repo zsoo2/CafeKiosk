@@ -26,7 +26,7 @@ import com.cafekiosk.model.OrderNumberVO;
 import com.cafekiosk.model.PaymentVO;
 import com.cafekiosk.model.ReadyResponse;
 import com.cafekiosk.service.CustomerService;
-import com.cafekiosk.service.KakaoPayServiceImpl;
+import com.cafekiosk.service.KakaoPayService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -38,9 +38,7 @@ public class CustomerController {
 	
 	@Autowired
 	private CustomerService customerService;
-	
-	@Autowired
-	private KakaoPayServiceImpl kakaoPayServiceImpl;
+	private KakaoPayService kakaoPayService;
 	
 	
 	//메인 페이지 이동
@@ -354,7 +352,7 @@ public class CustomerController {
 		int quantity = cartList.size();
 		logger.info("quantity : " + quantity);
 
-		ReadyResponse readyResponse = kakaoPayServiceImpl.payReady(item_name, quantity, order_no, user_no, total_price);
+		ReadyResponse readyResponse = kakaoPayService.payReady(item_name, quantity, order_no, user_no, total_price);
 		logger.info("결제고유번호 : " + readyResponse.getTid());
 		logger.info("결제요청 URL : " + readyResponse.getNext_redirect_pc_url());
 		//model.addAttribute("tid", readyResponse.getTid());
@@ -376,7 +374,7 @@ public class CustomerController {
 	    String user_no = (String) session.getAttribute("user_no");
 	    String tid = (String) session.getAttribute("tid");
 
-		ApproveResponse approveResponse = kakaoPayServiceImpl.payApprove(order_no, user_no, tid, pgToken);	
+		ApproveResponse approveResponse = kakaoPayService.payApprove(order_no, user_no, tid, pgToken);	
 	
 		if(user_no == "" || user_no == null) {user_no = "N";}	// 비회원 주문
 

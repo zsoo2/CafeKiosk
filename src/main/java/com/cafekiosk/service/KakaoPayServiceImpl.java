@@ -10,12 +10,11 @@ import org.springframework.web.client.RestTemplate;
 import com.cafekiosk.model.ApproveResponse;
 import com.cafekiosk.model.ReadyResponse;
 
-import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Service
-public class KakaoPayServiceImpl {
+public class KakaoPayServiceImpl implements KakaoPayService{
 
+	@Override
 	public ReadyResponse payReady(String item_name, int quantity, String order_no, String user_no, String total_price) {
 
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
@@ -26,12 +25,12 @@ public class KakaoPayServiceImpl {
 		parameters.add("quantity", String.valueOf(quantity));	
 		parameters.add("total_amount", total_price);	
 		parameters.add("tax_free_amount", "0");	
-		parameters.add("approval_url", "http://localhost:8082/customer/payComplete");	
-		parameters.add("cancel_url", "http://localhost:8082/customer/payCancel");	
-		parameters.add("fail_url", "http://localhost:8082/customer/payFail");	
-//		parameters.add("approval_url", "http://hello4018.cafe24.com/customer/payComplete");	
-//		parameters.add("cancel_url", "http://hello4018.cafe24.com/customer/payCancel");	
-//		parameters.add("fail_url", "http://hello4018.cafe24.com/customer/payFail");	
+//		parameters.add("approval_url", "http://localhost:8082/customer/payComplete");	
+//		parameters.add("cancel_url", "http://localhost:8082/customer/payCancel");	
+//		parameters.add("fail_url", "http://localhost:8082/payFail");	
+		parameters.add("approval_url", "http://hello4018.cafe24.com/customer/payComplete");	
+		parameters.add("cancel_url", "http://hello4018.cafe24.com/customer/payCancel");	
+		parameters.add("fail_url", "http://hello4018.cafe24.com/customer/payFail");	
 		
 		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
@@ -44,6 +43,7 @@ public class KakaoPayServiceImpl {
 	}
 	
 	// 결제 승인요청
+	@Override
 	public ApproveResponse payApprove(String order_no, String user_no, String tid, String pgToken) {
 
 		System.out.println(tid + " service <-------- tid");
