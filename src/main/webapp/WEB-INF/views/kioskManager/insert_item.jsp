@@ -69,7 +69,7 @@
 						<div class="filebox">
 							<input class="uploadName" value="첨부파일" placeholder="첨부파일">
 							<label for="itemImg">파일찾기</label>
-							<input type="file" name="menu_picture" id="itemImg"/>
+							<input type="file" name="uploadFile" id="itemImg"/>
 						</div>
 					</div>
 					<div class="managerMenu">
@@ -135,18 +135,22 @@ $("input[type='file']").on("change", function(e){
 	
 	let formData = new FormData();
 	
-	let fileInput = $('input[name="menu_picture"]');
+	let fileInput = $('input[name="uploadFile"]');
 	let fileList = fileInput[0].files;
 	let fileObj = fileList[0];
+	
+	console.log("fileName : " + fileObj.name);
+	console.log("fileSize : " + fileObj.size);
+	console.log("fileType(MimeType) : " + fileObj.type);
 	
 	if(!fileCheck(fileObj.name, fileObj.size)){
 		return false;
 	}
 	
-	formData.append("menu_picture", fileObj);
+	formData.append("uploadFile", fileObj);
 	
 	$.ajax({
-		url: '/manager/insertMenuAjaxAction',
+		url: '/kioskManager/insertMenuAjaxAction',
     	processData : false,
     	contentType : false,
     	data : formData,
