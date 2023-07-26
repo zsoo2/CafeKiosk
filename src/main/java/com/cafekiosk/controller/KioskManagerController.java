@@ -1,6 +1,5 @@
 package com.cafekiosk.controller;
 
-import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -228,7 +227,7 @@ public class KioskManagerController {
 	// 메뉴 등록
 	@RequestMapping(value = "kioskManager/insert_item", method = RequestMethod.POST)
 	public String insertMenu(KioskManageMenuVO manageMenu) throws Exception {
-		logger.info("insert Menu 기능 동작");
+		logger.info("insert Menu 진입");
 
 		// 메뉴등록 서비스 실행
 		manageMenuService.insertMenu(manageMenu);
@@ -242,22 +241,7 @@ public class KioskManagerController {
 	public void uploadAjaxActionPOST(MultipartFile uploadFile) {
 
 		logger.info("uploadAjaxActionPOST..........");
-		String uploadFolder = "C:\\upload";
-		
-		/*날짜 폴더 경로*/
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date date = new Date();
-		String str = sdf.format(date);
-		String datePath = str.replace("-", File.separator);
-		
-		/* 폴더 생성 */
-		File uploadPath = new File(uploadFolder, datePath);
-		
-		if(uploadPath.exists() == false) {
-			uploadPath.mkdirs();
-		}
-		
+
 		logger.info("파일 이름 : " + uploadFile.getOriginalFilename());
 		logger.info("파일 타입 : " + uploadFile.getContentType());
 		logger.info("파일 크기 : " + uploadFile.getSize());
