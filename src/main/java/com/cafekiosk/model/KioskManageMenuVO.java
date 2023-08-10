@@ -27,6 +27,8 @@ public class KioskManageMenuVO {
 	private Date reg_time;
 	
 	private Date mod_time;
+	
+	private String menu_path;
 
 	public int getMenu_idx() {
 		return menu_idx;
@@ -123,13 +125,33 @@ public class KioskManageMenuVO {
 	public void setMod_time(Date mod_time) {
 		this.mod_time = mod_time;
 	}
+	
+
+	public String getMenu_path() {
+		return menu_path;
+	}
+
+	public void setMenu_path(String menu_path) {
+		this.menu_path = menu_path;
+	}
+
+	
+	
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 
 	@Override
 	public String toString() {
-		return "ManageMenuVO [menu_idx=" + menu_idx + ", menu_name=" + menu_name + ", menu_price=" + menu_price
+		return "KioskManageMenuVO [menu_idx=" + menu_idx + ", menu_name=" + menu_name + ", menu_price=" + menu_price
 				+ ", menu_category=" + menu_category + ", menu_picture=" + menu_picture + ", option1_YN=" + option1_YN
-				+ ", option2_YN=" + option2_YN + ", option3_YN=" + option3_YN + ", active_YN=" + active_YN + ", reg_user=" + reg_user + ", reg_time="
-				+ reg_time + ", mod_time=" + mod_time + "]";
+				+ ", option2_YN=" + option2_YN + ", option3_YN=" + option3_YN + ", active_YN=" + active_YN
+				+ ", reg_user=" + reg_user + ", reg_time=" + reg_time + ", mod_time=" + mod_time + ", menu_path="
+				+ menu_path + "]";
 	}
 
 
