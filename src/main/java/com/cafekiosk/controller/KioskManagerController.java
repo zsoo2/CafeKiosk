@@ -1,13 +1,19 @@
 package com.cafekiosk.controller;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collector;
 
-
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,6 +22,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -238,30 +247,62 @@ public class KioskManagerController {
 	}
 
 	// 메뉴 등록 - 사진 첨부
-	@PostMapping("kioskManager/insertMenuAjaxAction")
-	public void uploadAjaxActionPOST(MultipartFile uploadFile) {
+	@PostMapping(value="kioskManager/insertMenuAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<List<KioskManageMenuVO>> uploadAjaxActionPOST(MultipartFile[] uploadFile) {
 
 		logger.info("uploadAjaxActionPOST..........");
-		String uploadFolder = "C:\\upload";
-		
-		/*날짜 폴더 경로*/
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date date = new Date();
-		String str = sdf.format(date);
-		String datePath = str.replace("-", File.separator);
-		
-		/* 폴더 생성 */
-		File uploadPath = new File(uploadFolder, datePath);
-		
-		if(uploadPath.exists() == false) {
-			uploadPath.mkdirs();
+		/* 이미지 파일 체크 */
+		for(MultipartFile multipartFile: uploadFile) {
+
+			File checkfile = new File(multipartFile.getOriginalFilename());
+			String type = null;
+			
+			try {
+				type = Files.probeContentType(checkfile.toPath());
+				logger.info("MIME TYPE : " + type);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			if(!type.startsWith("image")) {
+				
+				List<KioskManageMenuVO> list = null;
+				return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+				
+			}
 		}
 		
-		logger.info("파일 이름 : " + uploadFile.getOriginalFilename());
-		logger.info("파일 타입 : " + uploadFile.getContentType());
-		logger.info("파일 크기 : " + uploadFile.getSize());
+		String uploadFolder = "C:\\upload";
 
+
+		/* 이미저 정보 담는 객체 */
+		List<KioskManageMenuVO> list = new ArrayList();
+		
+		for(MultipartFile multipartFile : uploadFile) {
+			
+			/* 이미저 정보 객체 */
+			KioskManageMenuVO vo = new KioskManageMenuVO();
+			
+			/* 파일 이름 */
+			String uploadFileName = multipartFile.getOriginalFilename();		
+			
+			/* 파일 위치, 파일 이름을 합친 File 객체 */
+			File saveFile = new File(uploadFolder, uploadFileName);
+			
+			/* 파일 저장 */
+			try {
+				multipartFile.transferTo(saveFile);
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			} 
+			list.add(vo);
+			vo.setMenu_picture(uploadFileName);
+			vo.setMenu_path(uploadFolder);
+		}
+		ResponseEntity<List<KioskManageMenuVO>> result = new ResponseEntity<List<KioskManageMenuVO>>(list, HttpStatus.OK);
+		return result;
 	}
 
 	// 메뉴 삭제

@@ -38,7 +38,7 @@
 						<div class="item" onclick="PopupInfo(this)">
 							<span style="display:none">${list.menu_idx}</span>
 							<div class="item_img">
-								<img src="../resources/image/menu/americano.png" alt="아메리카노"/>
+								<img id="real_pic" src="/display?fileName=${list.menu_picture}" alt="${list.menu_picture}" />
 							</div>
 							<div class="item_name">
 								<span>${list.menu_name}</span>
@@ -60,7 +60,8 @@
 								<div class="popup_container">
 									<div class="popup_contents1">
 										<div class="popup_img">
-											<div><img src="../resources/image/menu/americano.png" alt="아메리카노"/></div>
+											<div><img src=""  id="pop_pic"/></div>
+										
 										</div>
 										<div class="popup_detail">
 											<div class="popup_option">
@@ -225,9 +226,11 @@
 	
 	// 팝업 열기 
 	function PopupInfo(e) {
+		document.getElementById("pop_pic").src = document.getElementById("real_pic").src;
+		
 		var row_span 	= e.getElementsByTagName("span");
 	   	var modal 		= document.getElementById("popup");
-	   	
+
 		document.getElementById("quantity").value 	= "1";
 		document.getElementById("option3").value 	= "0";
 		document.getElementById("option1").checked 	= true;
@@ -263,7 +266,7 @@
 			document.getElementById("popup_option3").style.display ="none";
 			document.getElementById("ice_1").value = "0";	 						
 		}
-	   	
+
 	   	modal.style.display ="block";
 	}
 	
