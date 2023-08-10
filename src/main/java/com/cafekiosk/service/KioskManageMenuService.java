@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.ui.Model;
+
 import com.cafekiosk.model.KioskManageMenuVO;
 import com.cafekiosk.model.OrderNumberVO;
 import com.cafekiosk.model.PagingVO;
@@ -56,7 +58,7 @@ public interface KioskManageMenuService {
 	public void excelDownDay(PaymentVO paymentVO, HttpServletResponse response, String this_day) throws Exception;
 		
 	//월매출 엑셀 다운로드
-	public void excelDownMonth(PaymentVO paymentVO, HttpServletResponse response, String start_date, String end_date) throws Exception;
+	public void excelDownMonth(Model model,PaymentVO paymentVO, HttpServletResponse response, String start_date, String end_date) throws Exception;
 	
 	//게시글 총 갯수
 	public int getListCount(String start_date, String end_date);

@@ -1,10 +1,13 @@
 package com.cafekiosk.controller;
 
+<<<<<<< HEAD
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+=======
+>>>>>>> branch 'develop' of https://github.com/zsoo2/CafeKiosk.git
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -237,7 +240,7 @@ public class KioskManagerController {
 	// 메뉴 등록
 	@RequestMapping(value = "kioskManager/insert_item", method = RequestMethod.POST)
 	public String insertMenu(KioskManageMenuVO manageMenu) throws Exception {
-		logger.info("insert Menu 기능 동작");
+		logger.info("insert Menu 진입");
 
 		// 메뉴등록 서비스 실행
 		manageMenuService.insertMenu(manageMenu);
@@ -251,6 +254,7 @@ public class KioskManagerController {
 	public ResponseEntity<List<KioskManageMenuVO>> uploadAjaxActionPOST(MultipartFile[] uploadFile) {
 
 		logger.info("uploadAjaxActionPOST..........");
+<<<<<<< HEAD
 		/* 이미지 파일 체크 */
 		for(MultipartFile multipartFile: uploadFile) {
 
@@ -273,6 +277,12 @@ public class KioskManagerController {
 		}
 		
 		String uploadFolder = "C:\\upload";
+=======
+
+		logger.info("파일 이름 : " + uploadFile.getOriginalFilename());
+		logger.info("파일 타입 : " + uploadFile.getContentType());
+		logger.info("파일 크기 : " + uploadFile.getSize());
+>>>>>>> branch 'develop' of https://github.com/zsoo2/CafeKiosk.git
 
 
 		/* 이미저 정보 담는 객체 */

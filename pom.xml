@@ -121,7 +121,7 @@
         </dependency>     
         
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-	  <dependency>
+	<dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
 	    <version>8.0.32</version>
@@ -166,6 +166,7 @@
 	    <version>1.16</version>
 	</dependency>
 	<!-- gson, json -->
+<<<<<<< HEAD
 <dependency>
 	<groupId>com.google.code.gson</groupId>
 	<artifactId>gson</artifactId>
@@ -190,6 +191,20 @@
 		    <artifactId>jackson-dataformat-xml</artifactId>
 		    <version>2.12.1</version>
 		</dependency>
+=======
+	<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>2.8.5</version>
+	</dependency>
+	<!-- 엑셀 다운 -->
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi</artifactId>
+	    <version>3.17</version>
+	</dependency>
+	
+>>>>>>> branch 'develop' of https://github.com/zsoo2/CafeKiosk.git
 	</dependencies>
     <build>
         <plugins>
